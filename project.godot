@@ -11,8 +11,17 @@ config_version=5
 [application]
 
 config/name="Shadows of the Ancestors"
+run/main_scene="uid://dw76y3r1t1ti"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=480
+window/size/viewport_height=270
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
 
 [physics]
 
@@ -20,5 +29,5 @@ config/icon="res://icon.svg"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
-renderer/rendering_method="forward_plus"
