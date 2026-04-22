@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Character
+class_name Player
 
 @export var acceleration: int = 80
 @export var max_speed: int = 250
