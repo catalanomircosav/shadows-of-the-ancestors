@@ -35,15 +35,10 @@ func update_facing_direction(direction: Vector2) -> void:
 		last_facing = "up"
 
 
-## Riproduce un'animazione solo se non è già quella in esecuzione.
-func play_animation(anim_name: String, speed_scale: float = 1.0, force: bool = false) -> void:
-	if not anim_player.has_animation(anim_name): return
-	
-	# FORZA lo stop di qualsiasi processo precedente dello sprite
-	if force:
-		anim_player.stop() 
-		
+## Riproduce un'animazione.
+## Il parametro force_restart forza il play anche se è già l'animazione corrente
+## — necessario per stati che devono sempre ripartire dall'inizio (es. idle dopo attack).
+func play_animation(anim_name: String, speed_scale: float = 1.0, force_restart: bool = false) -> void:
 	anim_player.speed_scale = speed_scale
-	
-	if anim_player.current_animation != anim_name or force:
+	if force_restart or anim_player.current_animation != anim_name:
 		anim_player.play(anim_name)

@@ -1,5 +1,4 @@
 ## walk_state.gd
-## Stato di camminata: movimento a velocità normale.
 extends State
 class_name WalkState
 
@@ -11,7 +10,7 @@ func _setup() -> void:
 
 
 func enter(_previous_state: StringName = &"") -> void:
-	_player.play_animation("walk_" + _player.last_facing)
+	_player.play_animation("walk_" + _player.last_facing, 1.0, true)
 
 
 func physics_update(_delta: float) -> void:

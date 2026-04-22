@@ -1,10 +1,9 @@
 ## crouch_state.gd
-## Stato di accovacciamento: movimento lento, sprite schiacciato.
 extends State
 class_name CrouchState
 
-const CROUCH_SPEED_RATIO  := 0.3   # moltiplicatore su max_speed
-const CROUCH_ANIM_SCALE   := 0.5   # speed_scale dell'AnimationPlayer in movimento
+const CROUCH_SPEED_RATIO  := 0.3
+const CROUCH_ANIM_SCALE   := 0.5
 const SPRITE_SCALE_CROUCH := Vector2(1.0, 0.9)
 const SPRITE_OFFSET_Y     := 5.0
 
@@ -16,7 +15,7 @@ func _setup() -> void:
 
 
 func enter(_previous_state: StringName = &"") -> void:
-	_player.sprite.scale    = SPRITE_SCALE_CROUCH
+	_player.sprite.scale      = SPRITE_SCALE_CROUCH
 	_player.sprite.position.y = SPRITE_OFFSET_Y
 	_play_crouch_animation("idle")
 
@@ -34,9 +33,10 @@ func physics_update(_delta: float) -> void:
 		return
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var crouch_speed := _player.max_speed * CROUCH_SPEED_RATIO
-
-	_player.velocity = _player.velocity.move_toward(input_dir * crouch_speed, _player.acceleration)
+	_player.velocity = _player.velocity.move_toward(
+		input_dir * _player.max_speed * CROUCH_SPEED_RATIO,
+		_player.acceleration
+	)
 	_player.move_and_slide()
 
 	if input_dir != Vector2.ZERO:
@@ -44,8 +44,6 @@ func physics_update(_delta: float) -> void:
 		_play_crouch_animation("walk", CROUCH_ANIM_SCALE)
 	else:
 		_play_crouch_animation("idle")
-
-# ── privato ────────────────────────────────────────────────────────────────
 
 func _play_crouch_animation(type: String, speed_scale: float = 1.0) -> void:
 	_player.play_animation(type + "_" + _player.last_facing, speed_scale)
