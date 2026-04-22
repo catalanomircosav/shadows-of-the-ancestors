@@ -1,7 +1,7 @@
-## walk_state.gd
-## Stato di camminata: movimento a velocità normale.
+## run_state.gd
+## Stato di corsa: movimento a velocità aumentata.
 extends State
-class_name WalkState
+class_name RunState
 
 var _player: Player
 
@@ -11,7 +11,7 @@ func _setup() -> void:
 
 
 func enter(_previous_state: StringName = &"") -> void:
-	_player.play_animation("walk_" + _player.last_facing)
+	_player.play_animation("run_" + _player.last_facing)
 
 
 func physics_update(_delta: float) -> void:
@@ -21,12 +21,8 @@ func physics_update(_delta: float) -> void:
 		state_machine.transition_to(&"Idle")
 		return
 
-	if Input.is_action_pressed("run"):
-		state_machine.transition_to(&"Run")
-		return
-
-	if Input.is_action_pressed("crouch"):
-		state_machine.transition_to(&"Crouch")
+	if not Input.is_action_pressed("run"):
+		state_machine.transition_to(&"Walk")
 		return
 
 	if Input.is_action_just_pressed("attack"):
@@ -34,6 +30,6 @@ func physics_update(_delta: float) -> void:
 		return
 
 	_player.update_facing_direction(input_dir)
-	_player.velocity = _player.velocity.move_toward(input_dir * _player.max_speed, _player.acceleration)
-	_player.play_animation("walk_" + _player.last_facing)
+	_player.velocity = _player.velocity.move_toward(input_dir * _player.run_speed, _player.acceleration)
+	_player.play_animation("run_" + _player.last_facing)
 	_player.move_and_slide()
