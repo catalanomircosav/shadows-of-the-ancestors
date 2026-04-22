@@ -10,8 +10,7 @@ func _setup() -> void:
 
 
 func enter(_previous_state: StringName = &"") -> void:
-	_player.play_animation("idle_" + _player.last_facing)
-
+	_player.play_animation("idle_" + _player.last_facing, 1.0, true)
 
 func physics_update(_delta: float) -> void:
 	# Decelerazione fino a fermarsi.
@@ -22,10 +21,6 @@ func physics_update(_delta: float) -> void:
 
 	if input_dir != Vector2.ZERO:
 		state_machine.transition_to(&"Walk")
-		return
-
-	if Input.is_action_just_pressed("attack"):
-		state_machine.transition_to(&"Attack")
 		return
 
 	if Input.is_action_pressed("crouch"):

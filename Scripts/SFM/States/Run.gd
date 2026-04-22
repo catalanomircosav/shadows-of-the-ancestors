@@ -25,10 +25,6 @@ func physics_update(_delta: float) -> void:
 		state_machine.transition_to(&"Walk")
 		return
 
-	if Input.is_action_just_pressed("attack"):
-		state_machine.transition_to(&"Attack")
-		return
-
 	_player.update_facing_direction(input_dir)
 	_player.velocity = _player.velocity.move_toward(input_dir * _player.run_speed, _player.acceleration)
 	_player.play_animation("run_" + _player.last_facing)

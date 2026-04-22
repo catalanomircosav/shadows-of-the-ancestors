@@ -36,8 +36,14 @@ func update_facing_direction(direction: Vector2) -> void:
 
 
 ## Riproduce un'animazione solo se non è già quella in esecuzione.
-## Evita restart inutili ogni frame.
-func play_animation(anim_name: String, speed_scale: float = 1.0) -> void:
+func play_animation(anim_name: String, speed_scale: float = 1.0, force: bool = false) -> void:
+	if not anim_player.has_animation(anim_name): return
+	
+	# FORZA lo stop di qualsiasi processo precedente dello sprite
+	if force:
+		anim_player.stop() 
+		
 	anim_player.speed_scale = speed_scale
-	if anim_player.current_animation != anim_name:
+	
+	if anim_player.current_animation != anim_name or force:
 		anim_player.play(anim_name)

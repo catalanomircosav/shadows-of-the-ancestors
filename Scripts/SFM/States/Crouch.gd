@@ -45,11 +45,6 @@ func physics_update(_delta: float) -> void:
 	else:
 		_play_crouch_animation("idle")
 
-	if Input.is_action_just_pressed("attack"):
-		state_machine.transition_to(&"Attack")
-		return
-
-
 # ── privato ────────────────────────────────────────────────────────────────
 
 func _play_crouch_animation(type: String, speed_scale: float = 1.0) -> void:

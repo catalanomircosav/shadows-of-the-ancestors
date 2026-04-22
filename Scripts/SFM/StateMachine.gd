@@ -46,6 +46,7 @@ func _unhandled_input(event: InputEvent) -> void:
 ## Transisce allo stato indicato per nome.
 ## Non fa nulla se lo stato è già attivo.
 func transition_to(state_name: StringName) -> void:
+	print("Stato '%s'" % state_name)
 	if not states.has(state_name):
 		push_error("PlayerStateMachine: stato '%s' non trovato." % state_name)
 		return
