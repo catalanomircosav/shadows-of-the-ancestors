@@ -499,6 +499,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qbkls"]
+size = Vector2(14, 16)
 
 [sub_resource type="Animation" id="Animation_nn08x"]
 length = 0.001
