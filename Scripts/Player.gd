@@ -3,18 +3,14 @@ class_name Player
 
 @export var acceleration: int = 80
 @export var max_speed: int = 250
-@export var friction: int = 20
+@export var friction: int = 100
 
 var move_direction: Vector2 = Vector2.ZERO
+var last_facing: String = "down" # default
 
-func _physics_process(_delta: float) -> void: 
-	move_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	
-	if move_direction != Vector2.ZERO:
-		move_direction = move_direction.normalized()
-		velocity += move_direction * acceleration
-		velocity = velocity.limit_length(max_speed)
-	else:
-		velocity = velocity.move_toward(Vector2.ZERO, friction)
-		
-	move_and_slide()
+# ----------- helpers ----------------------------------------
+func update_facing_direction(direction: Vector2) -> void:
+	if direction.x > 0: last_facing = "right"
+	elif direction.x < 0: last_facing = "left"
+	elif direction.y > 0: last_facing = "down"
+	elif direction.y < 0: last_facing = "up"
