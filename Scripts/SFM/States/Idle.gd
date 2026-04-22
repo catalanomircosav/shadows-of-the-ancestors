@@ -1,16 +1,33 @@
+## Stato di riposo: il giocatore non si muove.
 extends State
 class_name IdleState
 
-@onready var player: Player = owner
+var _player: Player
+
+
+func _setup() -> void:
+	_player = state_machine.get_parent() as Player
+
 
 func enter(_previous_state: StringName = &"") -> void:
-	player.get_node("AnimationPlayer").play("idle_" + player.last_facing)
+	_player.play_animation("idle_" + _player.last_facing)
+
 
 func physics_update(_delta: float) -> void:
-	player.velocity = player.velocity.move_toward(Vector2.ZERO, player.friction)
-	player.move_and_slide()
-	
-	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	if input_dir != Vector2.ZERO: state_machine.transition_to(&"Walk")
-	
-	if Input.is_action_just_pressed("attack"): state_machine.transition_to(&"Attack")
+	# Decelerazione fino a fermarsi.
+	_player.velocity = _player.velocity.move_toward(Vector2.ZERO, _player.friction)
+	_player.move_and_slide()
+
+	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+
+	if input_dir != Vector2.ZERO:
+		state_machine.transition_to(&"Walk")
+		return
+
+	if Input.is_action_just_pressed("attack"):
+		state_machine.transition_to(&"Attack")
+		return
+
+	if Input.is_action_pressed("crouch"):
+		state_machine.transition_to(&"Crouch")
+		return

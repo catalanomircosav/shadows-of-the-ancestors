@@ -5416,5 +5416,4 @@ tile_set = SubResource("TileSet_5nsto")
 [node name="Player" parent="Floor" unique_id=1588731666 instance=ExtResource("2_j0p05")]
 
 [node name="Camera2D" type="Camera2D" parent="Floor/Player" unique_id=1148920256]
-zoom = Vector2(0.8, 0.8)
 limit_enabled = false

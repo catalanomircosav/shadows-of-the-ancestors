@@ -1,0 +1,56 @@
+## crouch_state.gd
+## Stato di accovacciamento: movimento lento, sprite schiacciato.
+extends State
+class_name CrouchState
+
+const CROUCH_SPEED_RATIO  := 0.3   # moltiplicatore su max_speed
+const CROUCH_ANIM_SCALE   := 0.5   # speed_scale dell'AnimationPlayer in movimento
+const SPRITE_SCALE_CROUCH := Vector2(1.0, 0.9)
+const SPRITE_OFFSET_Y     := 5.0
+
+var _player: Player
+
+
+func _setup() -> void:
+	_player = state_machine.get_parent() as Player
+
+
+func enter(_previous_state: StringName = &"") -> void:
+	_player.sprite.scale    = SPRITE_SCALE_CROUCH
+	_player.sprite.position.y = SPRITE_OFFSET_Y
+	_play_crouch_animation("idle")
+
+
+func exit(_next_state: StringName = &"") -> void:
+	_player.sprite.scale      = Vector2.ONE
+	_player.sprite.position.y = 0.0
+	_player.anim_player.speed_scale = 1.0
+
+
+func physics_update(_delta: float) -> void:
+	if not Input.is_action_pressed("crouch"):
+		var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		state_machine.transition_to(&"Walk" if input_dir != Vector2.ZERO else &"Idle")
+		return
+
+	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var crouch_speed := _player.max_speed * CROUCH_SPEED_RATIO
+
+	_player.velocity = _player.velocity.move_toward(input_dir * crouch_speed, _player.acceleration)
+	_player.move_and_slide()
+
+	if input_dir != Vector2.ZERO:
+		_player.update_facing_direction(input_dir)
+		_play_crouch_animation("walk", CROUCH_ANIM_SCALE)
+	else:
+		_play_crouch_animation("idle")
+
+	if Input.is_action_just_pressed("attack"):
+		state_machine.transition_to(&"Attack")
+		return
+
+
+# ── privato ────────────────────────────────────────────────────────────────
+
+func _play_crouch_animation(type: String, speed_scale: float = 1.0) -> void:
+	_player.play_animation(type + "_" + _player.last_facing, speed_scale)
