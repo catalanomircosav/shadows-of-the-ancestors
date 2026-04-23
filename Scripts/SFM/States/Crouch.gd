@@ -27,12 +27,13 @@ func exit(_next_state: StringName = &"") -> void:
 
 
 func physics_update(_delta: float) -> void:
+	var input_dir
 	if not Input.is_action_pressed("crouch"):
-		var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		state_machine.transition_to(&"Walk" if input_dir != Vector2.ZERO else &"Idle")
 		return
 
-	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	_player.velocity = _player.velocity.move_toward(
 		input_dir * _player.max_speed * CROUCH_SPEED_RATIO,
 		_player.acceleration
