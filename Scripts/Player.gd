@@ -41,4 +41,6 @@ func update_facing_direction(direction: Vector2) -> void:
 func play_animation(anim_name: String, speed_scale: float = 1.0, force_restart: bool = false) -> void:
 	anim_player.speed_scale = speed_scale
 	if force_restart or anim_player.current_animation != anim_name:
+		anim_player.stop() # Ferma la timeline per sicurezza
 		anim_player.play(anim_name)
+		sprite.play(anim_name)

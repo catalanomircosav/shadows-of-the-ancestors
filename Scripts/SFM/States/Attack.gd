@@ -4,7 +4,7 @@
 extends State
 class_name AttackBase
 
-const MOVE_SPEED_RATIO := 0.35
+@export var move_speed_ratio: float = 0.35
 
 var _player: Player
 var _current_anim_name: String = ""
@@ -30,7 +30,7 @@ func physics_update(_delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if input_dir != Vector2.ZERO:
 		_player.velocity = _player.velocity.move_toward(
-			input_dir * _player.max_speed * MOVE_SPEED_RATIO,
+			input_dir * _player.max_speed * move_speed_ratio, 
 			_player.acceleration
 		)
 	else:
@@ -49,8 +49,7 @@ func _get_anim_prefix() -> String:
 
 func _play_attack_animation() -> void:
 	_current_anim_name = _get_anim_prefix() + "_" + _player.last_facing
-	_player.anim_player.speed_scale = 1.0
-	_player.anim_player.play(_current_anim_name)
+	_player.play_animation(_current_anim_name, 1.0, true)
 
 
 func _on_animation_ended() -> void:

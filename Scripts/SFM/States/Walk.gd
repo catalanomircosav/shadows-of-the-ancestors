@@ -16,6 +16,15 @@ func enter(_previous_state: StringName = &"") -> void:
 func physics_update(_delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
+	
+	if Input.is_action_just_pressed("light_attack"):
+		state_machine.transition_to(&"LightAttack")
+		return
+		
+	if Input.is_action_just_pressed("heavy_attack"):
+		state_machine.transition_to(&"HeavyAttack")
+		return
+	
 	if input_dir == Vector2.ZERO:
 		state_machine.transition_to(&"Idle")
 		return
