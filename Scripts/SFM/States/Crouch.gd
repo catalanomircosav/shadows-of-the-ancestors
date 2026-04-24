@@ -9,20 +9,25 @@ const SPRITE_OFFSET_Y     := 5.0
 
 var _player: Player
 
+var _original_scale: Vector2
+var _original_position: Vector2
 
 func _setup() -> void:
 	_player = state_machine.get_parent() as Player
 
 
 func enter(_previous_state: StringName = &"") -> void:
+	_original_scale = _player.sprite.scale
+	_original_position = _player.sprite.position
+	
 	_player.sprite.scale      = SPRITE_SCALE_CROUCH
-	_player.sprite.position.y = SPRITE_OFFSET_Y
+	_player.sprite.position.y = _original_position.y + SPRITE_OFFSET_Y
 	_play_crouch_animation("idle")
 
 
 func exit(_next_state: StringName = &"") -> void:
-	_player.sprite.scale      = Vector2.ONE
-	_player.sprite.position.y = 0.0
+	_player.sprite.scale = _original_scale
+	_player.sprite.position = _original_position
 	_player.anim_player.speed_scale = 1.0
 
 
