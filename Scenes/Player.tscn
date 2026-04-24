@@ -1574,7 +1574,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qbkls"]
-size = Vector2(30, 30)
+size = Vector2(12, 7)
 
 [sub_resource type="Animation" id="Animation_1e7my"]
 length = 0.001
@@ -1925,14 +1925,17 @@ _data = {
 }
 
 [node name="Character" type="CharacterBody2D" unique_id=1588731666]
+y_sort_enabled = true
 script = ExtResource("1_rpqav")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1875569167]
+position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_qbkls")
 animation = &"light_attack_down"
 autoplay = "idle_up"
 
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=450608291]
+position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_qbkls")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1393051841]
