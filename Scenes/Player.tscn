@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://pb7hga35i8ni" path="res://Scripts/Player.gd" id="1_rpqav"]
 [ext_resource type="Texture2D" uid="uid://ovhrih3dxc4a" path="res://Assets/DG Asha Character/Black Asha Idle 32x32.png" id="2_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://banf1fkvej3nf" path="res://Assets/DG Asha Character/Black Charged attack 1 48x48.png" id="2_glx4g"]
-[ext_resource type="Texture2D" uid="uid://bhu2dq13oju4w" path="res://Assets/DG Asha Character/Dust 32x32.png" id="2_o3h8g"]
 [ext_resource type="Texture2D" uid="uid://bn2x8w4qe67nx" path="res://Assets/DG Asha Character/Black Asha Run 32x32.png" id="3_bhhdu"]
 [ext_resource type="Script" uid="uid://cecw3d7qy5wy8" path="res://Scripts/SFM/StateMachine.gd" id="3_dewec"]
 [ext_resource type="Script" uid="uid://cqif1qpnshlfq" path="res://Scripts/SFM/States/Idle.gd" id="3_gntrk"]
@@ -1574,133 +1573,8 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6gevd"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gqfox"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xvaqa"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7clra"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(96, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vdu2l"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(128, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1slgh"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(160, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6folu"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(192, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d5qym"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(224, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_diwyp"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v7nf6"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q0ss6"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w5g30"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7eliv"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rxpai"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s4jot"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xvpba"]
-atlas = ExtResource("2_o3h8g")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6gevd"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6gevd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gqfox")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xvaqa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7clra")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vdu2l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1slgh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6folu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d5qym")
-}],
-"loop": true,
-"name": &"dust_left",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_diwyp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v7nf6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q0ss6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w5g30")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7eliv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rxpai")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s4jot")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xvpba")
-}],
-"loop": true,
-"name": &"dust_right",
-"speed": 12.0
-}]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qbkls"]
-size = Vector2(12, 7)
+size = Vector2(12, 3)
 
 [sub_resource type="Animation" id="Animation_1e7my"]
 length = 0.001
@@ -2060,15 +1934,8 @@ sprite_frames = SubResource("SpriteFrames_qbkls")
 animation = &"light_attack_down"
 autoplay = "idle_up"
 
-[node name="DustEffect" type="AnimatedSprite2D" parent="." unique_id=1681298227]
-visible = false
-z_index = -1
-position = Vector2(0, -6)
-sprite_frames = SubResource("SpriteFrames_6gevd")
-animation = &"dust_left"
-
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=450608291]
-position = Vector2(0, -3.5)
+position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_qbkls")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1393051841]

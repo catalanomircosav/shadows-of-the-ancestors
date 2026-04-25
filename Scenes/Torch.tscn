@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://dfe2on26ik2dl"]
+
+[ext_resource type="Texture2D" uid="uid://xncqll3qjng6" path="res://Assets/Torch/Torch Blue.png" id="1_pqci0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lanxt"]
+atlas = ExtResource("1_pqci0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l58e"]
+atlas = ExtResource("1_pqci0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnsoy"]
+atlas = ExtResource("1_pqci0")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77g5u"]
+atlas = ExtResource("1_pqci0")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63p5e"]
+atlas = ExtResource("1_pqci0")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1i7p"]
+atlas = ExtResource("1_pqci0")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3d66j"]
+atlas = ExtResource("1_pqci0")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jff5t"]
+atlas = ExtResource("1_pqci0")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6tk82"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lanxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l58e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnsoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77g5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63p5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1i7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3d66j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jff5t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_36sry"]
+colors = PackedColorArray(0, 0.62352943, 0.7882353, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pqci0"]
+gradient = SubResource("Gradient_36sry")
+fill = 1
+fill_from = Vector2(0.48314607, 0.505618)
+fill_to = Vector2(0.8707865, 0.18539326)
+
+[node name="Torch" type="Node2D" unique_id=869299385]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=854263914]
+sprite_frames = SubResource("SpriteFrames_6tk82")
+autoplay = "default"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1302612737]
+texture = SubResource("GradientTexture2D_pqci0")

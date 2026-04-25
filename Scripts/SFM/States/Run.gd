@@ -12,7 +12,6 @@ func _setup() -> void:
 
 func enter(_previous_state: StringName = &"") -> void:
 	_player.play_animation("run_" + _player.last_facing, 1.0, true)
-	_player.dust_effect.visible = true
 
 
 func physics_update(_delta: float) -> void:
@@ -38,14 +37,3 @@ func physics_update(_delta: float) -> void:
 	_player.velocity = _player.velocity.move_toward(input_dir * _player.run_speed, _player.acceleration)
 	_player.play_animation("run_" + _player.last_facing, 1.0)
 	_player.move_and_slide()
-	
-	if input_dir.x > 0:
-		# Muove a destra, polvere verso sinistra
-		_player.dust_effect.play("dust_right")
-	elif input_dir.x < 0:
-		# Muove a sinistra, polvere verso destra
-		_player.dust_effect.play("dust_left")
-	
-func exit(_next_state: StringName = &"") -> void:
-	_player.dust_effect.visible = false
-	_player.dust_effect.stop()
