@@ -16313,9 +16313,6 @@ sources/0 = SubResource("TileSetScenesCollectionSource_efr0m")
 
 [node name="BaseMap" type="Node2D" unique_id=1136505020]
 
-[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1167302413]
-color = Color(0.27635276, 0.27641973, 0.35488847, 1)
-
 [node name="Floor" type="TileMapLayer" parent="." unique_id=1239766969]
 z_index = -1
 position = Vector2(2, 1)

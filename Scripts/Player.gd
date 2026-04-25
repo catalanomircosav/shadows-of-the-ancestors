@@ -21,6 +21,9 @@ var last_facing: String = "down"
 
 # ── helpers ────────────────────────────────────────────────────────────────
 
+func _ready() -> void:
+	add_to_group("player")
+
 ## Aggiorna last_facing in base a una direzione normalizzata.
 ## Priorità: asse orizzontale > asse verticale.
 func update_facing_direction(direction: Vector2) -> void:

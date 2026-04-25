@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cuk5gmo42yc5v" path="res://Scripts/Torch.gd" id="1_lanxt"]
 [ext_resource type="Texture2D" uid="uid://xncqll3qjng6" path="res://Assets/Torch/Torch Blue.png" id="1_pqci0"]
 [ext_resource type="Texture2D" uid="uid://c3h2fnvsgq56" path="res://Assets/Torch/Off Torch.png" id="3_2l58e"]
-[ext_resource type="Texture2D" uid="uid://bdg2wrkgjm3tx" path="res://Assets/DG UI-HUD Exp/Keyboards.png" id="4_vnsoy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lanxt"]
 atlas = ExtResource("1_pqci0")
@@ -90,24 +89,7 @@ fill = 1
 fill_from = Vector2(0.48314607, 0.505618)
 fill_to = Vector2(0.8707865, 0.18539326)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2l58e"]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_2l58e"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_op51s"]
-atlas = ExtResource("4_vnsoy")
-region = Rect2(256, 32, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_1l2bh"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_op51s")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [node name="Torch" type="Node2D" unique_id=869299385]
 script = ExtResource("1_lanxt")
@@ -121,16 +103,10 @@ autoplay = "default"
 texture = SubResource("GradientTexture2D_pqci0")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1213398289]
-material = SubResource("CanvasItemMaterial_2l58e")
 scale = Vector2(2.625, 2.625)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=97424938]
 shape = SubResource("CircleShape2D_2l58e")
-
-[node name="E" type="AnimatedSprite2D" parent="." unique_id=760478312]
-visible = false
-position = Vector2(0, -16)
-sprite_frames = SubResource("SpriteFrames_1l2bh")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

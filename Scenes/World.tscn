@@ -2,9 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://c8s4x871aqhru" path="res://Scenes/BaseMap.tscn" id="1_j0p05"]
 [ext_resource type="PackedScene" uid="uid://dc2an5r2pebhs" path="res://Scenes/Player.tscn" id="2_j0p05"]
+[ext_resource type="Script" uid="uid://brknskc3dbirh" path="res://Scripts/UI/HUD.gd" id="3_5nsto"]
 
 [node name="World" type="Node2D" unique_id=431641064]
 y_sort_enabled = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1210448662]
+color = Color(0.27635276, 0.27641973, 0.35488847, 1)
 
 [node name="BaseMap" parent="." unique_id=1136505020 instance=ExtResource("1_j0p05")]
 y_sort_enabled = true
@@ -14,3 +18,8 @@ position = Vector2(2, 1)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1148920256]
 limit_enabled = false
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=646841185]
+script = ExtResource("3_5nsto")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="HUD" unique_id=98683186]
