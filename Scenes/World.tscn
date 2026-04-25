@@ -14,7 +14,7 @@ color = Color(0.27635276, 0.27641973, 0.35488847, 1)
 y_sort_enabled = true
 
 [node name="Player" parent="." unique_id=1588731666 instance=ExtResource("2_j0p05")]
-position = Vector2(2, 1)
+position = Vector2(90, -6)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1148920256]
 limit_enabled = false

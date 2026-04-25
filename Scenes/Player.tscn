@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://dvf3gq3ecjwl3" path="res://Scripts/SFM/States/Crouch.gd" id="9_megsn"]
 [ext_resource type="Script" uid="uid://chokcikj20xvx" path="res://Scripts/SFM/States/light_attack.gd" id="12_glx4g"]
 [ext_resource type="Script" uid="uid://bfhyyvlxxtqlb" path="res://Scripts/SFM/States/heavy_attack.gd" id="13_miouo"]
+[ext_resource type="Script" uid="uid://dpmjpbhtoa3lu" path="res://Scenes/noise_debug.gd" id="14_o3h8g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_al1hg"]
 atlas = ExtResource("2_glx4g")
@@ -2298,3 +2299,7 @@ collision_mask = 2
 position = Vector2(11, -8)
 shape = SubResource("RectangleShape2D_miouo")
 disabled = true
+
+[node name="NoiseDebug" type="Node2D" parent="." unique_id=1044334066]
+visible = false
+script = ExtResource("14_o3h8g")

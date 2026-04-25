@@ -101,6 +101,7 @@ autoplay = "default"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1302612737]
 texture = SubResource("GradientTexture2D_pqci0")
+texture_scale = 1.4
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1213398289]
 scale = Vector2(2.625, 2.625)

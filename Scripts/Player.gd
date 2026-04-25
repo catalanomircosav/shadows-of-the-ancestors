@@ -20,10 +20,12 @@ var last_facing: String = "down"
 @onready var sprite: AnimatedSprite2D     = $AnimatedSprite2D
 
 # ── helpers ────────────────────────────────────────────────────────────────
+var light_multiplier: float = 1.0
 
 func _ready() -> void:
 	add_to_group("player")
-
+	VisibilityManager.register_player(self)
+	NoiseManager.register_player(self)
 ## Aggiorna last_facing in base a una direzione normalizzata.
 ## Priorità: asse orizzontale > asse verticale.
 func update_facing_direction(direction: Vector2) -> void:

@@ -8,10 +8,10 @@ const FLICKER_SPEED: float = 50.0
 const FLICKER_AMOUNT: float = 0.2
 const NOISE_FREQUENCY: float = 0.1
 const LIGHT_ON_DURATION: float = 0.3
-const LIGHT_OFF_DURATION: float = 1.5
+const LIGHT_OFF_DURATION: float = 0.6
 const E_SHOW_DURATION: float = 0.3
 const E_HIDE_DURATION: float = 0.2
-const E_OFFSET: Vector2 = Vector2(1, -12)
+const E_OFFSET: Vector2 = Vector2(1, -15)
 
 var is_lit: bool = true
 var player_in_range: bool = false
@@ -29,6 +29,8 @@ func _ready() -> void:
 	_noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	_noise.frequency = NOISE_FREQUENCY
 	_setup_ui.call_deferred()
+	
+	VisibilityManager.register_torch(self)
 
 func _setup_ui() -> void:
 	while UIManager.get_hud() == null:
@@ -96,3 +98,5 @@ func _animate_e(visible_state: bool) -> void:
 func _exit_tree() -> void:
 	if _ui_node:
 		_ui_node.queue_free()
+		
+	VisibilityManager.unregister_torch(self)
