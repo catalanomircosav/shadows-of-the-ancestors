@@ -13,7 +13,9 @@
 [ext_resource type="Script" uid="uid://dvf3gq3ecjwl3" path="res://Scripts/SFM/States/Crouch.gd" id="9_megsn"]
 [ext_resource type="Script" uid="uid://chokcikj20xvx" path="res://Scripts/SFM/States/light_attack.gd" id="12_glx4g"]
 [ext_resource type="Script" uid="uid://bfhyyvlxxtqlb" path="res://Scripts/SFM/States/heavy_attack.gd" id="13_miouo"]
+[ext_resource type="Script" uid="uid://c633bm03dtehs" path="res://Scenes/sword_hitbox.gd" id="14_1e7my"]
 [ext_resource type="Script" uid="uid://dpmjpbhtoa3lu" path="res://Scenes/noise_debug.gd" id="14_o3h8g"]
+[ext_resource type="Script" uid="uid://cx3hd16pl0jrj" path="res://Scripts/health_component.gd" id="16_arntx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_al1hg"]
 atlas = ExtResource("2_glx4g")
@@ -2287,6 +2289,7 @@ script = ExtResource("12_glx4g")
 [node name="HeavyAttack" type="Node2D" parent="StateMachine" unique_id=478276546]
 script = ExtResource("13_miouo")
 move_speed_ratio = 0.0
+attack_damage = 50
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=901977677]
 libraries/ = SubResource("AnimationLibrary_nn08x")
@@ -2294,6 +2297,7 @@ libraries/ = SubResource("AnimationLibrary_nn08x")
 [node name="SwordHitbox" type="Area2D" parent="." unique_id=762774656]
 collision_layer = 4
 collision_mask = 2
+script = ExtResource("14_1e7my")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox" unique_id=2131522148]
 position = Vector2(11, -8)
@@ -2303,3 +2307,6 @@ disabled = true
 [node name="NoiseDebug" type="Node2D" parent="." unique_id=1044334066]
 visible = false
 script = ExtResource("14_o3h8g")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=390479279]
+script = ExtResource("16_arntx")

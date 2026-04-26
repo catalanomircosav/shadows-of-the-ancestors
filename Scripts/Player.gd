@@ -18,6 +18,8 @@ var last_facing: String = "down"
 # Riferimenti cachati — evitano get_node() ripetuti negli stati.
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D     = $AnimatedSprite2D
+@onready var sword_hitbox: SwordHitbox = $SwordHitbox
+@onready var health: HealthComponent = $HealthComponent
 
 # ── helpers ────────────────────────────────────────────────────────────────
 var light_multiplier: float = 1.0

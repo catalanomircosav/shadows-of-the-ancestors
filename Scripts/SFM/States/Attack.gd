@@ -5,6 +5,7 @@ extends State
 class_name AttackBase
 
 @export var move_speed_ratio: float = 0.35
+@export var attack_damage: int = 10
 
 var _player: Player
 var _current_anim_name: String = ""
@@ -19,6 +20,7 @@ func _setup() -> void:
 
 func enter(_previous_state: StringName = &"") -> void:
 	_current_anim_name = ""
+	_player.sword_hitbox.damage = attack_damage
 	_play_attack_animation()
 
 
