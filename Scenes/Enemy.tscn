@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://h47b0ibajktc"]
+
+[ext_resource type="Texture2D" uid="uid://dimxvby0teedx" path="res://Assets/DG Monsters Expansion/Skeletons/1Skeleton-Idle.png" id="1_m1htj"]
+[ext_resource type="Script" uid="uid://dpbwndxahx2m7" path="res://Scenes/enemy.gd" id="1_xeo28"]
+[ext_resource type="Script" uid="uid://cx3hd16pl0jrj" path="res://Scripts/health_component.gd" id="2_wovta"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wovta"]
+atlas = ExtResource("1_m1htj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xeo28"]
+atlas = ExtResource("1_m1htj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpr8r"]
+atlas = ExtResource("1_m1htj")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1exfc"]
+atlas = ExtResource("1_m1htj")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo1ky"]
+atlas = ExtResource("1_m1htj")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bs3c"]
+atlas = ExtResource("1_m1htj")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uoxpr"]
+atlas = ExtResource("1_m1htj")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idouy"]
+atlas = ExtResource("1_m1htj")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0o0ue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wovta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xeo28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpr8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1exfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo1ky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bs3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uoxpr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idouy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s1gy"]
+size = Vector2(10, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xeo28"]
+size = Vector2(14, 15)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1083493604]
+script = ExtResource("1_xeo28")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=614063124]
+sprite_frames = SubResource("SpriteFrames_0o0ue")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1959359114]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_6s1gy")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=410424014]
+script = ExtResource("2_wovta")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1725794995]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1166249961]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_xeo28")
