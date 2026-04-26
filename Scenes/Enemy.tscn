@@ -483,7 +483,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rib3w")
 }],
-"loop": false,
+"loop": true,
 "name": &"run_down",
 "speed": 12.0
 }, {
@@ -512,7 +512,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c7vjo")
 }],
-"loop": false,
+"loop": true,
 "name": &"run_left",
 "speed": 12.0
 }, {
@@ -541,7 +541,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8a5qp")
 }],
-"loop": false,
+"loop": true,
 "name": &"run_right",
 "speed": 12.0
 }, {
@@ -570,7 +570,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ravfn")
 }],
-"loop": false,
+"loop": true,
 "name": &"run_up",
 "speed": 12.0
 }]
@@ -673,7 +673,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_6s1gy"]
 resource_name = "run_down"
-length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -689,7 +688,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_uihya"]
 resource_name = "run_left"
-length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -705,7 +703,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_27ry8"]
 resource_name = "run_right"
-length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -721,7 +718,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_esfq3"]
 resource_name = "run_up"
-length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
