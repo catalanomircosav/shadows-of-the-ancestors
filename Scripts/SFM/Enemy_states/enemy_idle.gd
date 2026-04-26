@@ -10,7 +10,7 @@ func _setup() -> void:
 func enter(_previous_state: StringName = &"") -> void:
 	_enemy.velocity = Vector2.ZERO
 	
-	_idle_timer = randf_range(1.0, 3.0)
+	_idle_timer = randf_range(3.0, 6.0)
 
 	if _enemy.has_method("play_animation"):
 		_enemy.play_animation("idle_" + _enemy.last_facing)

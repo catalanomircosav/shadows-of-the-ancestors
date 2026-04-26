@@ -38,7 +38,7 @@ func _pick_new_direction() -> void:
 	var dirs = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
 	_direction = dirs.pick_random()
 	
-	_wander_timer = randf_range(2.0, 4.0)
+	_wander_timer = randf_range(1.0, 3.0)
 	
 	_update_anim()
 
