@@ -45,9 +45,26 @@ func _on_area_entered(hitbox: Area2D) -> void:
 	# Registra l'entità per evitare colpi multipli durante lo stesso fendente
 	hitbox.register_hit(owner_node)
 	
+	var final_damage: int = hitbox.damage
+	var is_backstab: bool = false
+	
+	# Presupponendo che l'hitbox possa farti accedere al player che l'ha generata
+	# e che owner_node sia il tuo EnemyBase
+	var player = hitbox.owner # o get_parent(), a seconda del tuo albero
+	
+	if owner_node is EnemyBase and player is Player:
+		# Se guardano nella stessa direzione, è un colpo alle spalle!
+		if owner_node.last_facing == player.last_facing:
+			is_backstab = true
+			
+	if is_backstab:
+		# Moltiplica il danno o rendilo letale (es. 999)
+		final_damage *= 2
+		# print("BACKSTAB!")
+	
 	# Passa i dati dell'impatto all'HealthComponent per elaborare il danno e il rinculo
 	health_component.take_damage(
-		hitbox.damage, 
+		final_damage, 
 		hitbox.global_position, 
 		hitbox.knockback_strength
 	)

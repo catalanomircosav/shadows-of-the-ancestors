@@ -12,6 +12,7 @@ class_name AttackBase
 # ------------------------------------------------------------------------------
 @export var move_speed_ratio: float = 0.35
 @export var attack_damage: int = 10
+@export var backstab_bonus: int = 2
 
 # ------------------------------------------------------------------------------
 # VARIABILI PRIVATE
