@@ -7,7 +7,7 @@ var _step_timer: float = 0.0
 func _setup() -> void:
 	_player = state_machine.get_parent() as Player
 
-func enter(_previous_state: StringName = &"", data: Dictionary = {}) -> void:
+func enter(_previous_state: StringName = &"", _data: Dictionary = {}) -> void:
 	_player.play_animation("walk_" + _player.last_facing, 1.0, true)
 	_step_timer = 0.0  # resetta il timer quando entri nello stato
 

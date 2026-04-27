@@ -9,7 +9,7 @@ func _setup() -> void:
 	_player = state_machine.get_parent() as Player
 
 
-func enter(_previous_state: StringName = &"", data: Dictionary = {}) -> void:
+func enter(_previous_state: StringName = &"", _data: Dictionary = {}) -> void:
 	_player.play_animation("idle_" + _player.last_facing, 1.0, true)
 
 

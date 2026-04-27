@@ -14,7 +14,7 @@ var _step_timer: float = 0.0
 func _setup() -> void:
 	_player = state_machine.get_parent() as Player
 
-func enter(_previous_state: StringName = &"", data: Dictionary = {}) -> void:
+func enter(_previous_state: StringName = &"", _data: Dictionary = {}) -> void:
 	_original_scale = _player.sprite.scale
 	_original_position = _player.sprite.position
 	_player.sprite.scale      = SPRITE_SCALE_CROUCH
@@ -28,12 +28,13 @@ func exit(_next_state: StringName = &"") -> void:
 	_player.anim_player.speed_scale = 1.0
 
 func physics_update(delta: float) -> void:
+	var input_dir
 	if not Input.is_action_pressed("crouch"):
-		var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		state_machine.transition_to(&"Walk" if input_dir != Vector2.ZERO else &"Idle")
 		return
 
-	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	_player.velocity = _player.velocity.move_toward(
 		input_dir * _player.max_speed * CROUCH_SPEED_RATIO,
 		_player.acceleration
