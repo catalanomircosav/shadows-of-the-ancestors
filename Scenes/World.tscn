@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c8s4x871aqhru" path="res://Scenes/BaseMap.tscn" id="1_j0p05"]
 [ext_resource type="PackedScene" uid="uid://dc2an5r2pebhs" path="res://Scenes/Player.tscn" id="2_j0p05"]
+[ext_resource type="PackedScene" uid="uid://di8ugo7e72u5j" path="res://Scenes/Vase.tscn" id="2_p70al"]
 [ext_resource type="Script" uid="uid://brknskc3dbirh" path="res://Scripts/UI/HUD.gd" id="3_5nsto"]
 [ext_resource type="PackedScene" uid="uid://h47b0ibajktc" path="res://Scenes/Enemy.tscn" id="3_gjpho"]
 
@@ -11,15 +12,23 @@ y_sort_enabled = true
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1210448662]
 color = Color(0.27635276, 0.27641973, 0.35488847, 1)
 
-[node name="BaseMap" parent="." unique_id=1136505020 instance=ExtResource("1_j0p05")]
-y_sort_enabled = true
-
 [node name="Player" parent="." unique_id=1588731666 instance=ExtResource("2_j0p05")]
 position = Vector2(90, -6)
-motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1148920256]
 limit_enabled = false
+
+[node name="BaseMap" parent="." unique_id=1136505020 instance=ExtResource("1_j0p05")]
+y_sort_enabled = true
+
+[node name="Vase" parent="." unique_id=11062056 instance=ExtResource("2_p70al")]
+position = Vector2(40, -9)
+
+[node name="Vase2" parent="." unique_id=1519414206 instance=ExtResource("2_p70al")]
+position = Vector2(249, 27)
+
+[node name="Vase3" parent="." unique_id=17081567 instance=ExtResource("2_p70al")]
+position = Vector2(120, 61)
 
 [node name="Enemy" parent="." unique_id=1083493604 instance=ExtResource("3_gjpho")]
 y_sort_enabled = true

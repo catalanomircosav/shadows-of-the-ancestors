@@ -14,8 +14,10 @@
 [ext_resource type="Script" uid="uid://chokcikj20xvx" path="res://Scripts/SFM/Player_states/light_attack.gd" id="12_glx4g"]
 [ext_resource type="Script" uid="uid://bfhyyvlxxtqlb" path="res://Scripts/SFM/Player_states/heavy_attack.gd" id="13_miouo"]
 [ext_resource type="Script" uid="uid://c633bm03dtehs" path="res://Scripts/SFM/Player_states/sword_hitbox.gd" id="14_1e7my"]
-[ext_resource type="Script" uid="uid://dpmjpbhtoa3lu" path="res://Scenes/noise_debug.gd" id="14_o3h8g"]
-[ext_resource type="Script" uid="uid://cx3hd16pl0jrj" path="res://Scripts/health_component.gd" id="16_arntx"]
+[ext_resource type="Script" uid="uid://dpmjpbhtoa3lu" path="res://Scripts/noise_debug.gd" id="14_o3h8g"]
+[ext_resource type="Script" uid="uid://bgixgxciavuwn" path="res://Scripts/Damaged.gd" id="14_ulo2v"]
+[ext_resource type="Script" uid="uid://cx3hd16pl0jrj" path="res://Scripts/HealthComponent.gd" id="16_arntx"]
+[ext_resource type="Script" uid="uid://0q8j2wn52jeo" path="res://Scripts/Hurtbox.gd" id="17_lslt6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_al1hg"]
 atlas = ExtResource("2_glx4g")
@@ -1681,6 +1683,23 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(34, 34)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/HeavyAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.82, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_hit_frame"
+}, {
+"args": [],
+"method": &"_on_hit_end_frame"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_m0x7a"]
 resource_name = "heavy_attack_left"
@@ -1732,6 +1751,23 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(34, 34)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/HeavyAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.82, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_hit_frame"
+}, {
+"args": [],
+"method": &"_on_hit_end_frame"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_5v66d"]
@@ -1785,6 +1821,23 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(33, 34)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/HeavyAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.82, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_hit_frame"
+}, {
+"args": [],
+"method": &"_on_hit_end_frame"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_x63xi"]
 resource_name = "heavy_attack_up"
@@ -1836,6 +1889,23 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -8)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/HeavyAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.82, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_hit_frame"
+}, {
+"args": [],
+"method": &"_on_hit_end_frame"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_52ee3"]
@@ -1949,6 +2019,23 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(17, 22.75)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/LightAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_hit_frame"
+}, {
+"args": [],
+"method": &"_on_hit_end_frame"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_arntx"]
 resource_name = "light_attack_left"
@@ -2000,6 +2087,23 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(17, 22.75)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/LightAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_hit_frame"
+}, {
+"args": [],
+"method": &"_on_hit_end_frame"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_lslt6"]
@@ -2053,6 +2157,23 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(17, 22.75)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/LightAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_hit_frame"
+}, {
+"args": [],
+"method": &"_on_hit_end_frame"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_ulo2v"]
 resource_name = "light_attack_up"
@@ -2104,6 +2225,23 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(17, 22.75)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StateMachine/LightAttack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_hit_frame"
+}, {
+"args": [],
+"method": &"_on_hit_end_frame"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_yoq75"]
@@ -2254,8 +2392,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miouo"]
 size = Vector2(17, 22.75)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_arntx"]
+radius = 8.0
+
 [node name="Character" type="CharacterBody2D" unique_id=1588731666 groups=["player"]]
 y_sort_enabled = true
+motion_mode = 1
 script = ExtResource("1_rpqav")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1875569167]
@@ -2292,12 +2434,15 @@ script = ExtResource("13_miouo")
 move_speed_ratio = 0.0
 attack_damage = 35
 
+[node name="Damaged" type="Node2D" parent="StateMachine" unique_id=815021103]
+script = ExtResource("14_ulo2v")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=901977677]
 libraries/ = SubResource("AnimationLibrary_nn08x")
 
 [node name="SwordHitbox" type="Area2D" parent="." unique_id=762774656]
-collision_layer = 4
-collision_mask = 2
+collision_layer = 8
+collision_mask = 64
 script = ExtResource("14_1e7my")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox" unique_id=2131522148]
@@ -2306,8 +2451,16 @@ shape = SubResource("RectangleShape2D_miouo")
 disabled = true
 
 [node name="NoiseDebug" type="Node2D" parent="." unique_id=1044334066]
-visible = false
 script = ExtResource("14_o3h8g")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=390479279]
 script = ExtResource("16_arntx")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2030143583]
+position = Vector2(0, -8)
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("17_lslt6")
+
+[node name="HurtBox" type="CollisionShape2D" parent="Area2D" unique_id=1970017363]
+shape = SubResource("CircleShape2D_arntx")

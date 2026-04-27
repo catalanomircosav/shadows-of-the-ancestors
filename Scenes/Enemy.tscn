@@ -1,13 +1,49 @@
 [gd_scene format=3 uid="uid://h47b0ibajktc"]
 
 [ext_resource type="Texture2D" uid="uid://dimxvby0teedx" path="res://Assets/DG Monsters Expansion/Skeletons/1Skeleton-Idle.png" id="1_m1htj"]
-[ext_resource type="Script" uid="uid://dpbwndxahx2m7" path="res://Scripts/enemy.gd" id="1_xeo28"]
+[ext_resource type="Script" uid="uid://dpbwndxahx2m7" path="res://Scripts/Enemy.gd" id="1_xeo28"]
+[ext_resource type="Texture2D" uid="uid://hpyqlj3i11wt" path="res://Assets/DG Monsters Expansion/Skeletons/1Skeleton-Hurt.png" id="2_0o0ue"]
 [ext_resource type="Texture2D" uid="uid://f4v82sgs0e7" path="res://Assets/DG Monsters Expansion/Skeletons/1Skeleton-Death 2.png" id="2_mo1ky"]
-[ext_resource type="Script" uid="uid://cx3hd16pl0jrj" path="res://Scripts/health_component.gd" id="2_wovta"]
+[ext_resource type="Script" uid="uid://cx3hd16pl0jrj" path="res://Scripts/HealthComponent.gd" id="2_wovta"]
 [ext_resource type="Texture2D" uid="uid://cdxac1npynok6" path="res://Assets/DG Monsters Expansion/Skeletons/1Skeleton-Run.png" id="3_kpr8r"]
 [ext_resource type="Script" uid="uid://cecw3d7qy5wy8" path="res://Scripts/SFM/StateMachine.gd" id="6_6bs3c"]
 [ext_resource type="Script" uid="uid://cs3vh886eue6j" path="res://Scripts/SFM/Enemy_states/enemy_idle.gd" id="7_6bs3c"]
+[ext_resource type="Script" uid="uid://0q8j2wn52jeo" path="res://Scripts/Hurtbox.gd" id="7_6s1gy"]
 [ext_resource type="Script" uid="uid://djpvs3rigl55u" path="res://Scripts/SFM/Enemy_states/enemy_wander.gd" id="8_uoxpr"]
+[ext_resource type="Script" uid="uid://bgixgxciavuwn" path="res://Scripts/Damaged.gd" id="9_idouy"]
+[ext_resource type="Script" uid="uid://bha80461tsurh" path="res://Scripts/SFM/Enemy_states/enemy_suspicious.gd" id="12_uihya"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wb3kq"]
+atlas = ExtResource("2_0o0ue")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kec1a"]
+atlas = ExtResource("2_0o0ue")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c10jr"]
+atlas = ExtResource("2_0o0ue")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ax1t"]
+atlas = ExtResource("2_0o0ue")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0krw"]
+atlas = ExtResource("2_0o0ue")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfsd3"]
+atlas = ExtResource("2_0o0ue")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f34u8"]
+atlas = ExtResource("2_0o0ue")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnbs3"]
+atlas = ExtResource("2_0o0ue")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sc8lj"]
 atlas = ExtResource("2_mo1ky")
@@ -309,6 +345,50 @@ region = Rect2(224, 64, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_wb3kq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kec1a")
+}],
+"loop": true,
+"name": &"damaged_down",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c10jr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ax1t")
+}],
+"loop": true,
+"name": &"damaged_left",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0krw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfsd3")
+}],
+"loop": true,
+"name": &"damaged_right",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f34u8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnbs3")
+}],
+"loop": true,
+"name": &"damaged_up",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_sc8lj")
 }, {
 "duration": 1.0,
@@ -575,8 +655,8 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s1gy"]
-size = Vector2(10, 5)
+[sub_resource type="CircleShape2D" id="CircleShape2D_uoxpr"]
+radius = 7.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xeo28"]
 size = Vector2(14, 15)
@@ -594,6 +674,66 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"idle_down"]
+}
+
+[sub_resource type="Animation" id="Animation_rm7px"]
+resource_name = "damaged_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"damaged_down"]
+}
+
+[sub_resource type="Animation" id="Animation_5yix0"]
+resource_name = "damaged_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"damaged_left"]
+}
+
+[sub_resource type="Animation" id="Animation_dascy"]
+resource_name = "damaged_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"damaged_right"]
+}
+
+[sub_resource type="Animation" id="Animation_imorw"]
+resource_name = "damaged_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"damaged_up"]
 }
 
 [sub_resource type="Animation" id="Animation_qlal6"]
@@ -734,6 +874,10 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qlal6"]
 _data = {
 &"RESET": SubResource("Animation_mo1ky"),
+&"damaged_down": SubResource("Animation_rm7px"),
+&"damaged_left": SubResource("Animation_5yix0"),
+&"damaged_right": SubResource("Animation_dascy"),
+&"damaged_up": SubResource("Animation_imorw"),
 &"death": SubResource("Animation_qlal6"),
 &"idle_down": SubResource("Animation_6bs3c"),
 &"idle_left": SubResource("Animation_uoxpr"),
@@ -753,15 +897,16 @@ sprite_frames = SubResource("SpriteFrames_0o0ue")
 animation = &"idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1959359114]
-position = Vector2(0, 5.5)
-shape = SubResource("RectangleShape2D_6s1gy")
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_uoxpr")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=410424014]
 script = ExtResource("2_wovta")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1725794995]
-collision_layer = 2
-collision_mask = 0
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("7_6s1gy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1166249961]
 position = Vector2(0, 0.5)
@@ -774,6 +919,9 @@ libraries/ = SubResource("AnimationLibrary_qlal6")
 script = ExtResource("6_6bs3c")
 initial_state = &"Idle"
 
+[node name="Damaged" type="Node2D" parent="StateMachine" unique_id=123941820]
+script = ExtResource("9_idouy")
+
 [node name="Idle" type="Node" parent="StateMachine" unique_id=1702024176]
 script = ExtResource("7_6bs3c")
 
@@ -781,6 +929,7 @@ script = ExtResource("7_6bs3c")
 script = ExtResource("8_uoxpr")
 
 [node name="Suspicious" type="Node" parent="StateMachine" unique_id=1056930407]
+script = ExtResource("12_uihya")
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=92372483]
 

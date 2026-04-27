@@ -53,4 +53,4 @@ func _process(delta: float) -> void:
 	
 	# --- DEBUG -----------------------------
 	#if Engine.get_process_frames() % 30 == 0:
-		#print("Noise radius: %.1f | pos: %s" % [noise_radius, noise_position])
+		# print("Noise radius: %.1f | pos: %s" % [noise_radius, noise_position])

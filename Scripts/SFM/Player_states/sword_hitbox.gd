@@ -1,17 +1,23 @@
+# sword_hitbox.gd
 extends Area2D
 class_name SwordHitbox
 
 var damage: int = 0
+var knockback_strength: float = 0.0  # letto da Hurtbox
+var _hit_this_swing: Array = []
 
 func _ready() -> void:
-	area_entered.connect(_on_area_entered)
+	pass  # nessun segnale — è Hurtbox che ascolta
 
+func enable() -> void:
+	_hit_this_swing.clear()
+	$CollisionShape2D.disabled = false
 
-func _on_area_entered(area: Area2D) -> void:
-	var enemy = area.get_parent()
-	
-	if enemy != null and enemy.has_node("HealthComponent"):
-		var enemy_health = enemy.get_node("HealthComponent") as HealthComponent
-		
-		enemy_health.take_damage(damage)
-		print("Colpito! Danno inflitto: ", damage, " | Vita rimanente: ", enemy_health.current_health)
+func disable() -> void:
+	$CollisionShape2D.disabled = true
+
+func already_hit(target: Node) -> bool:
+	return target in _hit_this_swing
+
+func register_hit(target: Node) -> void:
+	_hit_this_swing.append(target)
