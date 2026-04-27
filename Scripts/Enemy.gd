@@ -1,60 +1,96 @@
 extends CharacterBody2D
 class_name EnemyBase
+# ==============================================================================
+# SCRIPT: Enemy.gd (EnemyBase)
+# DESCRIZIONE: Classe base per i nemici. Gestisce riferimenti comuni, 
+# la ricezione dei danni, la morte, le animazioni e la direzione dello sguardo.
+# ==============================================================================
 
+# ------------------------------------------------------------------------------
+# NODI (ONREADY)
+# ------------------------------------------------------------------------------
 @onready var health: HealthComponent      = $HealthComponent
 @onready var sprite: AnimatedSprite2D     = $AnimatedSprite2D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var state_machine: FSM           = $StateMachine
 
+# ------------------------------------------------------------------------------
+# VARIABILI PUBBLICHE
+# ------------------------------------------------------------------------------
 var last_facing: String = "down"
-var noise_target_position: Vector2 = Vector2.ZERO  # usato da Suspicious/Investigate
+var noise_target_position: Vector2 = Vector2.ZERO  # Usato dallo stato Investigate
 
+
+# ==============================================================================
+# METODI DI CLASSE (BUILT-IN)
+# ==============================================================================
 func _ready() -> void:
+	# Connette i segnali emessi dall'HealthComponent
 	health.damaged.connect(_on_damaged)
 	health.died.connect(_on_death)
 
-# ── Segnali HealthComponent ────────────────────────────────────────────────
 
+# ==============================================================================
+# CALLBACKS DEI SEGNALI
+# ==============================================================================
+
+## Invocato quando l'Enemy subisce un danno, gestendo il knockback.
 func _on_damaged(kb_direction: Vector2, kb_force: float) -> void:
+	# Passa alla FSM i dati per gestire la reazione al colpo
 	state_machine.transition_to(&"Damaged", {
 		"direction": kb_direction,
 		"force":     kb_force
 	}, true)
 
+## Invocato quando la salute scende a zero, gestendo l'eliminazione dell'entità.
 func _on_death() -> void:
-	# Chiama exit() sullo stato corrente così DamagedState
+	# Chiama exit() sullo stato corrente così DamagedState 
 	# chiama force_end_invincibility() prima di fermare la FSM
 	if state_machine.current_state:
 		state_machine.current_state.exit(&"Death")
-
+	
+	# Disattiva il processo della macchina a stati e ferma il movimento
 	state_machine.set_physics_process(false)
 	state_machine.set_process(false)
 	velocity = Vector2.ZERO
-
+	
+	# Disabilita le collisioni fisiche in base a nomi prestabiliti
 	if has_node("CollisionShape2D"):
 		$CollisionShape2D.set_deferred("disabled", true)
 	elif has_node("Collider"):
 		$Collider.set_deferred("disabled", true)
+		
+	# Disabilita l'hurtbox per impedire ulteriori hit registrati
 	if has_node("Hurtbox/CollisionShape2D"):
 		$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
-
+	
+	# Avvia l'animazione di morte, attende la sua fine e rimuove l'istanza
 	play_animation("death", 1.0, true)
 	await anim_player.animation_finished
 	queue_free()
 
-# ── Helpers ────────────────────────────────────────────────────────────────
 
+# ==============================================================================
+# METODI DI SUPPORTO (HELPERS)
+# ==============================================================================
+
+## Riproduce in parallelo un'animazione sia sull'AnimationPlayer che sullo Sprite.
 func play_animation(anim_name: String, speed_scale: float = 1.0, force_restart: bool = false) -> void:
 	if not anim_player.has_animation(anim_name):
 		push_warning("EnemyBase: animazione '%s' non trovata." % anim_name)
 		return
+		
 	anim_player.speed_scale = speed_scale
+	
+	# Riavvia l'animazione se richiesto o se è diversa da quella corrente
 	if force_restart or anim_player.current_animation != anim_name:
 		anim_player.stop()
 		anim_player.play(anim_name)
 		sprite.play(anim_name)
 
+## Aggiorna la variabile di stato della direzione in base al vettore di input.
 func update_facing_direction(direction: Vector2) -> void:
+	# Prioritizza il movimento orizzontale rispetto a quello verticale
 	if direction.x > 0.0:
 		last_facing = "right"
 	elif direction.x < 0.0:
