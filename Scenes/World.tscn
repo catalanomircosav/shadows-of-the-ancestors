@@ -16,6 +16,7 @@ y_sort_enabled = true
 
 [node name="Player" parent="." unique_id=1588731666 instance=ExtResource("2_j0p05")]
 position = Vector2(90, -6)
+motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1148920256]
 limit_enabled = false
@@ -23,6 +24,7 @@ limit_enabled = false
 [node name="Enemy" parent="." unique_id=1083493604 instance=ExtResource("3_gjpho")]
 y_sort_enabled = true
 position = Vector2(132, 18)
+motion_mode = 1
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=646841185]
 script = ExtResource("3_5nsto")

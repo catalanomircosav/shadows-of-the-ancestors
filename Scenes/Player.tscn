@@ -1652,7 +1652,7 @@ tracks/1/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.73333335),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -1704,7 +1704,7 @@ tracks/1/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.73333335),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -1756,7 +1756,7 @@ tracks/1/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.73333335),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -1808,7 +1808,7 @@ tracks/1/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.73333335),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -2285,11 +2285,12 @@ script = ExtResource("9_megsn")
 
 [node name="LightAttack" type="Node2D" parent="StateMachine" unique_id=771801561]
 script = ExtResource("12_glx4g")
+attack_damage = 17
 
 [node name="HeavyAttack" type="Node2D" parent="StateMachine" unique_id=478276546]
 script = ExtResource("13_miouo")
 move_speed_ratio = 0.0
-attack_damage = 50
+attack_damage = 35
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=901977677]
 libraries/ = SubResource("AnimationLibrary_nn08x")
