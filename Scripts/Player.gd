@@ -12,7 +12,7 @@ var last_facing: String = "down"
 
 @onready var anim_player: AnimationPlayer  = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D      = $AnimatedSprite2D
-@onready var sword_hitbox: SwordHitbox     = $SwordHitbox
+@onready var sword_hitbox: Hitbox     = $SwordHitbox
 @onready var health: HealthComponent       = $HealthComponent
 @onready var state_machine: FSM   = $StateMachine
 
@@ -26,7 +26,7 @@ func _ready() -> void:
 	health.died.connect(_on_death)
 
 func _on_damaged(kb_direction: Vector2, kb_force: float) -> void:
-	state_machine.transition_to(&"Damaged", {
+	state_machine.call_deferred("transition_to", &"Damaged", {
 		"direction": kb_direction,
 		"force":     kb_force * damaged_mult
 	})

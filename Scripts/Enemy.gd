@@ -36,14 +36,18 @@ func _ready() -> void:
 
 ## Invocato quando l'Enemy subisce un danno, gestendo il knockback.
 func _on_damaged(kb_direction: Vector2, kb_force: float) -> void:
-	# Passa alla FSM i dati per gestire la reazione al colpo
-	state_machine.transition_to(&"Damaged", {
+	# Usa call_deferred per aspettare la fine del frame fisico prima di cambiare stato e animazione
+	state_machine.call_deferred("transition_to", &"Damaged", {
 		"direction": kb_direction,
 		"force":     kb_force
 	}, true)
 
-## Invocato quando la salute scende a zero, gestendo l'eliminazione dell'entità.
+## Invocato quando la salute scende a zero. Rimanda l'esecuzione a fine frame.
 func _on_death() -> void:
+	call_deferred("_execute_death")
+
+## Funzione separata che esegue effettivamente la logica di morte in sicurezza.
+func _execute_death() -> void:
 	# Chiama exit() sullo stato corrente così DamagedState 
 	# chiama force_end_invincibility() prima di fermare la FSM
 	if state_machine.current_state:
@@ -90,12 +94,14 @@ func play_animation(anim_name: String, speed_scale: float = 1.0, force_restart: 
 
 ## Aggiorna la variabile di stato della direzione in base al vettore di input.
 func update_facing_direction(direction: Vector2) -> void:
-	# Prioritizza il movimento orizzontale rispetto a quello verticale
-	if direction.x > 0.0:
-		last_facing = "right"
-	elif direction.x < 0.0:
-		last_facing = "left"
-	elif direction.y > 0.0:
-		last_facing = "down"
-	elif direction.y < 0.0:
-		last_facing = "up"
+	# Controlla se il movimento è prevalentemente orizzontale o verticale (risolve il bug delle diagonali)
+	if abs(direction.x) > abs(direction.y):
+		if direction.x > 0.0:
+			last_facing = "right"
+		else:
+			last_facing = "left"
+	else:
+		if direction.y > 0.0:
+			last_facing = "down"
+		else:
+			last_facing = "up"

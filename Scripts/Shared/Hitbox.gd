@@ -1,17 +1,23 @@
 extends Area2D
-class_name SwordHitbox
+class_name Hitbox
 # ==============================================================================
-# SCRIPT: sword_hitbox.gd (SwordHitbox)
-# DESCRIZIONE: Componente che gestisce l'area di collisione offensiva della spada.
-# Tiene traccia delle entità colpite in un singolo fendente per evitare di
-# applicare danni multipli nello stesso colpo.
+# SCRIPT: hitbox.gd (Ex SwordHitbox)
+# DESCRIZIONE: Componente universale per le aree di collisione offensive.
+# Funziona sia per il Player che per i Nemici. Tiene traccia delle entità 
+# colpite per evitare danni multipli nello stesso attacco.
 # ==============================================================================
+
+# ------------------------------------------------------------------------------
+# VARIABILI ESPORTATE (Modificabili dall'editor per ogni entità)
+# ------------------------------------------------------------------------------
+@export var damage: int = 10
+@export var knockback_strength: float = 200.0 
 
 # ------------------------------------------------------------------------------
 # VARIABILI PUBBLICHE
 # ------------------------------------------------------------------------------
-var damage: int = 0
-var knockback_strength: float = 0.0  # Letto dal componente Hurtbox per il rinculo
+# Riferimento all'entità che sta sferrando l'attacco (utile all'Hurtbox per il backstab)
+var attacker: Node
 
 # ------------------------------------------------------------------------------
 # VARIABILI PRIVATE
@@ -24,23 +30,26 @@ var _hit_this_swing: Array = []
 # ==============================================================================
 
 func _ready() -> void:
-	pass  # Nessun segnale collegato qui — è l'Hurtbox che ascolta le collisioni
+	# Assume che il genitore (o un nonno) sia l'entità che attacca.
+	# Se l'albero è Entità -> Hitbox, get_parent() va benissimo.
+	# Se è Entità -> Attacchi -> Hitbox, potresti usare get_parent().get_parent() o owner.
+	attacker = get_parent()
 
 
 # ==============================================================================
 # METODI PUBBLICI
 # ==============================================================================
 
-## Abilita l'hitbox all'inizio di un fendente e svuota la lista dei bersagli colpiti.
+## Abilita l'hitbox all'inizio di un colpo e svuota la lista dei bersagli colpiti.
 func enable() -> void:
 	_hit_this_swing.clear()
 	$CollisionShape2D.disabled = false
 
-## Disabilita l'hitbox alla fine di un fendente, terminando i danni.
+## Disabilita l'hitbox alla fine di un colpo, terminando i danni.
 func disable() -> void:
 	$CollisionShape2D.disabled = true
 
-## Verifica se un determinato bersaglio (nodo) è già stato colpito durante questo fendente.
+## Verifica se un determinato bersaglio (nodo) è già stato colpito durante questo attacco.
 func already_hit(target: Node) -> bool:
 	return target in _hit_this_swing
 

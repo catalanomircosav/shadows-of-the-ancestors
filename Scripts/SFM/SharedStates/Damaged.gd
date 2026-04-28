@@ -37,28 +37,31 @@ func _setup() -> void:
 # ==============================================================================
 
 ## Chiamato dalla StateMachine quando si entra in questo stato.
+## Chiamato dalla StateMachine quando si entra in questo stato.
 func enter(_previous_state: StringName = &"", data: Dictionary = {}) -> void:
 	_active = true
 	
-	# Estrae i dati del knockback passati dal segnale di danno
 	_kb_direction = data.get("direction", Vector2.ZERO)
-	_kb_force     = data.get("force",     0.0)
+	_kb_force      = data.get("force",     0.0)
 
-	# Avvia l'invincibilità per evitare danni multipli consecutivi
+	# Avvia l'invincibilità
 	_owner.health.start_invincibility()
 
-	# Compone il nome dell'animazione in base alla direzione del rinculo e la riproduce
-	var anim_name: String = "damaged_" + _direction_to_suffix(_kb_direction)
-	_owner.play_animation(anim_name, 1.0, true)
+	var suffix = _direction_to_suffix(_kb_direction)
+	var anim_name: String = "damaged_" + suffix
+	
+	# SICUREZZA: Controlliamo se l'animazione esiste prima di aspettarla
+	if _owner.anim_player.has_animation(anim_name):
+		_owner.play_animation(anim_name, 1.0, true)
+		await _owner.anim_player.animation_finished
+	else:
+		push_warning("Animazione %s non trovata! Esco dallo stato per sicurezza." % anim_name)
+		# Se l'animazione manca, aspettiamo un decimo di secondo invece di bloccare tutto
+		await get_tree().create_timer(0.1).timeout
 
-	# Attende la fine dell'animazione prima di restituire il controllo
-	await _owner.anim_player.animation_finished
-
-	# Controlla se lo stato è stato interrotto (es. l'entità è morta nel frattempo)
 	if not _active:
 		return
 
-	# Se l'animazione finisce regolarmente, termina l'invincibilità e torna in Idle
 	_owner.health.force_end_invincibility()
 	state_machine.transition_to(&"Idle")
 
@@ -75,10 +78,14 @@ func physics_update(delta: float) -> void:
 
 ## Chiamato dalla StateMachine quando si esce da questo stato.
 func exit(_next_state: StringName = &"") -> void:
-	# Disattiva il flag per interrompere eventuali 'await' pendenti e pulisce i vettori
 	_active = false
 	_kb_force = 0.0
 	_kb_direction = Vector2.ZERO
+	
+	# IMPORTANTE: Spegniamo SEMPRE l'invincibilità qui per sicurezza!
+	# Se lo stato viene interrotto, il player non rimarrà immortale.
+	if _owner.health:
+		_owner.health.force_end_invincibility()
 
 
 # ==============================================================================

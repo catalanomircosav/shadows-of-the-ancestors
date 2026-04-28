@@ -13,10 +13,12 @@ func _ready() -> void:
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 	
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	print("Vaso colpito da: ", area.name, " | è SwordHitbox: ", area is SwordHitbox)
+	print("Vaso colpito da: ", area.name, " | è Hitbox: ", area is Hitbox)
+	
 	if is_broken:
 		return
-	if area is SwordHitbox:
+		
+	if area is Hitbox:
 		break_vase()
 
 func break_vase() -> void:

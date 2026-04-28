@@ -66,11 +66,6 @@ func physics_update(delta: float) -> void:
 		state_machine.transition_to(&"Crouch")
 		return
 		
-	# 6. Lancio Magia / Abilità
-	if Input.is_action_just_pressed("cast"):
-		state_machine.transition_to(&"Cast")
-		return
-		
 	# --- AGGIORNAMENTO MOVIMENTO E GRAFICA ---
 	
 	# Aggiorna la direzione verso cui il giocatore è rivolto

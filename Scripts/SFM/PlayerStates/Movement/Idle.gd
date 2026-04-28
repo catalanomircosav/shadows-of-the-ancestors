@@ -59,8 +59,3 @@ func physics_update(_delta: float) -> void:
 	if Input.is_action_pressed("crouch"):
 		state_machine.transition_to(&"Crouch")
 		return
-		
-	# 5. Magia / Abilità speciale (Cast)
-	if Input.is_action_just_pressed("cast"):
-		state_machine.transition_to(&"Cast")
-		return

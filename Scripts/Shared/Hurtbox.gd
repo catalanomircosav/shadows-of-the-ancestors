@@ -1,10 +1,10 @@
 extends Area2D
 class_name Hurtbox
 # ==============================================================================
-# SCRIPT: hurtbox.gd (Hurtbox)
-# DESCRIZIONE: Componente che gestisce la ricezione dei colpi fisici. Rileva 
-# l'ingresso di hitbox offensive, verifica la validità del colpo e inoltra 
-# i danni al componente della salute (HealthComponent).
+# SCRIPT: hurtbox.gd
+# DESCRIZIONE: Componente universale che gestisce la ricezione dei colpi fisici.
+# Rileva l'ingresso di Hitbox offensive (nemici o player), verifica la validità
+# del colpo e inoltra i danni all'HealthComponent.
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
@@ -31,38 +31,37 @@ func _ready() -> void:
 ## entra nello spazio di collisione di questa Hurtbox.
 func _on_area_entered(hitbox: Area2D) -> void:
 	
-	# Ignora qualsiasi area che non sia specificamente la spada del giocatore
-	if not hitbox is SwordHitbox:
+	# 1. Ignora qualsiasi area che non sia la nostra classe universale Hitbox
+	if not hitbox is Hitbox:
 		return
 
-	# Presume che il genitore diretto sia l'entità proprietaria da registrare
+	# 2. Identifica chi sta subendo il colpo (il genitore di questa Hurtbox)
 	var owner_node: Node = get_parent()
 	
-	# Verifica tramite l'hitbox se questo colpo è già stato processato per questa entità
+	# 3. Verifica se questo colpo è già stato processato per questa entità
 	if hitbox.already_hit(owner_node):
 		return
 		
-	# Registra l'entità per evitare colpi multipli durante lo stesso fendente
+	# 4. Registra l'entità per evitare colpi multipli durante la stessa animazione
 	hitbox.register_hit(owner_node)
 	
+	# 5. Inizializza le variabili per il calcolo dei danni
 	var final_damage: int = hitbox.damage
 	var is_backstab: bool = false
+	var attacking_entity: Node = hitbox.attacker 
 	
-	# Presupponendo che l'hitbox possa farti accedere al player che l'ha generata
-	# e che owner_node sia il tuo EnemyBase
-	var player = hitbox.owner # o get_parent(), a seconda del tuo albero
-	
-	if owner_node is EnemyBase and player is Player:
+	# 6. Logica del Backstab: si attiva se un nemico viene colpito dal player
+	if owner_node is EnemyBase and attacking_entity is Player:
 		# Se guardano nella stessa direzione, è un colpo alle spalle!
-		if owner_node.last_facing == player.last_facing:
+		if owner_node.last_facing == attacking_entity.last_facing:
 			is_backstab = true
 			
 	if is_backstab:
-		# Moltiplica il danno o rendilo letale (es. 999)
+		# Moltiplica il danno o rendilo letale
 		final_damage *= 2
 		# print("BACKSTAB!")
 	
-	# Passa i dati dell'impatto all'HealthComponent per elaborare il danno e il rinculo
+	# 7. Passa i dati all'HealthComponent per elaborare danno e rinculo
 	health_component.take_damage(
 		final_damage, 
 		hitbox.global_position, 
