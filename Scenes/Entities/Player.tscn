@@ -2280,6 +2280,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_qidb7"]
 resource_name = "damaged_down"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -2295,6 +2296,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_70hv0"]
 resource_name = "damaged_left"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -2310,6 +2312,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_8flut"]
 resource_name = "damaged_right"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -2325,6 +2328,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_i2e8t"]
 resource_name = "damaged_up"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
