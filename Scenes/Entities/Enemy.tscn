@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://bgixgxciavuwn" path="res://Scripts/SFM/SharedStates/Damaged.gd" id="9_idouy"]
 [ext_resource type="Script" uid="uid://bha80461tsurh" path="res://Scripts/SFM/EnemyStates/EnemyInvestigate.gd" id="12_uihya"]
 [ext_resource type="Script" uid="uid://xa8yidw58mah" path="res://Scripts/SFM/EnemyStates/EnemyChase.gd" id="14_wihsy"]
-[ext_resource type="Script" uid="uid://bww2nwpgyajee" path="res://Scenes/Entities/EnemyAttack.gd" id="15_wihsy"]
+[ext_resource type="Script" uid="uid://bww2nwpgyajee" path="res://Scripts/SFM/EnemyStates/EnemyAttack.gd" id="15_wihsy"]
 [ext_resource type="Script" uid="uid://c633bm03dtehs" path="res://Scripts/Shared/Hitbox.gd" id="16_d7pqm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7pqm"]

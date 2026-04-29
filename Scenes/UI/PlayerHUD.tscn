@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bqmylgpsslcs8"]
+
+[ext_resource type="Script" uid="uid://cnvvkrjhb33ij" path="res://Scripts/UI/PlayerHUD.gd" id="1_dl1c2"]
+[ext_resource type="Texture2D" uid="uid://cab0wiac6p3fg" path="res://Assets/DG UI-HUD Exp/Health HUD system.png" id="2_jvqdk"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_13epk"]
+load_path = "res://.godot/imported/Health HUD system.png-65da3ab6edd3740a4dc9aaecfa4039cf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6awip"]
+atlas = SubResource("CompressedTexture2D_13epk")
+region = Rect2(239.02914, 182.79364, 96.79672, 27.46933)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1u4t"]
+atlas = ExtResource("2_jvqdk")
+region = Rect2(322.9362, 165.98734, 50.091583, 8.054932)
+
+[node name="PlayerHud" type="CanvasLayer" unique_id=1072169794]
+script = ExtResource("1_dl1c2")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1945115376]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=51729100]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=760117268]
+layout_mode = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1567246148]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_under = SubResource("AtlasTexture_6awip")
+texture_progress = SubResource("AtlasTexture_h1u4t")
+texture_progress_offset = Vector2(36, 15)
