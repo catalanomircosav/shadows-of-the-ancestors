@@ -1395,3 +1395,6 @@ script = ExtResource("16_d7pqm")
 position = Vector2(10, 0.5)
 shape = SubResource("RectangleShape2D_wihsy")
 disabled = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=154428097]
+path_postprocessing = 1

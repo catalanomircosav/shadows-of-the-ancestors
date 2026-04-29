@@ -3,20 +3,24 @@ class_name EnemyWanderState
 # ==============================================================================
 # SCRIPT: enemy_wander.gd
 # DESCRIZIONE: Stato di vagabondaggio. Il nemico sceglie una direzione casuale,
-# cammina per un breve periodo evitando i muri tramite un RayCast2D e ascolta
-# eventuali rumori. Al termine del tempo, torna in Idle.
+# cammina per un breve periodo. Se vede il player, sente un rumore, incontra 
+# un ostacolo o finisce il tempo, interrompe il vagabondaggio.
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
 # COSTANTI
 # ------------------------------------------------------------------------------
 const WANDER_SPEED: float = 40.0
-const WALL_CHECK_DIST: float = 20.0 # Nota: attualmente ignorata nella logica
+
+# Parametri di visione per rilevare il giocatore mentre pattuglia
+const VISION_RANGE: float = 160.0
+const CLOSE_VISION_RANGE: float = 60.0
 
 # ------------------------------------------------------------------------------
 # VARIABILI PRIVATE
 # ------------------------------------------------------------------------------
 var _enemy: EnemyBase
+var _player: Player
 var _raycast: RayCast2D
 var _direction: Vector2 = Vector2.ZERO
 var _wander_timer: float = 0.0
@@ -39,12 +43,36 @@ func _setup() -> void:
 
 ## Chiamato dalla StateMachine quando si entra in questo stato.
 func enter(_previous_state: StringName = &"", _data: Dictionary = {}) -> void:
-	# Sceglie subito una nuova direzione in cui iniziare a camminare
-	_pick_new_direction()
+	# Tenta di recuperare il riferimento al giocatore
+	_player = get_tree().get_first_node_in_group("player") as Player
+	
+	# Sceglie una direzione casuale SOLO all'inizio del vagabondaggio
+	var dirs: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
+	_direction = dirs.pick_random()
+	
+	# Imposta la durata della passeggiata
+	_wander_timer = randf_range(1.0, 3.0)
+	
+	# Aggiorna lo sguardo e l'animazione
+	_enemy.update_facing_direction(_direction)
+	_enemy.play_animation("run_" + _enemy.last_facing)
+
 
 ## Chiamato dalla StateMachine ad ogni frame fisico (in _physics_process).
 func physics_update(delta: float) -> void:
-	# 1. Controlla se ci sono rumori rilevanti nei dintorni
+	
+	# 1. CONTROLLO VISIONE DEL GIOCATORE
+	if is_instance_valid(_player):
+		var dist_to_player: float = _enemy.global_position.distance_to(_player.global_position)
+		var player_vis: float = VisibilityManager.get_visibility()
+		
+		if _enemy.has_line_of_sight(_player):
+			if dist_to_player <= CLOSE_VISION_RANGE or (dist_to_player <= VISION_RANGE and player_vis > 0.2):
+				_enemy.velocity = Vector2.ZERO
+				state_machine.transition_to(&"Chase")
+				return
+	
+	# 2. CONTROLLO RUMORI
 	var current_noise_radius: float = NoiseManager.get_noise_radius()
 	if current_noise_radius > 0.0:
 		var noise_pos: Vector2 = NoiseManager.get_noise_position()
@@ -56,40 +84,23 @@ func physics_update(delta: float) -> void:
 			state_machine.transition_to(&"Investigate")
 			return
 			
-	# 2. Aggiorna il timer di vagabondaggio
+	# 3. AGGIORNAMENTO TIMER VAGABONDAGGIO
 	_wander_timer -= delta
 	if _wander_timer <= 0.0:
+		_enemy.velocity = Vector2.ZERO
 		state_machine.transition_to(&"Idle")
 		return
 		
-	# 3. Aggiorna il raycast per controllare la presenza di ostacoli frontali
+	# 4. CONTROLLO OSTACOLI (Fix per evitare che giri su se stesso all'infinito)
 	_raycast.target_position = _direction * 15.0
 	_raycast.force_raycast_update()
 	
-	# Se rileva un ostacolo col raycast o con la fisica di collisione (muro), 
-	# si ferma e sceglie immediatamente una nuova direzione
+	# Se sbatte contro un muro, si arrende e si ferma subito per guardarsi intorno
 	if _raycast.is_colliding() or _enemy.is_on_wall():
 		_enemy.velocity = Vector2.ZERO
-		_pick_new_direction()
+		state_machine.transition_to(&"Idle")
 		return
 		
-	# 4. Applica il movimento nella direzione scelta
+	# 5. MOVIMENTO
 	_enemy.velocity = _direction * WANDER_SPEED
 	_enemy.move_and_slide()
-
-
-# ==============================================================================
-# METODI DI SUPPORTO (HELPERS)
-# ==============================================================================
-
-## Sceglie casualmente una delle 4 direzioni cardinali per il movimento.
-func _pick_new_direction() -> void:
-	var dirs: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
-	_direction = dirs.pick_random()
-	_wander_timer = randf_range(1.0, 3.0)
-	_update_anim()
-
-## Aggiorna la direzione dello sguardo dell'entità e l'animazione riprodotta.
-func _update_anim() -> void:
-	_enemy.update_facing_direction(_direction)
-	_enemy.play_animation("run_" + _enemy.last_facing)
