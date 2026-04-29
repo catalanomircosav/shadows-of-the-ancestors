@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ci0s22fbwhuvu"]
+
+[ext_resource type="PackedScene" uid="uid://h47b0ibajktc" path="res://Scenes/Entities/Skeleton.tscn" id="1_atj5c"]
+[ext_resource type="SpriteFrames" uid="uid://dk40okh7h64fo" path="res://Zombie_Frames.tres" id="2_amyam"]
+
+[node name="Enemy" unique_id=1083493604 instance=ExtResource("1_atj5c")]
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=614063124]
+sprite_frames = ExtResource("2_amyam")
+
+[node name="HealthComponent" parent="." index="2" unique_id=410424014]
+max_health = 100
+
+[node name="EnemyHitbox" parent="." index="7" unique_id=1509633704]
+damage = 20

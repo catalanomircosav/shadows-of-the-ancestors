@@ -4,7 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dc2an5r2pebhs" path="res://Scenes/Entities/Player.tscn" id="2_j0p05"]
 [ext_resource type="PackedScene" uid="uid://di8ugo7e72u5j" path="res://Scenes/Interactable/Vase.tscn" id="2_p70al"]
 [ext_resource type="Script" uid="uid://brknskc3dbirh" path="res://Scripts/UI/HUD.gd" id="3_5nsto"]
-[ext_resource type="PackedScene" uid="uid://h47b0ibajktc" path="res://Scenes/Entities/Enemy.tscn" id="3_gjpho"]
+[ext_resource type="PackedScene" uid="uid://h47b0ibajktc" path="res://Scenes/Entities/Skeleton.tscn" id="3_gjpho"]
+[ext_resource type="PackedScene" uid="uid://ci0s22fbwhuvu" path="res://Scenes/Entities/Zombie.tscn" id="5_y7y61"]
 [ext_resource type="PackedScene" uid="uid://bqmylgpsslcs8" path="res://Scenes/UI/PlayerHUD.tscn" id="6_45d1s"]
 
 [node name="World" type="Node2D" unique_id=431641064]
@@ -34,14 +35,15 @@ position = Vector2(249, 27)
 [node name="Vase3" parent="Interactable" unique_id=17081567 instance=ExtResource("2_p70al")]
 position = Vector2(120, 61)
 
-[node name="Enemy" parent="." unique_id=1083493604 instance=ExtResource("3_gjpho")]
-y_sort_enabled = true
-position = Vector2(132, 18)
-motion_mode = 1
-
 [node name="HUD" type="CanvasLayer" parent="." unique_id=646841185]
 script = ExtResource("3_5nsto")
 
 [node name="PlayerHud" parent="HUD" unique_id=1072169794 instance=ExtResource("6_45d1s")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="HUD" unique_id=98683186]
+
+[node name="Enemy" parent="." unique_id=1083493604 instance=ExtResource("3_gjpho")]
+position = Vector2(126, 20)
+
+[node name="Enemy2" parent="." unique_id=370339774 instance=ExtResource("5_y7y61")]
+position = Vector2(219, -65)

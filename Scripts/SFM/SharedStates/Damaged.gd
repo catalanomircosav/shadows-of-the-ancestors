@@ -63,7 +63,12 @@ func enter(_previous_state: StringName = &"", data: Dictionary = {}) -> void:
 		return
 
 	_owner.health.force_end_invincibility()
-	state_machine.transition_to(&"Idle")
+	if state_machine.has_node("Chase"):
+		# Se l'entità possiede lo stato Chase (è un nemico), entra in modalità combattimento!
+		state_machine.transition_to(&"Chase")
+	else:
+		# Se l'entità NON ha lo stato Chase (è il Player), torna in attesa dei comandi
+		state_machine.transition_to(&"Idle")
 
 ## Chiamato dalla StateMachine ad ogni frame fisico (in _physics_process).
 func physics_update(delta: float) -> void:

@@ -3,7 +3,8 @@ class_name EnemyBase
 # ==============================================================================
 # SCRIPT: Enemy.gd (EnemyBase)
 # DESCRIZIONE: Classe base per i nemici. Gestisce riferimenti comuni, 
-# la ricezione dei danni, la morte, le animazioni e la direzione dello sguardo.
+# la ricezione dei danni, la morte, le animazioni, la direzione dello sguardo
+# e l'aggiornamento della barra della vita (se presente).
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
@@ -13,6 +14,9 @@ class_name EnemyBase
 @onready var sprite: AnimatedSprite2D     = $AnimatedSprite2D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var state_machine: FSM           = $StateMachine
+
+# Cerca la barra della vita. Usa get_node_or_null così non crasha se a un nemico manca.
+@onready var health_bar: TextureProgressBar = get_node_or_null("TextureProgressBar")
 
 # ------------------------------------------------------------------------------
 # VARIABILI PUBBLICHE
@@ -27,9 +31,19 @@ var debug_los_color: Color = Color.WHITE
 # METODI DI CLASSE (BUILT-IN)
 # ==============================================================================
 func _ready() -> void:
-	# Connette i segnali emessi dall'HealthComponent
+	# Connette i segnali emessi dall'HealthComponent per danni e morte
 	health.damaged.connect(_on_damaged)
 	health.died.connect(_on_death)
+	
+	# Se il tuo HealthComponent ha un segnale che trasmette i cambi di vita, collegalo:
+	# Sostituisci "health_changed" con il nome esatto del tuo segnale se è diverso!
+	if health.has_signal("health_changed"):
+		health.health_changed.connect(_on_health_changed)
+	
+	# Configura la barra della vita all'avvio
+	if health_bar:
+		health_bar.max_value = health.max_health
+		health_bar.value = health.max_health
 
 
 # ==============================================================================
@@ -38,11 +52,26 @@ func _ready() -> void:
 
 ## Invocato quando l'Enemy subisce un danno, gestendo il knockback.
 func _on_damaged(kb_direction: Vector2, kb_force: float) -> void:
-	# Usa call_deferred per aspettare la fine del frame fisico prima di cambiare stato e animazione
+	# Fallback nel caso in cui il segnale non scattasse
+	if health_bar and not health.has_signal("health_changed"):
+		_on_health_changed(health.current_health, health.max_health)
+		
+	# Usa call_deferred per aspettare la fine del frame fisico
 	state_machine.call_deferred("transition_to", &"Damaged", {
 		"direction": kb_direction,
 		"force":     kb_force
 	}, true)
+
+## Invocato quando la vita cambia (per aggiornare la barra).
+func _on_health_changed(current_hp: int, _max_hp: int) -> void:
+	if not health_bar:
+		return
+		
+	health_bar.value = current_hp
+	
+	# Mostra la barra solo se il nemico è ferito ma ancora vivo
+	if current_hp < health.max_health and current_hp > 0:
+		health_bar.show()
 
 ## Invocato quando la salute scende a zero. Rimanda l'esecuzione a fine frame.
 func _on_death() -> void:
@@ -69,9 +98,23 @@ func _execute_death() -> void:
 	# Disabilita l'hurtbox per impedire ulteriori hit registrati
 	if has_node("Hurtbox/CollisionShape2D"):
 		$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
+		
+	# Nasconde la barra della vita (se esiste)
+	if health_bar:
+		health_bar.hide()
 	
-	# Avvia l'animazione di morte, attende la sua fine e rimuove l'istanza
-	play_animation("death", 1.0, true)
+	# Compone il nome dell'animazione di morte in base alla direzione
+	var anim_morte: String = "death_" + last_facing
+	
+	# Controlla se l'animazione direzionale esiste e la avvia
+	if anim_player.has_animation(anim_morte):
+		play_animation(anim_morte, 1.0, true)
+	else:
+		# Fallback: se manca la direzione, usa la morte di default
+		push_warning("EnemyBase: Animazione '%s' non trovata. Uso 'death' di default." % anim_morte)
+		play_animation("death", 1.0, true)
+		
+	# Attende la fine dell'animazione e rimuove l'istanza
 	await anim_player.animation_finished
 	queue_free()
 

@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://xa8yidw58mah" path="res://Scripts/SFM/EnemyStates/EnemyChase.gd" id="14_wihsy"]
 [ext_resource type="Script" uid="uid://bww2nwpgyajee" path="res://Scripts/SFM/EnemyStates/EnemyAttack.gd" id="15_wihsy"]
 [ext_resource type="Script" uid="uid://c633bm03dtehs" path="res://Scripts/Shared/Hitbox.gd" id="16_d7pqm"]
+[ext_resource type="Texture2D" uid="uid://dq6jt6ia3kmg0" path="res://Assets/DG UI-HUD Exp/lifebar system.png" id="17_0otgh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7pqm"]
 atlas = ExtResource("2_xrleg")
@@ -611,7 +612,112 @@ animations = [{
 "texture": SubResource("AtlasTexture_54k7x")
 }],
 "loop": false,
-"name": &"death",
+"name": &"death_down",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc8lj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5wyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yp63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c7m4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4hc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umsle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wn7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n05hl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_318ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54k7x")
+}],
+"loop": false,
+"name": &"death_left",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc8lj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5wyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yp63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c7m4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4hc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umsle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wn7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n05hl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_318ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54k7x")
+}],
+"loop": false,
+"name": &"death_right",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc8lj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5wyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yp63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c7m4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4hc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umsle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wn7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n05hl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_318ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54k7x")
+}],
+"loop": false,
+"name": &"death_up",
 "speed": 12.0
 }, {
 "frames": [{
@@ -1180,8 +1286,8 @@ tracks/0/keys = {
 "values": [&"damaged_up"]
 }
 
-[sub_resource type="Animation" id="Animation_qlal6"]
-resource_name = "death"
+[sub_resource type="Animation" id="Animation_jich8"]
+resource_name = "death_down"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1192,8 +1298,41 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"death"]
+"values": [&"death_down"]
 }
+
+[sub_resource type="Animation" id="Animation_y4h7q"]
+resource_name = "death_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"death_left"]
+}
+
+[sub_resource type="Animation" id="Animation_2fwjp"]
+resource_name = "death_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"death_right"]
+}
+
+[sub_resource type="Animation" id="Animation_0otgh"]
+resource_name = "death_up"
 
 [sub_resource type="Animation" id="Animation_6bs3c"]
 resource_name = "idle_down"
@@ -1326,7 +1465,10 @@ _data = {
 &"damaged_left": SubResource("Animation_5yix0"),
 &"damaged_right": SubResource("Animation_dascy"),
 &"damaged_up": SubResource("Animation_imorw"),
-&"death": SubResource("Animation_qlal6"),
+&"death_down": SubResource("Animation_jich8"),
+&"death_left": SubResource("Animation_y4h7q"),
+&"death_right": SubResource("Animation_2fwjp"),
+&"death_up": SubResource("Animation_0otgh"),
 &"idle_down": SubResource("Animation_6bs3c"),
 &"idle_left": SubResource("Animation_uoxpr"),
 &"idle_right": SubResource("Animation_idouy"),
@@ -1339,6 +1481,14 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wihsy"]
 size = Vector2(12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jich8"]
+atlas = ExtResource("17_0otgh")
+region = Rect2(34.00338, 119.07505, 28.05254, 3.5975494)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4h7q"]
+atlas = ExtResource("17_0otgh")
+region = Rect2(34.062954, 7.012943, 27.919525, 3.0074906)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1083493604]
 script = ExtResource("1_xeo28")
@@ -1353,6 +1503,7 @@ shape = SubResource("CircleShape2D_uoxpr")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=410424014]
 script = ExtResource("2_wovta")
+max_health = 50
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1725794995]
 collision_layer = 64
@@ -1394,6 +1545,7 @@ script = ExtResource("9_idouy")
 collision_layer = 16
 collision_mask = 8
 script = ExtResource("16_d7pqm")
+damage = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox" unique_id=1071918090]
 position = Vector2(10, 0.5)
@@ -1402,3 +1554,12 @@ disabled = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=154428097]
 path_postprocessing = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1670270336]
+offset_left = -9.0
+offset_top = -11.0
+offset_right = 9.0
+offset_bottom = -8.0
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_jich8")
+texture_progress = SubResource("AtlasTexture_y4h7q")
