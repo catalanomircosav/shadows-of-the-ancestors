@@ -32,16 +32,7 @@ func _on_damaged(kb_direction: Vector2, kb_force: float) -> void:
 	})
 
 func _on_death() -> void:
-	state_machine.set_physics_process(false)
-	state_machine.set_process(false)
-	velocity = Vector2.ZERO
-	if has_node("CollisionShape2D"):
-		$CollisionShape2D.set_deferred("disabled", true)
-	if has_node("Hurtbox/CollisionShape2D"):
-		$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
-	play_animation("death", 1.0, true)
-	await anim_player.animation_finished
-	queue_free()
+	state_machine.transition_to(&"Death")
 
 func update_facing_direction(direction: Vector2) -> void:
 	if direction.x > 0.0:
