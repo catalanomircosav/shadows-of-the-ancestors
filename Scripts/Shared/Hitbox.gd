@@ -10,6 +10,7 @@ class_name Hitbox
 # ------------------------------------------------------------------------------
 # VARIABILI ESPORTATE (Modificabili dall'editor per ogni entità)
 # ------------------------------------------------------------------------------
+signal hit_landed(target: Node)
 @export var damage: int = 10
 @export var knockback_strength: float = 200.0 
 
@@ -56,3 +57,4 @@ func already_hit(target: Node) -> bool:
 ## Registra un bersaglio nella lista di quelli colpiti per ignorarlo ai frame successivi.
 func register_hit(target: Node) -> void:
 	_hit_this_swing.append(target)
+	hit_landed.emit(target)

@@ -64,7 +64,6 @@ func take_damage(
 
 	# Sottrae la salute mantenendola nei limiti corretti (0 - max_health)
 	current_health = clampi(current_health - amount, 0, max_health)
-	print("HP Player: ", current_health, "/", max_health) # <--- Aggiungi questo
 	health_changed.emit(current_health, max_health)
 
 	# Se il colpo è letale, emette il segnale di morte e interrompe l'elaborazione

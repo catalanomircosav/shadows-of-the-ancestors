@@ -10,9 +10,9 @@ class_name EnemyChaseState
 # ------------------------------------------------------------------------------
 # COSTANTI
 # ------------------------------------------------------------------------------
-const CHASE_SPEED: float = 85.0
+const CHASE_SPEED: float = 50.0
 const ATTACK_RANGE: float = 15.0 
-const CLOSE_VISION_RANGE: float = 60.0
+const CLOSE_VISION_RANGE: float = 80.0
 const AGGRO_DROP_DISTANCE: float = 180.0 # Abbassato per renderlo più realistico
 
 # ------------------------------------------------------------------------------

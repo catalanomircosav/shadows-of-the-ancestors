@@ -3,18 +3,22 @@ class_name Player
 
 @export var acceleration: float = 80.0
 @export var friction: float     = 100.0
-@export var max_speed: float    = 190.0
-@export var run_speed: float    = 304.0
+@export var max_speed: float    = 70.0
+@export var run_speed: float    = 110.0
 @export var damaged_mult: float = 1.0
 
 var move_direction: Vector2 = Vector2.ZERO
 var last_facing: String = "down"
 
+# Array per tracciare i nemici vicini per lo stealth
+var enemies_in_proximity: Array = []
+
 @onready var anim_player: AnimationPlayer  = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D      = $AnimatedSprite2D
-@onready var sword_hitbox: Hitbox     = $SwordHitbox
+@onready var sword_hitbox: Hitbox          = $SwordHitbox
 @onready var health: HealthComponent       = $HealthComponent
-@onready var state_machine: FSM   = $StateMachine
+@onready var state_machine: FSM            = $StateMachine
+@onready var skills: SkillsComponent       = $SkillsComponent
 
 var light_multiplier: float = 1.0
 
@@ -24,12 +28,25 @@ func _ready() -> void:
 	NoiseManager.register_player(self)
 	health.damaged.connect(_on_damaged)
 	health.died.connect(_on_death)
+	sword_hitbox.hit_landed.connect(_on_sword_hit_landed)
 
 func _on_damaged(kb_direction: Vector2, kb_force: float) -> void:
 	state_machine.call_deferred("transition_to", &"Damaged", {
 		"direction": kb_direction,
 		"force":     kb_force * damaged_mult
 	})
+	
+func _on_sword_hit_landed(target: Node) -> void:
+	# Output di debug per la Forza
+	print("[DEBUG] Colpo a segno su: ", target.name, " -> +15 XP Forza")
+	skills.gain_strength_xp(15.0) 
+	
+	# Controllo Backstab
+	if "last_facing" in target:
+		if target.last_facing == self.last_facing:
+			# Output di debug per il Backstab (Stealth)
+			print("[DEBUG] BACKSTAB eseguito su: ", target.name, " -> +25 XP Stealth!")
+			skills.gain_stealth_xp(25.0)
 
 func _on_death() -> void:
 	state_machine.transition_to(&"Death")
@@ -50,3 +67,30 @@ func play_animation(anim_name: String, speed_scale: float = 1.0, force_restart: 
 		anim_player.stop()
 		anim_player.play(anim_name)
 		sprite.play(anim_name)
+
+# ==============================================================================
+# LOGICA STEALTH (PROSSIMITÀ)
+# ==============================================================================
+
+func _on_stealth_proximity_area_body_entered(body: Node2D) -> void:
+	# Invece di is_in_group("enemy"), controlliamo se è un'istanza della tua classe EnemyBase
+	if body is EnemyBase: 
+		print("[DEBUG] NEMICO RILEVATO (Via Script): ", body.name)
+		enemies_in_proximity.append(body)
+
+func _on_stealth_proximity_area_body_exited(body: Node2D) -> void:
+	if body in enemies_in_proximity:
+		enemies_in_proximity.erase(body)
+		print("[DEBUG-RADAR] Uscito dal raggio di: ", body.name)
+		
+		if state_machine and state_machine.current_state and state_machine.current_state.name == "Crouch":
+			var enemy_state_machine = body.get_node_or_null("StateMachine")
+			
+			if enemy_state_machine and enemy_state_machine.current_state:
+				var current_enemy_state = enemy_state_machine.current_state.name
+				
+				if current_enemy_state != "Chase" and current_enemy_state != "Attack":
+					print("[DEBUG-STEALTH] Aggiramento riuscito su ", body.name, ". Guadagno: 20 XP")
+					skills.gain_stealth_xp(20.0)
+				else:
+					print("[DEBUG-STEALTH] Aggiramento FALLITO: il nemico ti ha scoperto (Stato: ", current_enemy_state, ")")

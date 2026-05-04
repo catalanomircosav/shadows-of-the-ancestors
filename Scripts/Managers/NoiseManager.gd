@@ -9,7 +9,7 @@ extends Node
 # COSTANTI
 # ------------------------------------------------------------------------------
 const IMPULSE: Dictionary = {
-	"CROUCH": 20.0,
+	"CROUCH": 4.0,
 	"WALK": 60.0,
 	"RUN": 140.0,
 }

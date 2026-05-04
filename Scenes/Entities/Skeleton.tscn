@@ -1491,6 +1491,7 @@ atlas = ExtResource("17_0otgh")
 region = Rect2(34.062954, 7.012943, 27.919525, 3.0074906)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1083493604]
+motion_mode = 1
 script = ExtResource("1_xeo28")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=614063124]
@@ -1548,6 +1549,28 @@ script = ExtResource("16_d7pqm")
 damage = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox" unique_id=1071918090]
+position = Vector2(10, 0.5)
+shape = SubResource("RectangleShape2D_wihsy")
+disabled = true
+
+[node name="EnemyHitbox2" type="Area2D" parent="." unique_id=1910350697]
+collision_layer = 16
+collision_mask = 8
+script = ExtResource("16_d7pqm")
+damage = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox2" unique_id=1138944463]
+position = Vector2(10, 0.5)
+shape = SubResource("RectangleShape2D_wihsy")
+disabled = true
+
+[node name="EnemyHitbox3" type="Area2D" parent="." unique_id=1593613282]
+collision_layer = 16
+collision_mask = 8
+script = ExtResource("16_d7pqm")
+damage = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox3" unique_id=1151288082]
 position = Vector2(10, 0.5)
 shape = SubResource("RectangleShape2D_wihsy")
 disabled = true

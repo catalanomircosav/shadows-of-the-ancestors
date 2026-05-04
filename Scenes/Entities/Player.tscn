@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://cx3hd16pl0jrj" path="res://Scripts/UI/HealthComponent.gd" id="16_arntx"]
 [ext_resource type="Script" uid="uid://0q8j2wn52jeo" path="res://Scripts/Shared/Hurtbox.gd" id="17_lslt6"]
 [ext_resource type="Script" uid="uid://poh7djn0ns50" path="res://Scripts/SFM/PlayerStates/Death.gd" id="17_w67ft"]
+[ext_resource type="Script" uid="uid://c1r3bve84lble" path="res://Scenes/Entities/skills_component.gd" id="21_7n4p1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toelj"]
 atlas = ExtResource("2_j230w")
@@ -3077,6 +3078,9 @@ size = Vector2(17, 22.75)
 [sub_resource type="CircleShape2D" id="CircleShape2D_arntx"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7n4p1"]
+radius = 51.0
+
 [node name="Character" type="CharacterBody2D" unique_id=1588731666 groups=["player"]]
 y_sort_enabled = true
 motion_mode = 1
@@ -3149,3 +3153,15 @@ shape = SubResource("CircleShape2D_arntx")
 
 [node name="Damaged" type="Node2D" parent="." unique_id=1280364810]
 script = ExtResource("14_ulo2v")
+
+[node name="SkillsComponent" type="Node" parent="." unique_id=621133274]
+script = ExtResource("21_7n4p1")
+
+[node name="StealthProximityArea" type="Area2D" parent="." unique_id=1821005340]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StealthProximityArea" unique_id=1469358555]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_7n4p1")
+
+[connection signal="body_entered" from="StealthProximityArea" to="." method="_on_stealth_proximity_area_body_entered"]
+[connection signal="body_exited" from="StealthProximityArea" to="." method="_on_stealth_proximity_area_body_exited"]
