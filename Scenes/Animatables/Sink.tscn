@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://dsts72dyvah6m"]
+
+[ext_resource type="Texture2D" uid="uid://bagtarvy5o3jj" path="res://Assets/Set 1.1.png" id="1_1dehe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ml13"]
+atlas = ExtResource("1_1dehe")
+region = Rect2(64, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3esvk"]
+atlas = ExtResource("1_1dehe")
+region = Rect2(80, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjeg8"]
+atlas = ExtResource("1_1dehe")
+region = Rect2(96, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4ljc"]
+atlas = ExtResource("1_1dehe")
+region = Rect2(112, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qoigy"]
+atlas = ExtResource("1_1dehe")
+region = Rect2(128, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msxh2"]
+atlas = ExtResource("1_1dehe")
+region = Rect2(144, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrcdn"]
+atlas = ExtResource("1_1dehe")
+region = Rect2(160, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xybdl"]
+atlas = ExtResource("1_1dehe")
+region = Rect2(176, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_urhf3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ml13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3esvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjeg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4ljc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qoigy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_msxh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrcdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xybdl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Sink" type="Node2D" unique_id=648636295]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1382071417]
+sprite_frames = SubResource("SpriteFrames_urhf3")
+autoplay = "default"

@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://mjjcgaoi1or3"]
+
+[ext_resource type="Texture2D" uid="uid://bdnirtom5opok" path="res://Assets/Set 4.8.png" id="1_sreru"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgijt"]
+atlas = ExtResource("1_sreru")
+region = Rect2(0, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24nfx"]
+atlas = ExtResource("1_sreru")
+region = Rect2(48, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2aptf"]
+atlas = ExtResource("1_sreru")
+region = Rect2(96, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lmg4"]
+atlas = ExtResource("1_sreru")
+region = Rect2(144, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fycwf"]
+atlas = ExtResource("1_sreru")
+region = Rect2(192, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mje1y"]
+atlas = ExtResource("1_sreru")
+region = Rect2(240, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuekq"]
+atlas = ExtResource("1_sreru")
+region = Rect2(288, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rge3v"]
+atlas = ExtResource("1_sreru")
+region = Rect2(336, 0, 48, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s1plv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgijt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24nfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2aptf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lmg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fycwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mje1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xuekq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rge3v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1plv"]
+size = Vector2(8, 3)
+
+[sub_resource type="Gradient" id="Gradient_sreru"]
+offsets = PackedFloat32Array(0.0037593986, 1)
+colors = PackedColorArray(0.09411765, 1, 1, 1, 0.09411765, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pgijt"]
+gradient = SubResource("Gradient_sreru")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="FireTower" type="CharacterBody2D" unique_id=1421833543]
+position = Vector2(0, 2)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=714755791]
+position = Vector2(0, -22)
+sprite_frames = SubResource("SpriteFrames_s1plv")
+autoplay = "default"
+frame_progress = 0.74382067
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1606355856]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_s1plv")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1670780971]
+position = Vector2(1.1920929e-07, -19)
+scale = Vector2(0.73437494, 0.68749994)
+texture = SubResource("GradientTexture2D_pgijt")
