@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://cx3hd16pl0jrj" path="res://Scripts/UI/HealthComponent.gd" id="16_arntx"]
 [ext_resource type="Script" uid="uid://0q8j2wn52jeo" path="res://Scripts/Shared/Hurtbox.gd" id="17_lslt6"]
 [ext_resource type="Script" uid="uid://poh7djn0ns50" path="res://Scripts/SFM/PlayerStates/Death.gd" id="17_w67ft"]
-[ext_resource type="Script" uid="uid://c1r3bve84lble" path="res://Scenes/Entities/skills_component.gd" id="21_7n4p1"]
+[ext_resource type="Script" uid="uid://c1r3bve84lble" path="res://Scripts/Managers/skills_component.gd" id="21_7n4p1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toelj"]
 atlas = ExtResource("2_j230w")

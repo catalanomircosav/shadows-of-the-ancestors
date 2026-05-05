@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://c6h6h0e4clbw3"]
+
+[node name="SkillChoiseMenu" type="Control" unique_id=1652681374]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=833668642]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=577416808]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer" unique_id=1442338566]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/NinePatchRect" unique_id=300604958]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer" unique_id=673054163]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/NinePatchRect/VBoxContainer/Label" unique_id=317581183]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureButton" type="TextureButton" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer" unique_id=1858557253]
+layout_mode = 2
+
+[node name="TextureButton2" type="TextureButton" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer" unique_id=470812939]
+layout_mode = 2
