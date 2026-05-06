@@ -1,0 +1,95 @@
+extends Control
+
+# Riferimenti ai nodi dell'interfaccia (assicurati che i nomi coincidano con l'albero!)
+@onready var name_a = %NameA
+@onready var desc_a = %DescA
+
+@onready var name_b = %NameB
+@onready var desc_b = %DescB
+
+# Variabili per ricordare cosa stiamo scegliendo
+var current_skill_a_id: String = ""
+var current_skill_b_id: String = ""
+var player_skills_ref: Node = null # Riferimento allo skills_component del player
+
+# Database delle abilità (Testi e ID)
+var skill_database = {
+	"forza": {
+		5: [
+			{"id": "braccio_di_ferro", "name": "Braccio di Ferro", "desc": "Aumenta i danni base della spada del 15%."},
+			{"id": "pelle_dura", "name": "Pelle Dura", "desc": "Riduci i danni subiti da tutti gli attacchi."}
+		],
+		10: [
+			{"id": "forza_bruta", "name": "Forza Bruta", "desc": "Aumenta il Knockback dei colpi di spada."},
+			{"id": "sete_di_sangue", "name": "Sete di Sangue", "desc": "Uccidere un nemico ripristina un po' di Vita."}
+		],
+		15: [
+			{"id": "raggio_esteso", "name": "Raggio Esteso", "desc": "La hitbox della tua spada è più grande (colpisci da più lontano)."},
+			{"id": "raffica", "name": "Raffica", "desc": "Velocità di attacco aumentata."}
+		],
+		20: [
+			{"id": "esecutore", "name": "Esecutore", "desc": "Danni raddoppiati se il nemico ha meno del 30% di salute."},
+			{"id": "berserker", "name": "Berserker", "desc": "Se la tua salute scende sotto il 40%, danni raddoppiati e velocità aumentata."}
+		]
+	},
+	"stealth": {
+		5: [
+			{"id": "passo_felpato", "name": "Passo Felpato", "desc": "Ti muovi più velocemente mentre sei accovacciato."},
+			{"id": "mimetizzazione", "name": "Mimetizzazione", "desc": "Da accovacciato, il raggio di visione dei nemici si riduce."}
+		],
+		10: [
+			{"id": "punti_vitali", "name": "Punti Vitali", "desc": "Il Backstab infligge danni enormemente aumentati invece di uccidere all'istante."},
+			{"id": "via_di_fuga", "name": "Via di Fuga", "desc": "Se vieni scoperto, ottieni un bonus di velocità di scatto per 3 secondi."}
+		],
+		15: [
+			{"id": "passo_silenzioso", "name": "Passo Silenzioso", "desc": "Il rumore dei tuoi passi viene dimezzato."},
+			{"id": "aggiramento_tattico", "name": "Aggiramento Tattico", "desc": "Il radar stealth si allarga, dandoti XP da più lontano."}
+		],
+		20: [
+			{"id": "fantasma", "name": "Fantasma", "desc": "Dopo un Backstab con successo, diventi invisibile ai nemici per 4 secondi."},
+			{"id": "sesto_senso", "name": "Sesto Senso", "desc": "Rivela la direzione in cui guardano i nemici vicini."}
+		]
+	}
+}
+
+# Questa funzione verrà chiamata dall'HUD quando sali di livello
+func open_menu(tree_type: String, level: int, skills_component: Node) -> void:
+	player_skills_ref = skills_component
+	
+	# Controlla se esistono scelte per questo livello e questo albero
+	if skill_database.has(tree_type) and skill_database[tree_type].has(level):
+		var choices = skill_database[tree_type][level]
+		
+		# Imposta i testi della Scelta A
+		current_skill_a_id = choices[0]["id"]
+		name_a.text = choices[0]["name"]
+		desc_a.text = choices[0]["desc"]
+		
+		# Imposta i testi della Scelta B
+		current_skill_b_id = choices[1]["id"]
+		name_b.text = choices[1]["name"]
+		desc_b.text = choices[1]["desc"]
+		
+		# Metti il gioco in pausa e mostra il menù
+		get_tree().paused = true
+		show()
+	else:
+		push_error("Nessuna abilità trovata per " + tree_type + " al livello " + str(level))
+
+# Funzione interna per applicare la scelta
+func _confirm_choice(chosen_id: String) -> void:
+	if player_skills_ref:
+		player_skills_ref.unlock_skill(chosen_id)
+	
+	# Togli la pausa al gioco e distruggi questo menù
+	get_tree().paused = false
+	queue_free()
+
+func _on_texture_button_pressed() -> void:
+	print("BINGO! Il bottone funziona!")
+	_confirm_choice(current_skill_a_id)
+
+
+func _on_texture_button_2_pressed() -> void:
+	print("BINGO! Il bottone funziona!")
+	_confirm_choice(current_skill_b_id)

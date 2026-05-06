@@ -52,7 +52,6 @@ func physics_update(delta: float) -> void:
 		var distance: float = _enemy.global_position.distance_to(noise_pos)
 		
 		if distance <= (current_noise_radius * HEARING_MULTIPLIER):
-			print("[DEBUG] IL NEMICO HA SENTITO UN RUMORE! Distanza: ", distance) # <--- AGGIUNTO
 			_enemy.noise_target_position = noise_pos
 			state_machine.transition_to(&"Investigate")
 			return

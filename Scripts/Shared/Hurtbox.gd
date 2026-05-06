@@ -46,9 +46,9 @@ func _on_area_entered(hitbox: Area2D) -> void:
 	hitbox.register_hit(owner_node)
 	
 	# 5. Inizializza le variabili per il calcolo dei danni
-	var final_damage: int = hitbox.damage
+	var final_damage: int = hitbox.get_final_damage(owner_node) 
 	var is_backstab: bool = false
-	var attacking_entity: Node = hitbox.attacker 
+	var attacking_entity: Node = hitbox.attacker
 	
 	# 6. Logica del Backstab: si attiva se un nemico viene colpito dal player
 	if owner_node is EnemyBase and attacking_entity is Player:
@@ -60,10 +60,30 @@ func _on_area_entered(hitbox: Area2D) -> void:
 		# Moltiplica il danno o rendilo letale
 		final_damage *= 2
 		# print("BACKSTAB!")
+		
+	# ---- NUOVO: LOGICA "PELLE DURA" (DIFESA) ----
+	# Controlliamo se chi sta subendo il colpo (owner_node) ha le abilità
+	if "skills" in owner_node and owner_node.skills:
+		if owner_node.skills.has_skill("pelle_dura"):
+			final_damage -= 5
+			# Evitiamo che i danni diventino negativi finendo per curare l'entità
+			if final_damage < 0:
+				final_damage = 0
+	# ---------------------------------------------
+	
+	# ---- NUOVO: LOG DI DEBUG DEL COMBATTIMENTO ----
+	var attacker_name = attacking_entity.name if attacking_entity else "Sconosciuto"
+	var defender_name = owner_node.name
+	
+	if is_backstab:
+		print("[COMBAT] 🗡️ BACKSTAB! " + attacker_name + " infligge " + str(final_damage) + " danni a " + defender_name)
+	else:
+		print("[COMBAT] ⚔️ " + attacker_name + " infligge " + str(final_damage) + " danni a " + defender_name)
+	# -----------------------------------------------
 	
 	# 7. Passa i dati all'HealthComponent per elaborare danno e rinculo
 	health_component.take_damage(
 		final_damage, 
 		hitbox.global_position, 
-		hitbox.knockback_strength
+		hitbox.get_final_knockback()
 	)

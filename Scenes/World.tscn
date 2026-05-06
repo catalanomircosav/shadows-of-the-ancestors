@@ -3,7 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://bg23pak3v655e" path="res://Scenes/Dungeon.tscn" id="1_gjpho"]
 [ext_resource type="PackedScene" uid="uid://dc2an5r2pebhs" path="res://Scenes/Entities/Player.tscn" id="2_j0p05"]
 [ext_resource type="Script" uid="uid://brknskc3dbirh" path="res://Scripts/UI/HUD.gd" id="3_5nsto"]
+[ext_resource type="PackedScene" uid="uid://h47b0ibajktc" path="res://Scenes/Entities/Skeleton.tscn" id="5_45d1s"]
 [ext_resource type="PackedScene" uid="uid://bqmylgpsslcs8" path="res://Scenes/UI/PlayerHUD.tscn" id="6_45d1s"]
+[ext_resource type="PackedScene" uid="uid://ci0s22fbwhuvu" path="res://Scenes/Entities/Zombie.tscn" id="6_y7y61"]
 
 [node name="World" type="Node2D" unique_id=431641064]
 y_sort_enabled = true
@@ -25,3 +27,12 @@ script = ExtResource("3_5nsto")
 [node name="PlayerHud" parent="HUD" unique_id=1072169794 instance=ExtResource("6_45d1s")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="HUD" unique_id=98683186]
+
+[node name="Enemy" parent="." unique_id=1083493604 instance=ExtResource("5_45d1s")]
+position = Vector2(197, 20)
+
+[node name="Enemy2" parent="." unique_id=8808566 instance=ExtResource("6_y7y61")]
+position = Vector2(73, 28)
+
+[node name="Enemy3" parent="." unique_id=182638705 instance=ExtResource("5_45d1s")]
+position = Vector2(68, 79)

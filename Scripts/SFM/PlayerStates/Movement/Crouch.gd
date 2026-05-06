@@ -70,11 +70,18 @@ func physics_update(delta: float) -> void:
 
 	# 2. Ricalcola l'input per gestire il movimento accovacciato
 	input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	
-	_player.velocity = _player.velocity.move_toward(
-		input_dir * _player.max_speed * CROUCH_SPEED_RATIO,
-		_player.acceleration
-	)
+	# ---- NUOVO: LOGICA "PASSO FELPATO" ----
+	if _player.skills:
+		print("Skill possedute: ", _player.skills.unlocked_skills)
+	var current_speed_ratio = CROUCH_SPEED_RATIO
+	if _player.skills and _player.skills.has_skill("passo_felpato"):
+		print("LOGICA ATTIVA: Aumento velocità!")
+		_player.velocity = input_dir * (_player.max_speed * 0.8) 
+	else:
+		_player.velocity = _player.velocity.move_toward(
+			input_dir * _player.max_speed * CROUCH_SPEED_RATIO,
+			_player.acceleration
+		)
 	_player.move_and_slide()
 
 	# 3. Aggiorna animazioni e direzione in base al movimento

@@ -205,19 +205,27 @@ func has_line_of_sight(target: Node2D) -> bool:
 func can_see_player(player: Player, base_vision_range: float) -> bool:
 	var dist_to_player: float = global_position.distance_to(player.global_position)
 	
-	# 1. VANTAGGIO STEALTH (Crouch riduce SOLO la visibilità a distanza)
+	# 1. VANTAGGIO STEALTH (Crouch e Abilità)
 	var actual_range: float = base_vision_range
+	var actual_fov: float = FOV_ANGLE # Usiamo una variabile dinamica per il FOV
 	
 	if player.state_machine and player.state_machine.current_state:
 		if player.state_machine.current_state.name == "Crouch":
-			actual_range *= 0.55 # Sei il 45% più difficile da individuare da lontano
+			actual_range *= 0.55 # BASE: sei il 45% più difficile da individuare da lontano
+			
+			# =======================================================
+			# LOGICA ABILITA' STEALTH: MIMETIZZAZIONE
+			# =======================================================
+			if "skills" in player and player.skills and player.skills.has_skill("mimetizzazione"):
+				actual_range *= 0.50 # Dimezza ULTERIORMENTE la distanza visiva!
+				actual_fov *= 0.60   # Il nemico ha la "visione a tunnel" (es. FOV da 140° a 84°)
+			# =======================================================
 		
-	# Lontano dal raggio (scalato dal buio e dal crouch)
+	# Lontano dal raggio (scalato dal buio, dal crouch e dalla mimetizzazione)
 	if dist_to_player > actual_range:
 		return false
 		
 	# 2. PROSSIMITÀ ESTREMA (Ci sei sbattuto contro)
-	# Ora scatterà solo se la distanza è 4.0 o meno!
 	if dist_to_player <= INSTA_DETECT_RADIUS:
 		return has_line_of_sight(player)
 		
@@ -229,22 +237,17 @@ func can_see_player(player: Player, base_vision_range: float) -> bool:
 		"left":  facing_vector = Vector2.LEFT
 		"right": facing_vector = Vector2.RIGHT
 		
-	# FIX: Trasformiamo il vettore "locale" in una direzione "globale" 
-	# Questo risolve qualsiasi problema se il nodo del nemico è stato scalato (es. -1) o ruotato!
 	var global_facing: Vector2 = to_global(facing_vector) - global_position
 	global_facing = global_facing.normalized()
 		
 	var dir_to_player: Vector2 = global_position.direction_to(player.global_position)
 	var angle_diff: float = rad_to_deg(abs(global_facing.angle_to(dir_to_player)))
 	
-	# Se l'angolo è maggiore di metà FOV, il giocatore è alle spalle o di lato
-	if angle_diff > (FOV_ANGLE / 2.0):
+	# Se l'angolo è maggiore di metà del FOV DINAMICO, il giocatore non è visto
+	if angle_diff > (actual_fov / 2.0):
 		return false
 		
 	# 4. Muri in mezzo
 	var is_visible = has_line_of_sight(player)
-	if is_visible:
-		# Stampa un report completo per confermare che l'angolo ora è corretto!
-		print("[DEBUG] SCOPERTO! Sguardo: ", last_facing, " | Gradi di scarto: ", snapped(angle_diff, 0.1), "° (Max: 70°)")
 		
 	return is_visible

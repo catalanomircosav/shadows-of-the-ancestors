@@ -37,16 +37,29 @@ func _on_damaged(kb_direction: Vector2, kb_force: float) -> void:
 	})
 	
 func _on_sword_hit_landed(target: Node) -> void:
-	# Output di debug per la Forza
-	print("[DEBUG] Colpo a segno su: ", target.name, " -> +15 XP Forza")
 	skills.gain_strength_xp(15.0) 
 	
 	# Controllo Backstab
 	if "last_facing" in target:
 		if target.last_facing == self.last_facing:
 			# Output di debug per il Backstab (Stealth)
-			print("[DEBUG] BACKSTAB eseguito su: ", target.name, " -> +25 XP Stealth!")
 			skills.gain_stealth_xp(25.0)
+	# ---- NUOVO: LOGICA "SETE DI SANGUE" ----
+	# Se il bersaglio ha un HealthComponent, controlliamo se siamo curati alla sua morte
+	if target.has_node("HealthComponent") and skills.has_skill("sete_di_sangue"):
+		var enemy_health = target.get_node("HealthComponent")
+		# Ci colleghiamo al segnale 'died'. 
+		# IMPORTANTE: CONNECT_ONE_SHOT evita che ci curiamo più volte se colpiamo il cadavere
+		if not enemy_health.died.is_connected(_on_enemy_killed_for_heal):
+			enemy_health.died.connect(_on_enemy_killed_for_heal.bind(), CONNECT_ONE_SHOT)
+
+func _on_enemy_killed_for_heal() -> void:
+	# Controlla per sicurezza che il player non sia morto insieme al nemico
+	if health and not health.is_dead():
+		var heal_amount = 15 # Punti vita recuperati per uccisione
+		health.heal(heal_amount)
+		print("[COMBAT] 🩸 Sete di Sangue attivata! Il Player recupera " + str(heal_amount) + " HP.")
+
 
 func _on_death() -> void:
 	state_machine.transition_to(&"Death")
@@ -62,6 +75,31 @@ func update_facing_direction(direction: Vector2) -> void:
 		last_facing = "up"
 
 func play_animation(anim_name: String, speed_scale: float = 1.0, force_restart: bool = false) -> void:
+	
+	# =======================================================
+	# CONTROLLO ABILITA' FORZA - LIVELLO 15
+	# =======================================================
+	# Controlliamo se sta partendo un'animazione di attacco
+	if "attack" in anim_name.to_lower() and skills:
+		
+		# 1. RAFFICA (Velocità di attacco)
+		if skills.has_skill("raffica"):
+			speed_scale *= 1.40 # Aumenta la velocità del 40%
+			
+		# 2. RAGGIO ESTESO (Grandezza della spada)
+		if skills.has_skill("raggio_esteso"):
+			# Aumenta la dimensione (scala) dell'Area2D del 40%
+			sword_hitbox.scale = Vector2(1.4, 1.4) 
+		else:
+			# Se non ha l'abilità, si assicura che la dimensione sia normale (1.0)
+			sword_hitbox.scale = Vector2(1.0, 1.0)
+			
+		if skills.has_skill("berserker"):
+			# Controlliamo se la nostra salute è sotto il 40%
+			if health and health.current_health <= (health.max_health * 0.40):
+				speed_scale *= 1.80 # Diventi un frullatore!
+	# =======================================================
+	
 	anim_player.speed_scale = speed_scale
 	if force_restart or anim_player.current_animation != anim_name:
 		anim_player.stop()
@@ -75,13 +113,11 @@ func play_animation(anim_name: String, speed_scale: float = 1.0, force_restart: 
 func _on_stealth_proximity_area_body_entered(body: Node2D) -> void:
 	# Invece di is_in_group("enemy"), controlliamo se è un'istanza della tua classe EnemyBase
 	if body is EnemyBase: 
-		print("[DEBUG] NEMICO RILEVATO (Via Script): ", body.name)
 		enemies_in_proximity.append(body)
 
 func _on_stealth_proximity_area_body_exited(body: Node2D) -> void:
 	if body in enemies_in_proximity:
 		enemies_in_proximity.erase(body)
-		print("[DEBUG-RADAR] Uscito dal raggio di: ", body.name)
 		
 		if state_machine and state_machine.current_state and state_machine.current_state.name == "Crouch":
 			var enemy_state_machine = body.get_node_or_null("StateMachine")
@@ -90,7 +126,5 @@ func _on_stealth_proximity_area_body_exited(body: Node2D) -> void:
 				var current_enemy_state = enemy_state_machine.current_state.name
 				
 				if current_enemy_state != "Chase" and current_enemy_state != "Attack":
-					print("[DEBUG-STEALTH] Aggiramento riuscito su ", body.name, ". Guadagno: 20 XP")
 					skills.gain_stealth_xp(20.0)
-				else:
-					print("[DEBUG-STEALTH] Aggiramento FALLITO: il nemico ti ha scoperto (Stato: ", current_enemy_state, ")")
+				
