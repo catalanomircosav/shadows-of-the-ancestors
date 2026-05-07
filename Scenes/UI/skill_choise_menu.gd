@@ -42,12 +42,12 @@ var skill_database = {
 			{"id": "via_di_fuga", "name": "Via di Fuga", "desc": "Se vieni scoperto, ottieni un bonus di velocità di scatto per 3 secondi."}
 		],
 		15: [
-			{"id": "passo_silenzioso", "name": "Passo Silenzioso", "desc": "Il rumore dei tuoi passi viene dimezzato."},
-			{"id": "aggiramento_tattico", "name": "Aggiramento Tattico", "desc": "Il radar stealth si allarga, dandoti XP da più lontano."}
+			{"id": "passo_silenzioso", "name": "Passo Silenzioso", "desc": "Il rumore dei tuoi passi (area di allerta) viene dimezzato."},
+			{"id": "lama_rigeneratrice", "name": "Lama Rigeneratrice", "desc": "Ogni Backstab andato a segno ti cura di 10 HP."}
 		],
 		20: [
 			{"id": "fantasma", "name": "Fantasma", "desc": "Dopo un Backstab con successo, diventi invisibile ai nemici per 4 secondi."},
-			{"id": "sesto_senso", "name": "Sesto Senso", "desc": "Rivela la direzione in cui guardano i nemici vicini."}
+			{"id": "impercettibile", "name": "Impercettibile", "desc": "Correre o camminare non aumenta più il rumore o la tua visibilità. Sei furtivo come in Crouch."}
 		]
 	}
 }

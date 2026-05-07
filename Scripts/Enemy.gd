@@ -197,31 +197,48 @@ func has_line_of_sight(target: Node2D) -> bool:
 	return true
 
 
-# ==============================================================================
+## ==============================================================================
 # LOGICA DI VISIONE CON CONO VISIVO (FOV E STEALTH)
 # ==============================================================================
 
 ## Restituisce true se il player è nel cono visivo, abbastanza vicino e visibile.
 func can_see_player(player: Player, base_vision_range: float) -> bool:
+	# =======================================================
+	# LOGICA STEALTH LIVELLO 20: FANTASMA
+	# =======================================================
+	if "is_ghost" in player and player.is_ghost:
+		return false # Sei letteralmente invisibile, interrompe la vista!
+	# =======================================================
+	
 	var dist_to_player: float = global_position.distance_to(player.global_position)
 	
 	# 1. VANTAGGIO STEALTH (Crouch e Abilità)
 	var actual_range: float = base_vision_range
 	var actual_fov: float = FOV_ANGLE # Usiamo una variabile dinamica per il FOV
 	
+	# ---- NUOVO: LIVELLO 20 IMPERCETTIBILE (Vista) ----
+	var is_stealth_moving: bool = false
+	
 	if player.state_machine and player.state_machine.current_state:
 		if player.state_machine.current_state.name == "Crouch":
-			actual_range *= 0.55 # BASE: sei il 45% più difficile da individuare da lontano
+			is_stealth_moving = true
 			
-			# =======================================================
-			# LOGICA ABILITA' STEALTH: MIMETIZZAZIONE
-			# =======================================================
-			if "skills" in player and player.skills and player.skills.has_skill("mimetizzazione"):
-				actual_range *= 0.50 # Dimezza ULTERIORMENTE la distanza visiva!
-				actual_fov *= 0.60   # Il nemico ha la "visione a tunnel" (es. FOV da 140° a 84°)
-			# =======================================================
+	if "skills" in player and player.skills and player.skills.has_skill("impercettibile"):
+		is_stealth_moving = true # Tratta il player come se fosse SEMPRE accovacciato
+	# --------------------------------------------------
+	
+	if is_stealth_moving:
+		actual_range *= 0.55 # BASE: sei il 45% più difficile da individuare da lontano
 		
-	# Lontano dal raggio (scalato dal buio, dal crouch e dalla mimetizzazione)
+		# =======================================================
+		# LOGICA ABILITA' STEALTH: MIMETIZZAZIONE
+		# =======================================================
+		if "skills" in player and player.skills and player.skills.has_skill("mimetizzazione"):
+			actual_range *= 0.50 # Dimezza ULTERIORMENTE la distanza visiva!
+			actual_fov *= 0.60   # Il nemico ha la "visione a tunnel" (es. FOV da 140° a 84°)
+		# =======================================================
+		
+	# Lontano dal raggio (scalato dal buio, dal crouch, mimetizzazione e impercettibile)
 	if dist_to_player > actual_range:
 		return false
 		

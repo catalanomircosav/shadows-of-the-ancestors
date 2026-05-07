@@ -57,9 +57,28 @@ func _on_area_entered(hitbox: Area2D) -> void:
 			is_backstab = true
 			
 	if is_backstab:
-		# Moltiplica il danno o rendilo letale
-		final_damage *= 2
-		# print("BACKSTAB!")
+		# Moltiplicatore base del Backstab (es. danno doppio senza abilità)
+		var backstab_multiplier: float = 2.0
+		
+		# ---- LOGICA LIVELLO 10 STEALTH: PUNTI VITALI ----
+		# Controlliamo se chi attacca è il Player e se ha l'abilità
+		if attacking_entity is Player and attacking_entity.skills and attacking_entity.skills.has_skill("punti_vitali"):
+			backstab_multiplier = 4.0 # Danno quadruplicato!
+			print("[STEALTH] 🎯 Punti Vitali! Danno critico x4!")
+		# -------------------------------------------------
+		# ---- NUOVO: LOGICA LIVELLO 15 STEALTH: LAMA RIGENERATRICE ----
+		if attacking_entity is Player and attacking_entity.skills.has_skill("lama_rigeneratrice"):
+			if attacking_entity.health:
+				var heal_amount = 10
+				attacking_entity.health.heal(heal_amount)
+				print("[STEALTH] 🩸 Lama Rigeneratrice! +", heal_amount, " HP")
+		# -------------------------------------------------------------
+		# ---- NUOVO: LOGICA LIVELLO 20 STEALTH: FANTASMA ----
+		if attacking_entity is Player and attacking_entity.has_method("activate_ghost_mode"):
+			attacking_entity.activate_ghost_mode()
+		# ----------------------------------------------------
+		
+		final_damage = int(final_damage * backstab_multiplier)
 		
 	# ---- NUOVO: LOGICA "PELLE DURA" (DIFESA) ----
 	# Controlliamo se chi sta subendo il colpo (owner_node) ha le abilità

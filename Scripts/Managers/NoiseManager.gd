@@ -67,16 +67,34 @@ func register_player(player: Player) -> void:
 	_player = player
 
 ## Emette un rumore basato su uno stato di movimento specifico (es. "RUN").
+## Emette un rumore basato su uno stato di movimento specifico (es. "RUN").
 func emit_step(state: String) -> void:
 	# Ignora se lo stato non è mappato nel dizionario
 	if not IMPULSE.has(state):
 		return
 		
 	var impulse: float = IMPULSE[state]
+	var final_decay: float = DECAY_SPEED[state]
 	
-	# Emette il rumore solo se il giocatore è stato precedentemente registrato
+	# Assicuriamoci che il player sia registrato e abbia le skill
+	if _player != null and "skills" in _player and _player.skills:
+		
+		# ---- LOGICA LIVELLO 20: IMPERCETTIBILE ----
+		if _player.skills.has_skill("impercettibile"):
+			impulse = IMPULSE["CROUCH"]
+			final_decay = DECAY_SPEED["CROUCH"]
+			print("[STEALTH] Impercettibile attivo: rumore ridotto a ", impulse)
+		# ------------------------------------------
+		
+		# ---- LOGICA LIVELLO 15: PASSO SILENZIOSO ----
+		if _player.skills.has_skill("passo_silenzioso"):
+			impulse *= 0.5
+			print("[STEALTH] Passo Silenzioso attivo: rumore dimezzato a ", impulse)
+		# ---------------------------------------------
+
+	# Emette il rumore
 	if _player != null:
-		emit_noise(_player.global_position, impulse, DECAY_SPEED[state])
+		emit_noise(_player.global_position, impulse, final_decay)
 
 ## Registra un nuovo evento di rumore nel mondo, aggiornandone i parametri.
 func emit_noise(position: Vector2, impulse: float, decay: float = 3.0) -> void:

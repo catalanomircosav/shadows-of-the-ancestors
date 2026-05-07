@@ -28,13 +28,13 @@ var unlocked_skills: Dictionary = {
 	"punti_vitali": false,
 	"via_di_fuga": false,
 	"passo_silenzioso": false,
-	"aggiramento_tattico": false,
+	"lama_rigeneratrice": false, # <- AGGIORNATO (ex aggiramento_tattico)
 	"fantasma": false,
-	"sesto_senso": false
+	"impercettibile": false      # <- AGGIORNATO (ex sesto_senso)
 }
 
 @export_category("Strength")
-@export var strength_level: int = 1
+@export var strength_level: int = 4
 @export var strength_xp: float = 0.0
 @export var strength_xp_required: float = 100.0
 

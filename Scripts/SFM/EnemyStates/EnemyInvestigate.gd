@@ -43,6 +43,10 @@ func physics_update(delta: float) -> void:
 		# Deleghiamo il controllo visivo (Crouch, FOV, Muri) al nemico
 		if _enemy.can_see_player(_player, dynamic_vision_range):
 			_enemy.velocity = Vector2.ZERO
+			# ---- NUOVO: ATTIVA VIA DI FUGA ----
+			if _player.has_method("trigger_escape_route"):
+				_player.trigger_escape_route()
+			# -----------------------------------
 			state_machine.transition_to(&"Chase")
 			return
 				
@@ -58,36 +62,47 @@ func physics_update(delta: float) -> void:
 	# 3. LOGICA DI INVESTIGAZIONE (Movimento effettivo)
 	_investigate_timer -= delta
 	
+	# CONTROLLO ANTI-INCASTRO 1: Se siamo già vicinissimi al bersaglio, fermati!
+	if _enemy.global_position.distance_to(_enemy.noise_target_position) < 25.0:
+		_enemy.velocity = Vector2.ZERO
+		state_machine.transition_to(&"Idle")
+		return
+		
+	# Se il percorso è finito o il tempo è scaduto, passa in Idle
 	if _nav_agent.is_navigation_finished() or _investigate_timer <= 0.0:
 		_enemy.velocity = Vector2.ZERO
 		state_machine.transition_to(&"Idle")
 		return
 		
 	var next_path_position: Vector2 = _nav_agent.get_next_path_position()
-	var real_direction: Vector2 = _enemy.global_position.direction_to(next_path_position)
 	
-	_enemy.velocity = real_direction * INVESTIGATE_SPEED
-	_enemy.move_and_slide()
-	
+	# CONTROLLO ANTI-INCASTRO 2: Muoviti solo se il prossimo punto è lontano almeno un po'
+	if _enemy.global_position.distance_to(next_path_position) > 2.0:
+		var real_direction: Vector2 = _enemy.global_position.direction_to(next_path_position)
+		_enemy.velocity = real_direction * INVESTIGATE_SPEED
+		_enemy.move_and_slide()
+	else:
+		_enemy.velocity = Vector2.ZERO # Previene il tremolio se è sul punto esatto
+		
 	_update_movement_and_anim(false)
 	
+	# Se sbatte contro il muro nonostante il navigatore, riduciamo il timer drasticamente
+	# così si stufa in fretta e smette di correre contro il muro
 	if _enemy.is_on_wall():
-		_investigate_timer -= delta * 1.5
+		_investigate_timer -= delta * 3.0 
+
 
 func _update_movement_and_anim(is_just_turning: bool = false) -> void:
-	# 1. Determiniamo la direzione "reale"
-	var real_dir: Vector2 = _enemy.velocity.normalized()
-	
-	# Se è fermo (es. all'inizio, quando sente il rumore ma non è ancora partito)
-	# la direzione "reale" è verso il bersaglio del rumore.
-	if real_dir.length_squared() < 0.01:
-		real_dir = _enemy.global_position.direction_to(_enemy.noise_target_position)
-		
-	# 2. Deleghiamo l'aggiornamento della stringa (last_facing) al nemico
-	_enemy.update_facing_direction(real_dir)
-	
-	# 3. Riproduciamo l'animazione corretta usando last_facing
-	if is_just_turning:
+	# FIX: Se la velocità è zero (è bloccato o arrivato), DEVE fare l'animazione Idle, non Run!
+	if _enemy.velocity.length_squared() < 1.0:
+		var look_dir: Vector2 = _enemy.global_position.direction_to(_enemy.noise_target_position)
+		_enemy.update_facing_direction(look_dir)
 		_enemy.play_animation("idle_" + _enemy.last_facing)
 	else:
-		_enemy.play_animation("run_" + _enemy.last_facing)
+		var real_dir: Vector2 = _enemy.velocity.normalized()
+		_enemy.update_facing_direction(real_dir)
+		
+		if is_just_turning:
+			_enemy.play_animation("idle_" + _enemy.last_facing)
+		else:
+			_enemy.play_animation("run_" + _enemy.last_facing)

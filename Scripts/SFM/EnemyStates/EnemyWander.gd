@@ -47,6 +47,10 @@ func physics_update(delta: float) -> void:
 		# Deleghiamo il controllo visivo (Crouch, FOV, Muri) al nemico
 		if _enemy.can_see_player(_player, dynamic_vision_range):
 			_enemy.velocity = Vector2.ZERO
+			# ---- NUOVO: ATTIVA VIA DI FUGA ----
+			if _player.has_method("trigger_escape_route"):
+				_player.trigger_escape_route()
+			# -----------------------------------
 			state_machine.transition_to(&"Chase")
 			return
 	

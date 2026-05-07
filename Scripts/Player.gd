@@ -7,8 +7,10 @@ class_name Player
 @export var run_speed: float    = 110.0
 @export var damaged_mult: float = 1.0
 
+var _is_escaping: bool = false
 var move_direction: Vector2 = Vector2.ZERO
 var last_facing: String = "down"
+var is_ghost: bool = false
 
 # Array per tracciare i nemici vicini per lo stealth
 var enemies_in_proximity: Array = []
@@ -127,4 +129,44 @@ func _on_stealth_proximity_area_body_exited(body: Node2D) -> void:
 				
 				if current_enemy_state != "Chase" and current_enemy_state != "Attack":
 					skills.gain_stealth_xp(20.0)
+					
+# ==============================================================================
+# ABILITA' STEALTH
+# ==============================================================================
+
+func trigger_escape_route() -> void:
+	# Controlla se ha la skill e se non sta già scappando
+	if skills and skills.has_skill("via_di_fuga") and not _is_escaping:
+		_is_escaping = true
+		print("[STEALTH] 🚨 SCOPERTO! Via di Fuga attiva: Velocità aumentata per 3 sec!")
+		
+		# Salviamo le velocità originali
+		var original_max = max_speed
+		var original_run = run_speed
+		
+		# Aumentiamo la velocità del 60%
+		max_speed *= 1.6
+		run_speed *= 1.6
+		
+		# Aspettiamo 3 secondi
+		await get_tree().create_timer(3.0).timeout
+		
+		# Ripristiniamo la situazione normale
+		max_speed = original_max
+		run_speed = original_run
+		_is_escaping = false
 				
+func activate_ghost_mode() -> void:
+	if skills and skills.has_skill("fantasma") and not is_ghost:
+		is_ghost = true
+		print("[STEALTH] 👻 FANTASMA! Sei invisibile per 4 secondi!")
+		
+		# Effetto visivo: rendiamo il player semi-trasparente!
+		sprite.modulate.a = 0.4
+		
+		await get_tree().create_timer(4.0).timeout
+		
+		# Fine invisibilità
+		sprite.modulate.a = 1.0
+		is_ghost = false
+		print("[STEALTH] 👁️ Tornerai ad essere visibile.")

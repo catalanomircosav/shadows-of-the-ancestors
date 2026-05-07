@@ -2,70 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="1_k4xcq"]
 [ext_resource type="Script" uid="uid://crxx8cwq7sgt7" path="res://Scenes/UI/skill_choise_menu.gd" id="1_y2np2"]
+[ext_resource type="FontFile" uid="uid://brnxbvirdeqsq" path="res://Assets/DG UI-HUD Exp/TeamSnow.ttf" id="3_idk7k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4xcq"]
 atlas = ExtResource("1_k4xcq")
 region = Rect2(289.94748, 274.12204, 139.48575, 155.34702)
-
-[sub_resource type="FontFile" id="FontFile_idk7k"]
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/17/0/ascent = 0.0
-cache/0/17/0/descent = 0.0
-cache/0/17/0/underline_position = 0.0
-cache/0/17/0/underline_thickness = 0.0
-cache/0/17/0/scale = 1.0
-cache/0/18/0/ascent = 0.0
-cache/0/18/0/descent = 0.0
-cache/0/18/0/underline_position = 0.0
-cache/0/18/0/underline_thickness = 0.0
-cache/0/18/0/scale = 1.0
-cache/0/19/0/ascent = 0.0
-cache/0/19/0/descent = 0.0
-cache/0/19/0/underline_position = 0.0
-cache/0/19/0/underline_thickness = 0.0
-cache/0/19/0/scale = 1.0
-cache/0/20/0/ascent = 0.0
-cache/0/20/0/descent = 0.0
-cache/0/20/0/underline_position = 0.0
-cache/0/20/0/underline_thickness = 0.0
-cache/0/20/0/scale = 1.0
-cache/0/21/0/ascent = 0.0
-cache/0/21/0/descent = 0.0
-cache/0/21/0/underline_position = 0.0
-cache/0/21/0/underline_thickness = 0.0
-cache/0/21/0/scale = 1.0
-cache/0/22/0/ascent = 0.0
-cache/0/22/0/descent = 0.0
-cache/0/22/0/underline_position = 0.0
-cache/0/22/0/underline_thickness = 0.0
-cache/0/22/0/scale = 1.0
-cache/0/23/0/ascent = 0.0
-cache/0/23/0/descent = 0.0
-cache/0/23/0/underline_position = 0.0
-cache/0/23/0/underline_thickness = 0.0
-cache/0/23/0/scale = 1.0
-cache/0/24/0/ascent = 0.0
-cache/0/24/0/descent = 0.0
-cache/0/24/0/underline_position = 0.0
-cache/0/24/0/underline_thickness = 0.0
-cache/0/24/0/scale = 1.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_ulw8p"]
-font = SubResource("FontFile_idk7k")
-font_size = 24
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y2np2"]
 atlas = ExtResource("1_k4xcq")
@@ -109,59 +50,65 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer" unique_id=1442338566]
-custom_minimum_size = Vector2(400, 250)
+custom_minimum_size = Vector2(300, 150)
 layout_mode = 2
 texture = SubResource("AtlasTexture_k4xcq")
 region_rect = Rect2(290.133, 275.25266, 138.8606, 153.53693)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/NinePatchRect" unique_id=300604958]
+layout_direction = 2
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 83.0
-offset_top = 3.0
-offset_right = 83.0
-offset_bottom = 3.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -57.0
+offset_right = 195.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer" unique_id=673054163]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_idk7k")
+theme_override_font_sizes/font_size = 16
 text = "Scegli un potenziamento"
-label_settings = SubResource("LabelSettings_ulw8p")
+horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/NinePatchRect/VBoxContainer/Label" unique_id=317581183]
-layout_mode = 0
-offset_left = -76.0
-offset_top = 48.0
-offset_right = 328.0
-offset_bottom = 212.0
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/NinePatchRect/VBoxContainer" unique_id=317581183]
+layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = -100
 alignment = 1
 
-[node name="OptionA" type="VBoxContainer" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer" unique_id=1561709330]
+[node name="OptionA" type="VBoxContainer" parent="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer" unique_id=1561709330]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 mouse_filter = 2
 
-[node name="NameA" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer/OptionA" unique_id=264132772]
+[node name="NameA" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer/OptionA" unique_id=264132772]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_idk7k")
+theme_override_font_sizes/font_size = 8
 text = "Braccio di ferro"
 horizontal_alignment = 1
 
-[node name="DescA" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer/OptionA" unique_id=983896774]
+[node name="DescA" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer/OptionA" unique_id=983896774]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 100)
+custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_idk7k")
+theme_override_font_sizes/font_size = 8
 text = "Aumenta i danni del 15%"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer/OptionA" unique_id=1858557253]
+[node name="TextureButton" type="TextureButton" parent="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer/OptionA" unique_id=1858557253]
 custom_minimum_size = Vector2(15, 15)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -170,25 +117,30 @@ texture_pressed = SubResource("AtlasTexture_idk7k")
 ignore_texture_size = true
 stretch_mode = 3
 
-[node name="OptionB" type="VBoxContainer" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer" unique_id=83274927]
+[node name="OptionB" type="VBoxContainer" parent="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer" unique_id=83274927]
 layout_mode = 2
+size_flags_horizontal = 6
 mouse_filter = 2
 
-[node name="NameB" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer/OptionB" unique_id=1924238712]
+[node name="NameB" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer/OptionB" unique_id=1924238712]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_idk7k")
+theme_override_font_sizes/font_size = 8
 text = "Pelle Dura"
 horizontal_alignment = 1
 
-[node name="DescB" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer/OptionB" unique_id=42878192]
+[node name="DescB" type="Label" parent="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer/OptionB" unique_id=42878192]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 100)
+custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_idk7k")
+theme_override_font_sizes/font_size = 8
 text = "Riduci i danni subiti di 5"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer/OptionB" unique_id=331568496]
+[node name="TextureButton" type="TextureButton" parent="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer/OptionB" unique_id=331568496]
 custom_minimum_size = Vector2(15, 15)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -197,5 +149,5 @@ texture_pressed = SubResource("AtlasTexture_idk7k")
 ignore_texture_size = true
 stretch_mode = 3
 
-[connection signal="pressed" from="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer/OptionA/TextureButton" to="." method="_on_texture_button_pressed"]
-[connection signal="pressed" from="CenterContainer/NinePatchRect/VBoxContainer/Label/HBoxContainer/OptionB/TextureButton" to="." method="_on_texture_button_2_pressed"]
+[connection signal="pressed" from="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer/OptionA/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="CenterContainer/NinePatchRect/VBoxContainer/HBoxContainer/OptionB/TextureButton" to="." method="_on_texture_button_2_pressed"]
