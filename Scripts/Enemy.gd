@@ -266,9 +266,9 @@ func can_see_player(player: Player, base_vision_range: float) -> bool:
 		return false
 		
 	# 4. Muri in mezzo
-	var is_visible = has_line_of_sight(player)
+	var has_los = has_line_of_sight(player)
 		
-	return is_visible
+	return has_los
 	
 # ==============================================================================
 # GESTIONE AUDIO

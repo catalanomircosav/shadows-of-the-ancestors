@@ -23,5 +23,3 @@ func _on_btn_play_pressed() -> void:
 func _on_btn_exit_pressed() -> void:
 	UIAudioManager.play_click()
 	get_tree().paused = false
-	
-	var errore = get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")

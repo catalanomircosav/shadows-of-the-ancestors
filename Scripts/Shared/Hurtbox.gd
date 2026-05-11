@@ -91,7 +91,9 @@ func _on_area_entered(hitbox: Area2D) -> void:
 	# ---------------------------------------------
 	
 	# ---- NUOVO: LOG DI DEBUG DEL COMBATTIMENTO ----
-	var attacker_name = attacking_entity.name if attacking_entity else "Sconosciuto"
+	var attacker_name = "Sconosciuto"
+	if attacking_entity:
+		attacker_name = attacking_entity.name
 	var defender_name = owner_node.name
 	
 	if is_backstab:

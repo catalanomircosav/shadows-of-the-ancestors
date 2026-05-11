@@ -11,7 +11,6 @@ const CLOSE_VISION_RANGE: float = 80.0
 var _enemy: EnemyBase
 var _player: Player
 var _nav_agent: NavigationAgent2D
-var _direction_anim: Vector2 = Vector2.ZERO
 var _investigate_timer: float = 0.0
 
 var _is_reacting: bool = false

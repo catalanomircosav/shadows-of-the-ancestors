@@ -77,7 +77,7 @@ func physics_update(delta: float) -> void:
 		_player.velocity = input_dir * (_player.max_speed * 0.8) 
 	else:
 		_player.velocity = _player.velocity.move_toward(
-			input_dir * _player.max_speed * CROUCH_SPEED_RATIO,
+			input_dir * _player.max_speed * current_speed_ratio,
 			_player.acceleration
 		)
 	_player.move_and_slide()
