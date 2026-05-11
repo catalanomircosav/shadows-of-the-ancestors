@@ -61,7 +61,7 @@ unique_name_in_owner = true
 layout_mode = 2
 texture_under = SubResource("AtlasTexture_6awip")
 texture_progress = SubResource("AtlasTexture_h1u4t")
-texture_progress_offset = Vector2(36, 16)
+texture_progress_offset = Vector2(36, 15)
 
 [node name="StrengthBar" type="TextureProgressBar" parent="MarginContainer/HudLayout" unique_id=1729455486]
 unique_name_in_owner = true

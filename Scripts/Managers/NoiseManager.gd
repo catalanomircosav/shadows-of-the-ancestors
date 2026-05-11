@@ -10,8 +10,8 @@ extends Node
 # ------------------------------------------------------------------------------
 const IMPULSE: Dictionary = {
 	"CROUCH": 4.0,
-	"WALK": 60.0,
-	"RUN": 140.0,
+	"WALK": 20.0,
+	"RUN": 50.0,
 }
 
 const DECAY_SPEED: Dictionary = {

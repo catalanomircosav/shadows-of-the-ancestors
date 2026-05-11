@@ -78,4 +78,5 @@ texture_normal = SubResource("AtlasTexture_deree")
 texture_pressed = SubResource("AtlasTexture_yq7um")
 
 [connection signal="pressed" from="CenterContainer/NinePatchRect/VBoxContainer/BtnPlay" to="." method="_on_btn_play_pressed"]
+[connection signal="pressed" from="CenterContainer/NinePatchRect/VBoxContainer/BtnOption" to="." method="_on_btn_option_pressed"]
 [connection signal="pressed" from="CenterContainer/NinePatchRect/VBoxContainer/BtnExit" to="." method="_on_btn_exit_pressed"]

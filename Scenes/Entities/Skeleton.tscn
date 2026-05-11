@@ -1593,7 +1593,9 @@ texture_progress = SubResource("AtlasTexture_y4h7q")
 
 [node name="SfxHit" type="AudioStreamPlayer2D" parent="SFX" unique_id=105213776]
 stream = ExtResource("18_jich8")
+bus = &"SFX"
 
 [node name="SfxDeath" type="AudioStreamPlayer2D" parent="SFX" unique_id=466485221]
 stream = ExtResource("19_y4h7q")
 volume_db = -19.765
+bus = &"SFX"

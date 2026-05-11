@@ -99,6 +99,8 @@ texture_pressed = SubResource("AtlasTexture_wiy64")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=871668547]
 stream = ExtResource("4_u7lva")
 autoplay = true
+bus = &"Music"
 
+[connection signal="pressed" from="CenterContainer/HBoxContainer/BtnOptions" to="." method="_on_btn_options_pressed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/BtnAvvio" to="." method="_on_btn_avvio_pressed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/BtnExit" to="." method="_on_btn_exit_pressed"]

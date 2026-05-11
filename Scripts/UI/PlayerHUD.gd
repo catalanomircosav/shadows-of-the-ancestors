@@ -30,6 +30,9 @@ func _ready() -> void:
 		player.skills.strength_skill_point_earned.connect(_on_strength_point)
 		player.skills.stealth_skill_point_earned.connect(_on_stealth_point)
 		
+		player.skills.strength_leveled_up.connect(_on_level_up)
+		player.skills.stealth_leveled_up.connect(_on_level_up)
+		
 		# Inizializza le barre al valore di partenza
 		_on_strength_xp_changed(player.skills.strength_xp, player.skills.strength_xp_required)
 		_on_stealth_xp_changed(player.skills.stealth_xp, player.skills.stealth_xp_required)
@@ -75,3 +78,27 @@ func _spawn_menu(tree_type: String, level: int) -> void:
 	
 	# 3. Avvia la logica del menù passando le variabili giuste dal player appena trovato
 	menu_instance.open_menu(tree_type, level, player.skills)
+	
+	# ==========================================
+# FEEDBACK AUDIOVISIVO
+# ==========================================
+
+# ==========================================
+# FEEDBACK AUDIOVISIVO
+# ==========================================
+
+func _on_level_up(new_level: int) -> void:
+	print("--- TEST LEVEL UP ---")
+	print("1. HUD: Segnale ricevuto! Nuovo livello: ", new_level)
+	
+	var player = get_tree().get_first_node_in_group("player")
+	
+	if player:
+		print("2. HUD: Player trovato nella scena!")
+		if player.has_method("play_sfx"):
+			print("3. HUD: Il Player ha la funzione play_sfx. La chiamo ora!")
+			player.play_sfx("SfxLevelUp")
+		else:
+			print("ERRORE: Il Player non ha la funzione 'play_sfx'!")
+	else:
+		print("ERRORE: Nessun player trovato nel gruppo 'player'!")

@@ -23,6 +23,19 @@
 [ext_resource type="Script" uid="uid://c1r3bve84lble" path="res://Scripts/Managers/skills_component.gd" id="21_7n4p1"]
 [ext_resource type="AudioStream" uid="uid://cvumedwjaa5e0" path="res://music/sword sound.wav" id="22_pid1y"]
 [ext_resource type="AudioStream" uid="uid://cyrfxniutkruo" path="res://music/power attack.mp3" id="23_0aity"]
+[ext_resource type="AudioStream" uid="uid://cew2liyds6je7" path="res://music/level_up.wav" id="24_hgdn8"]
+[ext_resource type="AudioStream" uid="uid://bqhti042maouy" path="res://music/player_death.wav" id="25_t6xah"]
+[ext_resource type="AudioStream" uid="uid://0mce5m10k7r" path="res://music/player_hurt.mp3" id="26_yheof"]
+[ext_resource type="AudioStream" uid="uid://bcahkawjw2m28" path="res://music/footsteps/Steps_floor-001.ogg" id="27_jpvho"]
+[ext_resource type="AudioStream" uid="uid://2o3eeo1pa5u1" path="res://music/footsteps/Steps_floor-002.ogg" id="28_toelj"]
+[ext_resource type="AudioStream" uid="uid://cfxrgewlk3hqt" path="res://music/footsteps/Steps_floor-003.ogg" id="29_l8r55"]
+[ext_resource type="AudioStream" uid="uid://b60on2ugufmtr" path="res://music/footsteps/Steps_floor-004.ogg" id="30_xilvn"]
+[ext_resource type="AudioStream" uid="uid://ufdemxbb5vf5" path="res://music/footsteps/Steps_floor-005.ogg" id="31_sgkpy"]
+[ext_resource type="AudioStream" uid="uid://cb2553iht6t76" path="res://music/footsteps/Steps_floor-006.ogg" id="32_jmt84"]
+[ext_resource type="AudioStream" uid="uid://dyrsa8s2nj8jr" path="res://music/footsteps/Steps_floor-007.ogg" id="33_55uah"]
+[ext_resource type="AudioStream" uid="uid://doalxlfaxi2cg" path="res://music/footsteps/Steps_floor-008.ogg" id="34_lro1s"]
+[ext_resource type="AudioStream" uid="uid://cxcg1owcuqhby" path="res://music/footsteps/Steps_floor-009.ogg" id="35_m16cr"]
+[ext_resource type="AudioStream" uid="uid://bwa3b8abu26gw" path="res://music/footsteps/Steps_floor-010.ogg" id="36_seo8a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toelj"]
 atlas = ExtResource("2_j230w")
@@ -2935,6 +2948,26 @@ tracks/0/keys = {
 "update": 1,
 "values": [&"run_down"]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.66),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}, {
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}, {
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_ksbbd"]
 resource_name = "run_left"
@@ -2949,6 +2982,26 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"run_left"]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.66),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}, {
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}, {
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_glx4g"]
@@ -2965,6 +3018,26 @@ tracks/0/keys = {
 "update": 1,
 "values": [&"run_right"]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.66),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}, {
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}, {
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_miouo"]
 resource_name = "run_up"
@@ -2979,6 +3052,26 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"run_up"]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.66),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}, {
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}, {
+"args": ["SfxFootsteps"],
+"method": &"play_sfx"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_teras"]
@@ -3083,6 +3176,19 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7n4p1"]
 radius = 51.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_noro0"]
+streams_count = 10
+stream_0/stream = ExtResource("27_jpvho")
+stream_1/stream = ExtResource("28_toelj")
+stream_2/stream = ExtResource("29_l8r55")
+stream_3/stream = ExtResource("30_xilvn")
+stream_4/stream = ExtResource("31_sgkpy")
+stream_5/stream = ExtResource("32_jmt84")
+stream_6/stream = ExtResource("33_55uah")
+stream_7/stream = ExtResource("34_lro1s")
+stream_8/stream = ExtResource("35_m16cr")
+stream_9/stream = ExtResource("36_seo8a")
+
 [node name="Character" type="CharacterBody2D" unique_id=1588731666 groups=["player"]]
 y_sort_enabled = true
 motion_mode = 1
@@ -3169,9 +3275,28 @@ shape = SubResource("CircleShape2D_7n4p1")
 
 [node name="SfxLightAttack" type="AudioStreamPlayer2D" parent="SFX" unique_id=1140861513]
 stream = ExtResource("22_pid1y")
+bus = &"SFX"
 
 [node name="SfxPowerAttack" type="AudioStreamPlayer2D" parent="SFX" unique_id=527070523]
 stream = ExtResource("23_0aity")
+bus = &"SFX"
+
+[node name="SfxLevelUp" type="AudioStreamPlayer2D" parent="SFX" unique_id=1975447789]
+stream = ExtResource("24_hgdn8")
+bus = &"SFX"
+
+[node name="SfxDeath" type="AudioStreamPlayer2D" parent="SFX" unique_id=841873108]
+stream = ExtResource("25_t6xah")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="SfxHit" type="AudioStreamPlayer2D" parent="SFX" unique_id=1883877764]
+stream = ExtResource("26_yheof")
+bus = &"SFX"
+
+[node name="SfxFootsteps" type="AudioStreamPlayer2D" parent="SFX" unique_id=1612930536]
+stream = SubResource("AudioStreamRandomizer_noro0")
+volume_db = -15.0
 
 [connection signal="body_entered" from="StealthProximityArea" to="." method="_on_stealth_proximity_area_body_entered"]
 [connection signal="body_exited" from="StealthProximityArea" to="." method="_on_stealth_proximity_area_body_exited"]

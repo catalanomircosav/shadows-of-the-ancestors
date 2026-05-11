@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://bheqfo4w58nlf"]
+
+[ext_resource type="Script" uid="uid://dofrqth748tqc" path="res://options_menu.gd" id="1_caj0f"]
+[ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="2_yjqj2"]
+[ext_resource type="FontFile" uid="uid://brnxbvirdeqsq" path="res://Assets/DG UI-HUD Exp/TeamSnow.ttf" id="3_x3x5h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tdd8"]
+atlas = ExtResource("2_yjqj2")
+region = Rect2(290.99057, 274.9329, 138.06265, 154.33484)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2riy"]
+atlas = ExtResource("2_yjqj2")
+region = Rect2(621.89923, 381.82178, 20.162231, 20.110077)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dod7e"]
+atlas = ExtResource("2_yjqj2")
+region = Rect2(669.9176, 381.92273, 20.172607, 20.115295)
+
+[node name="OptionsMenu" type="Control" unique_id=391680386]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_caj0f")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1682497356]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.47058824)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1949432773]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 27.999994
+offset_right = 418.0
+offset_bottom = 198.0
+scale = Vector2(1.0772359, 1.3177497)
+texture = SubResource("AtlasTexture_3tdd8")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=163114995]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=367417947]
+layout_mode = 2
+
+[node name="LabelMusica" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1261166040]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x3x5h")
+text = "MUSICA"
+
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/VBoxContainer" unique_id=34992169]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="LabelEffetti" type="Label" parent="MarginContainer/VBoxContainer" unique_id=31373457]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x3x5h")
+text = "EFFETTI"
+
+[node name="SFXSlider" type="HSlider" parent="MarginContainer/VBoxContainer" unique_id=1464790857]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="FullScreen" type="CheckBox" parent="MarginContainer/VBoxContainer" unique_id=185598545]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x3x5h")
+text = "Schermo Intero"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1715778044]
+layout_mode = 2
+
+[node name="BtnSave" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=702345483]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_s2riy")
+
+[node name="BtnCancel" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=875175092]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_dod7e")
+
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/FullScreen" to="." method="_on_full_screen_toggled"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnSave" to="." method="_on_btn_save_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnCancel" to="." method="_on_btn_cancel_pressed"]

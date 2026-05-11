@@ -64,6 +64,7 @@ func _on_enemy_killed_for_heal() -> void:
 
 
 func _on_death() -> void:
+	play_sfx("SfxDeath")
 	state_machine.transition_to(&"Death")
 
 func update_facing_direction(direction: Vector2) -> void:
@@ -185,3 +186,12 @@ func play_sfx(sound_name: String) -> void:
 		audio_node.play()
 	else:
 		push_warning("SFX non trovato: " + sound_name)
+		
+
+func _on_level_up(_new_level: int) -> void:
+	# 1. Peschiamo il player dal gioco
+	var player = get_tree().get_first_node_in_group("player")
+	
+	# 2. Se il player esiste e ha la funzione, gli diciamo di far partire il SUO suono!
+	if player and player.has_method("play_sfx"):
+		player.play_sfx("SfxLevelUp")

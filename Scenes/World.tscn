@@ -53,8 +53,10 @@ track_esplorazione_2 = ExtResource("10_op4cu")
 
 [node name="PlayerEsplorazione" type="AudioStreamPlayer2D" parent="MusicManager" unique_id=2046958172]
 volume_db = -10.0
+bus = &"Music"
 
 [node name="PlayerAzione" type="AudioStreamPlayer2D" parent="MusicManager" unique_id=1445916941]
 stream = ExtResource("11_8l3nt")
 volume_db = -80.0
 autoplay = true
+bus = &"Music"
