@@ -46,12 +46,16 @@ func enter(_previous_state: StringName = &"", _data: Dictionary = {}) -> void:
 	# Connette il segnale di fine animazione per sapere quando l'attacco è concluso
 	if not _enemy.anim_player.animation_finished.is_connected(_on_animation_finished):
 		_enemy.anim_player.animation_finished.connect(_on_animation_finished)
+	
+	get_tree().call_group("music_manager", "allerta_nemico")
 
 ## Chiamato dalla StateMachine quando si esce da questo stato (es. se subisce danni e passa in Damaged).
 func exit(_next_state: StringName = &"") -> void:
 	# Disconnette il segnale in modo sicuro per evitare memory leak o esecuzioni errate
 	if _enemy.anim_player.animation_finished.is_connected(_on_animation_finished):
 		_enemy.anim_player.animation_finished.disconnect(_on_animation_finished)
+		
+	get_tree().call_group("music_manager", "calma_nemico")
 
 ## Chiamato dalla StateMachine ad ogni frame fisico.
 func physics_update(_delta: float) -> void:

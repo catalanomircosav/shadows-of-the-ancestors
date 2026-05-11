@@ -3,7 +3,16 @@
 [ext_resource type="Script" uid="uid://cf2eqsew16vap" path="res://main_menu.gd" id="1_ycfnv"]
 [ext_resource type="Texture2D" uid="uid://catq7uxov2m6t" path="res://Assets/sfondo 2.png" id="2_ycfnv"]
 [ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="3_mnfja"]
+[ext_resource type="FontFile" uid="uid://brnxbvirdeqsq" path="res://Assets/DG UI-HUD Exp/TeamSnow.ttf" id="4_mrfpk"]
 [ext_resource type="AudioStream" uid="uid://cnbxd4leupwev" path="res://music/main menu.mp3" id="4_u7lva"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pqbp"]
+atlas = ExtResource("3_mnfja")
+region = Rect2(10.59586, 18.86275, 58.58025, 26.120832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gih0s"]
+atlas = ExtResource("3_mnfja")
+region = Rect2(10.754388, 50.720833, 58.27617, 26.46836)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6cy5o"]
 atlas = ExtResource("3_mnfja")
@@ -53,15 +62,36 @@ offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=2006631480]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer" unique_id=373118928]
 layout_mode = 2
 
-[node name="BtnAvvio" type="TextureButton" parent="CenterContainer/VBoxContainer" unique_id=355722476]
+[node name="BtnOptions" type="TextureButton" parent="CenterContainer/HBoxContainer" unique_id=321240045]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_4pqbp")
+texture_pressed = SubResource("AtlasTexture_gih0s")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/BtnOptions" unique_id=254272126]
+layout_mode = 0
+offset_left = 5.999999
+offset_top = 5.0
+offset_right = 86.0
+offset_bottom = 28.0
+scale = Vector2(0.74924964, 0.8328656)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_mrfpk")
+theme_override_font_sizes/font_size = 16
+text = "OPTIONS"
+
+[node name="BtnAvvio" type="TextureButton" parent="CenterContainer/HBoxContainer" unique_id=355722476]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_6cy5o")
 texture_pressed = SubResource("AtlasTexture_apoff")
 
-[node name="BtnExit" type="TextureButton" parent="CenterContainer/VBoxContainer" unique_id=113191047]
+[node name="BtnExit" type="TextureButton" parent="CenterContainer/HBoxContainer" unique_id=113191047]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_jvnxy")
 texture_pressed = SubResource("AtlasTexture_wiy64")
@@ -70,5 +100,5 @@ texture_pressed = SubResource("AtlasTexture_wiy64")
 stream = ExtResource("4_u7lva")
 autoplay = true
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/BtnAvvio" to="." method="_on_btn_avvio_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/BtnExit" to="." method="_on_btn_exit_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/BtnAvvio" to="." method="_on_btn_avvio_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/BtnExit" to="." method="_on_btn_exit_pressed"]

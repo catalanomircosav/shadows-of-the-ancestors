@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://bqmylgpsslcs8" path="res://Scenes/UI/PlayerHUD.tscn" id="6_45d1s"]
 [ext_resource type="PackedScene" uid="uid://ci0s22fbwhuvu" path="res://Scenes/Entities/Zombie.tscn" id="6_y7y61"]
 [ext_resource type="PackedScene" uid="uid://36wsk2fr4kg0" path="res://Scenes/UI/pause_menu.tscn" id="7_y7y61"]
+[ext_resource type="Script" uid="uid://bde5nvp1sw3tb" path="res://Scenes/music_manager.gd" id="8_7yo87"]
+[ext_resource type="AudioStream" uid="uid://bnr2sw4ajfxyo" path="res://music/soundtrack in game.mp3" id="9_ti1bm"]
+[ext_resource type="AudioStream" uid="uid://cmn2s8eu33som" path="res://music/soundtrack in game2.mp3" id="10_op4cu"]
+[ext_resource type="AudioStream" uid="uid://dlwyqu5iada78" path="res://music/chase e battle soundtrack.mp3" id="11_8l3nt"]
 
 [node name="World" type="Node2D" unique_id=431641064]
 y_sort_enabled = true
@@ -30,12 +34,24 @@ script = ExtResource("3_5nsto")
 [node name="CanvasModulate" type="CanvasModulate" parent="HUD" unique_id=98683186]
 
 [node name="Enemy" parent="." unique_id=1083493604 instance=ExtResource("5_45d1s")]
-position = Vector2(197, 20)
+position = Vector2(301, -54)
 
 [node name="Enemy2" parent="." unique_id=8808566 instance=ExtResource("6_y7y61")]
-position = Vector2(73, 28)
+position = Vector2(306, -127)
 
 [node name="Enemy3" parent="." unique_id=182638705 instance=ExtResource("5_45d1s")]
-position = Vector2(68, 79)
+position = Vector2(359, -81)
 
 [node name="PauseMenu" parent="." unique_id=100513418 instance=ExtResource("7_y7y61")]
+
+[node name="MusicManager" type="Node" parent="." unique_id=1175412241]
+script = ExtResource("8_7yo87")
+track_esplorazione_1 = ExtResource("9_ti1bm")
+track_esplorazione_2 = ExtResource("10_op4cu")
+
+[node name="PlayerEsplorazione" type="AudioStreamPlayer2D" parent="MusicManager" unique_id=2046958172]
+
+[node name="PlayerAzione" type="AudioStreamPlayer2D" parent="MusicManager" unique_id=1445916941]
+stream = ExtResource("11_8l3nt")
+volume_db = -80.0
+autoplay = true

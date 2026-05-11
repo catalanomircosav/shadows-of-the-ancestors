@@ -39,8 +39,12 @@ func _setup() -> void:
 ## Chiamato dalla StateMachine quando si entra in questo stato.
 ## Chiamato dalla StateMachine quando si entra in questo stato.
 func enter(_previous_state: StringName = &"", data: Dictionary = {}) -> void:
-	_active = true
+	get_tree().call_group("music_manager", "allerta_nemico")
 	
+	if _owner.has_method("play_sfx"):
+		_owner.play_sfx("SfxHit")
+	
+	_active = true
 	_kb_direction = data.get("direction", Vector2.ZERO)
 	_kb_force      = data.get("force",     0.0)
 
@@ -69,6 +73,8 @@ func enter(_previous_state: StringName = &"", data: Dictionary = {}) -> void:
 	else:
 		# Se l'entità NON ha lo stato Chase (è il Player), torna in attesa dei comandi
 		state_machine.transition_to(&"Idle")
+		
+
 
 ## Chiamato dalla StateMachine ad ogni frame fisico (in _physics_process).
 func physics_update(delta: float) -> void:
@@ -91,6 +97,8 @@ func exit(_next_state: StringName = &"") -> void:
 	# Se lo stato viene interrotto, il player non rimarrà immortale.
 	if _owner.health:
 		_owner.health.force_end_invincibility()
+	
+	get_tree().call_group("music_manager", "calma_nemico")
 
 
 # ==============================================================================

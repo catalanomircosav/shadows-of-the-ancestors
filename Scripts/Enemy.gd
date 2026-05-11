@@ -73,6 +73,7 @@ func _on_death() -> void:
 	call_deferred("_execute_death")
 
 func _execute_death() -> void:
+	play_sfx("SfxDeath")
 	if state_machine.current_state:
 		state_machine.current_state.exit(&"Death")
 	
@@ -268,3 +269,16 @@ func can_see_player(player: Player, base_vision_range: float) -> bool:
 	var is_visible = has_line_of_sight(player)
 		
 	return is_visible
+	
+# ==============================================================================
+# GESTIONE AUDIO
+# ==============================================================================
+
+func play_sfx(sound_name: String) -> void:
+	var audio_node = get_node_or_null("SFX/" + sound_name)
+	
+	if audio_node and audio_node is AudioStreamPlayer2D:
+		audio_node.pitch_scale = randf_range(0.85, 1.15)
+		audio_node.play()
+	else:
+		push_warning(name + ": SFX non trovato -> " + sound_name)

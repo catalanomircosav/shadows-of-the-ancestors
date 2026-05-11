@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dlwyqu5iada78"
+path="res://.godot/imported/chase e battle soundtrack.mp3-6493fc63301a5485b9b53d39d4a7b13c.mp3str"
+
+[deps]
+
+source_file="res://music/chase e battle soundtrack.mp3"
+dest_files=["res://.godot/imported/chase e battle soundtrack.mp3-6493fc63301a5485b9b53d39d4a7b13c.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

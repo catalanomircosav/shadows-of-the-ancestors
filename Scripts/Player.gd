@@ -170,3 +170,18 @@ func activate_ghost_mode() -> void:
 		sprite.modulate.a = 1.0
 		is_ghost = false
 		print("[STEALTH] 👁️ Tornerai ad essere visibile.")
+		
+# ==============================================================================
+# GESTIONE AUDIO
+# ==============================================================================
+
+func play_sfx(sound_name: String) -> void:
+	# Cerca il nodo audio dentro la nostra "cartellina" SFX
+	var audio_node = get_node_or_null("SFX/" + sound_name)
+	
+	if audio_node and audio_node is AudioStreamPlayer2D:
+		# Applica in automatico la variazione casuale per non annoiare l'orecchio
+		audio_node.pitch_scale = randf_range(0.85, 1.15)
+		audio_node.play()
+	else:
+		push_warning("SFX non trovato: " + sound_name)

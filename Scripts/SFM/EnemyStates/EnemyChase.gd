@@ -39,6 +39,12 @@ func enter(_previous_state: StringName = &"", _data: Dictionary = {}) -> void:
 	
 	if not is_instance_valid(_player):
 		state_machine.transition_to(&"Idle")
+	
+	get_tree().call_group("music_manager", "allerta_nemico")
+	
+func exit(_next_state: StringName = &"") -> void:
+	# --- MUSICA: Avvisa il MusicManager che questo nemico ha smesso di inseguirti ---
+	get_tree().call_group("music_manager", "calma_nemico")
 
 func physics_update(_delta: float) -> void:
 	if not is_instance_valid(_player):

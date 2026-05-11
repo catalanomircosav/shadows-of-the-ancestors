@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://bww2nwpgyajee" path="res://Scripts/SFM/EnemyStates/EnemyAttack.gd" id="15_wihsy"]
 [ext_resource type="Script" uid="uid://c633bm03dtehs" path="res://Scripts/Shared/Hitbox.gd" id="16_d7pqm"]
 [ext_resource type="Texture2D" uid="uid://dq6jt6ia3kmg0" path="res://Assets/DG UI-HUD Exp/lifebar system.png" id="17_0otgh"]
+[ext_resource type="AudioStream" uid="uid://qv3uwv8wwyl0" path="res://music/hitted sound.wav" id="18_jich8"]
+[ext_resource type="AudioStream" uid="uid://bt3fsqjsoyxwk" path="res://music/death sound.wav" id="19_y4h7q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7pqm"]
 atlas = ExtResource("2_xrleg")
@@ -1586,3 +1588,12 @@ offset_bottom = -8.0
 nine_patch_stretch = true
 texture_under = SubResource("AtlasTexture_jich8")
 texture_progress = SubResource("AtlasTexture_y4h7q")
+
+[node name="SFX" type="Node" parent="." unique_id=601581103]
+
+[node name="SfxHit" type="AudioStreamPlayer2D" parent="SFX" unique_id=105213776]
+stream = ExtResource("18_jich8")
+
+[node name="SfxDeath" type="AudioStreamPlayer2D" parent="SFX" unique_id=466485221]
+stream = ExtResource("19_y4h7q")
+volume_db = -19.765
