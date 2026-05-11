@@ -18,4 +18,4 @@ func enter(previous_state: StringName = &"", data: Dictionary = {}) -> void:
 	super.enter(previous_state, data)
 	
 	# 2. Fa partire il suono usando la variabile ereditata dal padre!
-	_player.play_sfx("SfxSwing")
+	_player.play_sfx("SfxLightAttack")

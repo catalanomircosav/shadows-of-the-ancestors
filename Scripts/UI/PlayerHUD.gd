@@ -1,10 +1,10 @@
 extends CanvasLayer
 
-@onready var health_bar: TextureProgressBar = $MarginContainer/VBoxContainer/HBoxContainer/HealthBar
+@onready var health_bar: TextureProgressBar = %HealthBar
 
 # 1. Aggiungiamo i riferimenti alle nuove barre
-@onready var strength_bar = $MarginContainer/VBoxContainer/StrengthBar
-@onready var stealth_bar = $MarginContainer/VBoxContainer/StealthBar
+@onready var strength_bar = %StrengthBar
+@onready var stealth_bar = %StealthBar
 
 # Precarica la scena del menù
 const SkillChoiceMenuScene = preload("res://Scenes/UI/skill_choise_menu.tscn")

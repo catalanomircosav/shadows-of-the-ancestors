@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://2fugo0q67qhw"]
+
+[ext_resource type="Script" uid="uid://bah21k3eomfww" path="res://ui_audio_manager.gd" id="1_svvc4"]
+[ext_resource type="AudioStream" uid="uid://d5pc2bqm1kgw" path="res://music/button sound.mp3" id="2_strsq"]
+
+[node name="UIAudioManager" type="Node" unique_id=143364058]
+script = ExtResource("1_svvc4")
+
+[node name="SfxClick" type="AudioStreamPlayer" parent="." unique_id=287322408]
+stream = ExtResource("2_strsq")
+volume_db = 10.035

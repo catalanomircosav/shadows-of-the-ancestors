@@ -24,13 +24,13 @@ func _ready() -> void:
 func allerta_nemico() -> void:
 	nemici_in_allerta += 1
 	if nemici_in_allerta == 1:
-		_cambia_musica(-80.0, 0.0) # Muta esplorazione, Alza azione
+		_cambia_musica(-80.0, -10.0) # Muta esplorazione, Alza azione
 
 # Chiamato dai nemici quando ti perdono o muoiono
 func calma_nemico() -> void:
 	nemici_in_allerta = max(0, nemici_in_allerta - 1)
 	if nemici_in_allerta == 0:
-		_cambia_musica(0.0, -80.0) # Alza esplorazione, Muta azione
+		_cambia_musica(-10.0, -80.0) # Alza esplorazione, Muta azione
 
 func _cambia_musica(vol_esplorazione: float, vol_azione: float) -> void:
 	# Se c'è già una transizione in corso, la blocchiamo

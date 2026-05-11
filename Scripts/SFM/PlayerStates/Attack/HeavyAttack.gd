@@ -15,3 +15,8 @@ class_name HeavyAttackState
 ## specifica dell'attacco pesante.
 func _get_anim_prefix() -> String:
 	return "heavy_attack"
+	
+func enter(previous_state: StringName = &"", data: Dictionary = {}) -> void:
+	super.enter(previous_state, data)
+	
+	_player.play_sfx("SfxPowerAttack")

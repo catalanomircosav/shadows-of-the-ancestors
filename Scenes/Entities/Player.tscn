@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://poh7djn0ns50" path="res://Scripts/SFM/PlayerStates/Death.gd" id="17_w67ft"]
 [ext_resource type="Script" uid="uid://c1r3bve84lble" path="res://Scripts/Managers/skills_component.gd" id="21_7n4p1"]
 [ext_resource type="AudioStream" uid="uid://cvumedwjaa5e0" path="res://music/sword sound.wav" id="22_pid1y"]
+[ext_resource type="AudioStream" uid="uid://cyrfxniutkruo" path="res://music/power attack.mp3" id="23_0aity"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toelj"]
 atlas = ExtResource("2_j230w")
@@ -3166,8 +3167,11 @@ shape = SubResource("CircleShape2D_7n4p1")
 
 [node name="SFX" type="Node" parent="." unique_id=792455804]
 
-[node name="SfxSwing" type="AudioStreamPlayer2D" parent="SFX" unique_id=1140861513]
+[node name="SfxLightAttack" type="AudioStreamPlayer2D" parent="SFX" unique_id=1140861513]
 stream = ExtResource("22_pid1y")
+
+[node name="SfxPowerAttack" type="AudioStreamPlayer2D" parent="SFX" unique_id=527070523]
+stream = ExtResource("23_0aity")
 
 [connection signal="body_entered" from="StealthProximityArea" to="." method="_on_stealth_proximity_area_body_entered"]
 [connection signal="body_exited" from="StealthProximityArea" to="." method="_on_stealth_proximity_area_body_exited"]

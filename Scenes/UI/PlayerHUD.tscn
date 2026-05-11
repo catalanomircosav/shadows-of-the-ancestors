@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cnvvkrjhb33ij" path="res://Scripts/UI/PlayerHUD.gd" id="1_dl1c2"]
 [ext_resource type="Texture2D" uid="uid://cab0wiac6p3fg" path="res://Assets/DG UI-HUD Exp/Health HUD system.png" id="2_jvqdk"]
 [ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="3_13epk"]
+[ext_resource type="Texture2D" uid="uid://dw57bkem2d4w8" path="res://Assets/DG UI-HUD Exp/Mini map UI icons.png" id="4_6awip"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_13epk"]
 load_path = "res://.godot/imported/Health HUD system.png-65da3ab6edd3740a4dc9aaecfa4039cf.ctex"
@@ -13,7 +14,7 @@ region = Rect2(239.02914, 182.79364, 96.79672, 27.46933)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h1u4t"]
 atlas = ExtResource("2_jvqdk")
-region = Rect2(322.9362, 165.98734, 50.091583, 8.054932)
+region = Rect2(530.7193, 213.8032, 58.56598, 8.55835)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_13epk"]
 atlas = ExtResource("3_13epk")
@@ -23,6 +24,10 @@ region = Rect2(351.9782, 495.97818, 55.239532, 10.243195)
 atlas = ExtResource("3_13epk")
 region = Rect2(352.0265, 479.9161, 55.2955, 10.399261)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvbbi"]
+atlas = ExtResource("4_6awip")
+region = Rect2(66.83586, 146.82852, 10.332153, 10.332153)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_x5mdi"]
 atlas = ExtResource("3_13epk")
 region = Rect2(352.06024, 496.06104, 55.148743, 10.221191)
@@ -31,34 +36,68 @@ region = Rect2(352.06024, 496.06104, 55.148743, 10.221191)
 atlas = ExtResource("3_13epk")
 region = Rect2(352.03433, 479.96262, 55.20981, 10.152557)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mt38f"]
+atlas = ExtResource("4_6awip")
+region = Rect2(50.917072, 146.91142, 10.157639, 10.060593)
+
 [node name="PlayerHud" type="CanvasLayer" unique_id=1072169794]
 script = ExtResource("1_dl1c2")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1945115376]
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(1.0012748, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=51729100]
+[node name="HudLayout" type="Control" parent="MarginContainer" unique_id=1643393748]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=760117268]
-layout_mode = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HudLayout" unique_id=760117268]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 27.0
 
-[node name="HealthBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1567246148]
+[node name="HealthBar" type="TextureProgressBar" parent="MarginContainer/HudLayout/HBoxContainer" unique_id=1567246148]
+unique_name_in_owner = true
 layout_mode = 2
 texture_under = SubResource("AtlasTexture_6awip")
 texture_progress = SubResource("AtlasTexture_h1u4t")
-texture_progress_offset = Vector2(36, 15)
+texture_progress_offset = Vector2(36, 16)
 
-[node name="StrengthBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer" unique_id=1729455486]
-layout_mode = 2
+[node name="StrengthBar" type="TextureProgressBar" parent="MarginContainer/HudLayout" unique_id=1729455486]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 35.954166
+offset_top = 26.0
+offset_right = 90.95416
+offset_bottom = 36.0
 size_flags_horizontal = 8
 texture_under = SubResource("AtlasTexture_13epk")
 texture_progress = SubResource("AtlasTexture_80dm8")
 
-[node name="StealthBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer" unique_id=93358977]
-layout_mode = 2
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HudLayout/StrengthBar" unique_id=140412241]
+layout_mode = 0
+offset_left = -12.983448
+offset_right = 27.016552
+offset_bottom = 40.0
+scale = Vector2(0.28417984, 0.25086063)
+texture = SubResource("AtlasTexture_hvbbi")
+
+[node name="StealthBar" type="TextureProgressBar" parent="MarginContainer/HudLayout" unique_id=93358977]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 35.954166
+offset_top = 37.0
+offset_right = 90.95417
+offset_bottom = 47.0
 size_flags_horizontal = 8
 texture_under = SubResource("AtlasTexture_x5mdi")
 texture_progress = SubResource("AtlasTexture_qy3jh")
 tint_progress = Color(1, 1, 0.08627451, 1)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HudLayout/StealthBar" unique_id=1440291889]
+layout_mode = 0
+offset_left = -11.984722
+offset_right = 28.015278
+offset_bottom = 40.0
+scale = Vector2(0.2404897, 0.23506333)
+texture = SubResource("AtlasTexture_mt38f")

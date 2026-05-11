@@ -86,10 +86,10 @@ func _confirm_choice(chosen_id: String) -> void:
 	queue_free()
 
 func _on_texture_button_pressed() -> void:
-	print("BINGO! Il bottone funziona!")
+	UIAudioManager.play_click()
 	_confirm_choice(current_skill_a_id)
 
 
 func _on_texture_button_2_pressed() -> void:
-	print("BINGO! Il bottone funziona!")
+	UIAudioManager.play_click()
 	_confirm_choice(current_skill_b_id)
