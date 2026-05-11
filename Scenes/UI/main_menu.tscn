@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://dubpe488wmop2"]
+
+[ext_resource type="Script" uid="uid://cf2eqsew16vap" path="res://main_menu.gd" id="1_ycfnv"]
+[ext_resource type="Texture2D" uid="uid://catq7uxov2m6t" path="res://Assets/sfondo 2.png" id="2_ycfnv"]
+[ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="3_mnfja"]
+[ext_resource type="AudioStream" uid="uid://cnbxd4leupwev" path="res://music/main menu.mp3" id="4_u7lva"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cy5o"]
+atlas = ExtResource("3_mnfja")
+region = Rect2(91.343414, 19.069593, 58.094376, 26.25937)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apoff"]
+atlas = ExtResource("3_mnfja")
+region = Rect2(91.28903, 51.0906, 58.351807, 26.166183)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvnxy"]
+atlas = ExtResource("3_mnfja")
+region = Rect2(170.89256, 18.635742, 58.783325, 26.802757)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wiy64"]
+atlas = ExtResource("3_mnfja")
+region = Rect2(170.93028, 50.819317, 58.429657, 26.36005)
+
+[node name="MainMenu" type="Control" unique_id=1272252141]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ycfnv")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=750450921]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ycfnv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=74797900]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 192.0
+offset_right = 1.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=2006631480]
+layout_mode = 2
+
+[node name="BtnAvvio" type="TextureButton" parent="CenterContainer/VBoxContainer" unique_id=355722476]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_6cy5o")
+texture_pressed = SubResource("AtlasTexture_apoff")
+
+[node name="BtnExit" type="TextureButton" parent="CenterContainer/VBoxContainer" unique_id=113191047]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jvnxy")
+texture_pressed = SubResource("AtlasTexture_wiy64")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=871668547]
+stream = ExtResource("4_u7lva")
+autoplay = true
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/BtnAvvio" to="." method="_on_btn_avvio_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/BtnExit" to="." method="_on_btn_exit_pressed"]

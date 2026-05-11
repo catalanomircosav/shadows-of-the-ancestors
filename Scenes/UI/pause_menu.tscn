@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://36wsk2fr4kg0"]
+
+[ext_resource type="Script" uid="uid://cs7pfygxnrbbr" path="res://Scenes/UI/pause_menu.gd" id="1_8rf44"]
+[ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="2_r2i2h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oykix"]
+atlas = ExtResource("2_r2i2h")
+region = Rect2(198.0123, 271.91098, 84.982025, 158.1109)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdnb7"]
+atlas = ExtResource("2_r2i2h")
+region = Rect2(239.89148, 14.969568, 48.392944, 17.408987)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_702e2"]
+atlas = ExtResource("2_r2i2h")
+region = Rect2(303.79346, 14.867333, 48.346985, 17.401009)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyryt"]
+atlas = ExtResource("2_r2i2h")
+region = Rect2(239.89423, 142.87054, 48.08206, 17.249939)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23me3"]
+atlas = ExtResource("2_r2i2h")
+region = Rect2(304.06512, 142.81363, 47.983063, 17.08844)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_deree"]
+atlas = ExtResource("2_r2i2h")
+region = Rect2(239.8661, 174.84329, 48.13936, 17.364563)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yq7um"]
+atlas = ExtResource("2_r2i2h")
+region = Rect2(303.9344, 174.8574, 48.263153, 17.252258)
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=100513418]
+process_mode = 3
+script = ExtResource("1_8rf44")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=34944655]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.47058824)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1277619016]
+offset_left = 172.0
+offset_top = 34.0
+offset_right = 322.0
+offset_bottom = 234.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer" unique_id=679289325]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = SubResource("AtlasTexture_oykix")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/NinePatchRect" unique_id=585718656]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 20.0
+offset_right = 74.0
+offset_bottom = 79.0
+
+[node name="BtnPlay" type="TextureButton" parent="CenterContainer/NinePatchRect/VBoxContainer" unique_id=1910191947]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_kdnb7")
+texture_pressed = SubResource("AtlasTexture_702e2")
+
+[node name="BtnOption" type="TextureButton" parent="CenterContainer/NinePatchRect/VBoxContainer" unique_id=1713515305]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_qyryt")
+texture_pressed = SubResource("AtlasTexture_23me3")
+
+[node name="BtnExit" type="TextureButton" parent="CenterContainer/NinePatchRect/VBoxContainer" unique_id=1857384593]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_deree")
+texture_pressed = SubResource("AtlasTexture_yq7um")
+
+[connection signal="pressed" from="CenterContainer/NinePatchRect/VBoxContainer/BtnPlay" to="." method="_on_btn_play_pressed"]
+[connection signal="pressed" from="CenterContainer/NinePatchRect/VBoxContainer/BtnExit" to="." method="_on_btn_exit_pressed"]
