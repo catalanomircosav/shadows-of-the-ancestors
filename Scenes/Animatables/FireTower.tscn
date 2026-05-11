@@ -80,7 +80,8 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
 [node name="FireTower" type="CharacterBody2D" unique_id=1421833543]
-position = Vector2(0, 2)
+z_index = -1
+y_sort_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=714755791]
 position = Vector2(0, -22)

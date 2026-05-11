@@ -16,6 +16,7 @@
 y_sort_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1210448662]
+visible = false
 color = Color(0.27635276, 0.27641973, 0.35488847, 1)
 
 [node name="Dungeon" parent="." unique_id=1144178220 instance=ExtResource("1_gjpho")]
@@ -43,6 +44,7 @@ position = Vector2(306, -127)
 position = Vector2(359, -81)
 
 [node name="PauseMenu" parent="." unique_id=100513418 instance=ExtResource("7_y7y61")]
+visible = false
 
 [node name="MusicManager" type="Node" parent="." unique_id=1175412241]
 script = ExtResource("8_7yo87")
