@@ -4,6 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://cab0wiac6p3fg" path="res://Assets/DG UI-HUD Exp/Health HUD system.png" id="2_jvqdk"]
 [ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="3_13epk"]
 [ext_resource type="Texture2D" uid="uid://dw57bkem2d4w8" path="res://Assets/DG UI-HUD Exp/Mini map UI icons.png" id="4_6awip"]
+[ext_resource type="FontFile" uid="uid://brnxbvirdeqsq" path="res://Assets/DG UI-HUD Exp/TeamSnow.ttf" id="5_h1u4t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dcdcx"]
+atlas = ExtResource("3_13epk")
+region = Rect2(260.9656, 433.91837, 6.080658, 44.05786)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fqmn"]
+atlas = ExtResource("3_13epk")
+region = Rect2(117.985535, 434.9916, 3.997879, 42.108795)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_13epk"]
 load_path = "res://.godot/imported/Health HUD system.png-65da3ab6edd3740a4dc9aaecfa4039cf.ctex"
@@ -42,6 +51,18 @@ region = Rect2(50.917072, 146.91142, 10.157639, 10.060593)
 
 [node name="PlayerHud" type="CanvasLayer" unique_id=1072169794]
 script = ExtResource("1_dl1c2")
+
+[node name="VisibilityBar" type="TextureProgressBar" parent="." unique_id=1182092866]
+unique_name_in_owner = true
+offset_left = 6.0
+offset_top = 57.0
+offset_right = 46.0
+offset_bottom = 101.0
+max_value = 1.0
+step = 0.01
+fill_mode = 3
+texture_under = SubResource("AtlasTexture_dcdcx")
+texture_progress = SubResource("AtlasTexture_2fqmn")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1945115376]
 offset_right = 40.0
@@ -82,6 +103,17 @@ offset_bottom = 40.0
 scale = Vector2(0.28417984, 0.25086063)
 texture = SubResource("AtlasTexture_hvbbi")
 
+[node name="StrengthLevelLabel" type="Label" parent="MarginContainer/HudLayout/StrengthBar" unique_id=1501302443]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.979629
+offset_top = 1.0
+offset_right = 55.97963
+offset_bottom = 24.0
+theme_override_fonts/font = ExtResource("5_h1u4t")
+theme_override_font_sizes/font_size = 6
+text = "Liv. 4"
+
 [node name="StealthBar" type="TextureProgressBar" parent="MarginContainer/HudLayout" unique_id=93358977]
 unique_name_in_owner = true
 layout_mode = 0
@@ -101,3 +133,14 @@ offset_right = 28.015278
 offset_bottom = 40.0
 scale = Vector2(0.2404897, 0.23506333)
 texture = SubResource("AtlasTexture_mt38f")
+
+[node name="StealthLevelLabel" type="Label" parent="MarginContainer/HudLayout/StealthBar" unique_id=630826775]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.979629
+offset_top = 1.0
+offset_right = 55.97963
+offset_bottom = 24.0
+theme_override_fonts/font = ExtResource("5_h1u4t")
+theme_override_font_sizes/font_size = 6
+text = "Liv. 4"

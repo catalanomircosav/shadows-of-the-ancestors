@@ -1,16 +1,19 @@
 extends CanvasLayer
 
 @onready var health_bar: TextureProgressBar = %HealthBar
-
-# 1. Aggiungiamo i riferimenti alle nuove barre
 @onready var strength_bar = %StrengthBar
 @onready var stealth_bar = %StealthBar
+@onready var visibility_bar = %VisibilityBar
+@onready var strength_level_label = %StrengthLevelLabel
+@onready var stealth_level_label = %StealthLevelLabel
 
-# Precarica la scena del menù
 const SkillChoiceMenuScene = preload("res://Scenes/UI/skill_choise_menu.tscn")
 
-# Mi salvo un riferimento al player per usarlo dopo
 var player_ref: Node = null
+
+# --- VARIABILI CODA MENU ---
+var menu_queue: Array[Dictionary] = []
+var is_menu_active: bool = false
 
 func _ready() -> void:
 	var player := get_tree().get_first_node_in_group("player") as Player
@@ -23,21 +26,37 @@ func _ready() -> void:
 	health_bar.max_value = player.health.max_health
 	health_bar.value     = player.health.current_health
 	
-	# 2. Collegamento XP (Assumendo che nel Player tu abbia chiamato il nodo "skills")
+	# Collegamento XP
 	if player.skills:
 		player.skills.strength_xp_changed.connect(_on_strength_xp_changed)
 		player.skills.stealth_xp_changed.connect(_on_stealth_xp_changed)
-		player.skills.strength_skill_point_earned.connect(_on_strength_point)
-		player.skills.stealth_skill_point_earned.connect(_on_stealth_point)
 		
-		player.skills.strength_leveled_up.connect(_on_level_up)
-		player.skills.stealth_leveled_up.connect(_on_level_up)
+		# Ora si collegano alla logica della coda
+		player.skills.strength_skill_point_earned.connect(_queue_strength_menu)
+		player.skills.stealth_skill_point_earned.connect(_queue_stealth_menu)
+		
+		player.skills.strength_leveled_up.connect(_on_strength_level_up)
+		player.skills.stealth_leveled_up.connect(_on_stealth_level_up)
 		
 		# Inizializza le barre al valore di partenza
 		_on_strength_xp_changed(player.skills.strength_xp, player.skills.strength_xp_required)
 		_on_stealth_xp_changed(player.skills.stealth_xp, player.skills.stealth_xp_required)
+		
+		# INIZIALIZZA I TESTI AL LIVELLO ATTUALE
+		strength_level_label.text = "Liv. " + str(player.skills.strength_level)
+		stealth_level_label.text = "Liv. " + str(player.skills.stealth_level)
+		
+		_on_strength_xp_changed(player.skills.strength_xp, player.skills.strength_xp_required)
+		_on_stealth_xp_changed(player.skills.stealth_xp, player.skills.stealth_xp_required)
+	
+	# Collegamento Visibilità
+	VisibilityManager.visibility_changed.connect(_on_visibility_changed)
+	visibility_bar.value = VisibilityManager.get_visibility()
 
 # --- FUNZIONI DI AGGIORNAMENTO UI ---
+
+func _on_visibility_changed(level: float) -> void:
+	visibility_bar.value = level
 
 func _on_health_changed(current: int, maximum: int) -> void:
 	health_bar.max_value = maximum
@@ -52,53 +71,72 @@ func _on_stealth_xp_changed(current: float, maximum: float) -> void:
 	stealth_bar.value = current
 	
 # ==========================================
-# GESTIONE MENU ABILITA'
+# GESTIONE MENU ABILITA' (SISTEMA A CODA)
 # ==========================================
 
-func _on_strength_point(level: int) -> void:
-	_spawn_menu("forza", level)
+func _queue_strength_menu(level: int) -> void:
+	_queue_menu("forza", level)
 
-func _on_stealth_point(level: int) -> void:
-	_spawn_menu("stealth", level)
+func _queue_stealth_menu(level: int) -> void:
+	_queue_menu("stealth", level)
 
-func _spawn_menu(tree_type: String, level: int) -> void:
-	# Peschiamo il player fresco fresco direttamente dalla scena
-	var player = get_tree().get_first_node_in_group("player")
+# 1. Mette il menù in fila
+func _queue_menu(tree_type: String, level: int) -> void:
+	menu_queue.append({"type": tree_type, "level": level})
+	_check_menu_queue()
+
+# 2. Controlla la coda
+func _check_menu_queue() -> void:
+	if is_menu_active:
+		return
+		
+	# Se la coda è vuota, il gioco riparte
+	if menu_queue.is_empty():
+		get_tree().paused = false
+		return
+		
+	is_menu_active = true
+	get_tree().paused = true 
 	
-	# Controllo di sicurezza: se per qualche motivo il player non c'è, fermiamo tutto
+	var next = menu_queue.pop_front()
+	_spawn_menu(next["type"], next["level"])
+
+# 3. Istanzia il menù
+func _spawn_menu(tree_type: String, level: int) -> void:
+	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
 		push_error("Impossibile aprire il menù: Player non trovato!")
 		return
 		
-	# 1. Crea un'istanza della scena del menù
 	var menu_instance = SkillChoiceMenuScene.instantiate()
-	
-	# 2. Aggiungilo all'HUD (lo mette visivamente sopra tutto il resto)
 	add_child(menu_instance)
 	
-	# 3. Avvia la logica del menù passando le variabili giuste dal player appena trovato
+	# Si accorge di quando il menù fa queue_free()
+	menu_instance.tree_exited.connect(_on_menu_closed)
 	menu_instance.open_menu(tree_type, level, player.skills)
-	
-	# ==========================================
-# FEEDBACK AUDIOVISIVO
-# ==========================================
+
+# 4. Loop della coda
+func _on_menu_closed() -> void:
+	is_menu_active = false
+	_check_menu_queue()
 
 # ==========================================
 # FEEDBACK AUDIOVISIVO
 # ==========================================
 
-func _on_level_up(new_level: int) -> void:
-	print("--- TEST LEVEL UP ---")
-	print("1. HUD: Segnale ricevuto! Nuovo livello: ", new_level)
-	
+# ==========================================
+# FEEDBACK AUDIOVISIVO E TESTUALE
+# ==========================================
+
+func _on_strength_level_up(new_level: int) -> void:
+	strength_level_label.text = "Liv. " + str(new_level)
+	_play_level_up_sfx()
+
+func _on_stealth_level_up(new_level: int) -> void:
+	stealth_level_label.text = "Liv. " + str(new_level)
+	_play_level_up_sfx()
+
+func _play_level_up_sfx() -> void:
 	var player = get_tree().get_first_node_in_group("player")
-	
-	if player:
-		print("2. HUD: Player trovato nella scena!")
-		if player.has_method("play_sfx"):
-			print("3. HUD: Il Player ha la funzione play_sfx. La chiamo ora!")
-			player.play_sfx("SfxLevelUp")
-		else:
-			print("ERRORE: Il Player non ha la funzione 'play_sfx'!")
-	else:
-		print("ERRORE: Nessun player trovato nel gruppo 'player'!")
+	if player and player.has_method("play_sfx"):
+		player.play_sfx("SfxLevelUp")

@@ -15,7 +15,6 @@ var _raycast: RayCast2D
 var _direction: Vector2 = Vector2.ZERO
 var _wander_timer: float = 0.0
 
-# Variabili per il tempo di reazione
 var _is_reacting: bool = false
 var _reaction_timer: float = 0.0
 
@@ -25,32 +24,44 @@ func _setup() -> void:
 
 func enter(_previous_state: StringName = &"", _data: Dictionary = {}) -> void:
 	_player = get_tree().get_first_node_in_group("player") as Player
-	
-	var dirs: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
-	_direction = dirs.pick_random()
-	
 	_wander_timer = randf_range(2.0, 4.0)
 	
+	# FIX 1: Non andiamo alla cieca! Scegliamo una direzione "sicura"
+	_direction = _get_safe_direction()
+	
 	_enemy.update_facing_direction(_direction)
-	_enemy.play_animation("idle_" + _enemy.last_facing)
+	_enemy.play_animation("idle_" + _enemy.last_facing, 1.0, true)
 	
 	_is_reacting = true
 	_reaction_timer = randf_range(0.8, 1.5)
 
-func physics_update(delta: float) -> void:
+# --- NUOVA FUNZIONE ---
+# Controlla l'ambiente circostante e sceglie una direzione in cui c'è spazio
+func _get_safe_direction() -> Vector2:
+	var dirs: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
+	dirs.shuffle() # Mischia l'array per avere una direzione casuale
 	
+	for dir in dirs:
+		_raycast.target_position = dir * 25.0 # Controlla a 25 pixel di distanza
+		_raycast.force_raycast_update()
+		
+		# Se il raggio NON sbatte, significa che la strada è libera!
+		if not _raycast.is_colliding():
+			return dir
+			
+	# Se è letteralmente circondato da muri, prende la prima opzione e si adatta
+	return dirs[0] 
+
+func physics_update(delta: float) -> void:
 	# 1. VISIONE DINAMICA E CONO VISIVO
 	if is_instance_valid(_player):
 		var player_vis: float = VisibilityManager.get_visibility()
 		var dynamic_vision_range: float = CLOSE_VISION_RANGE + ((VISION_RANGE - CLOSE_VISION_RANGE) * player_vis)
 		
-		# Deleghiamo il controllo visivo (Crouch, FOV, Muri) al nemico
 		if _enemy.can_see_player(_player, dynamic_vision_range):
 			_enemy.velocity = Vector2.ZERO
-			# ---- NUOVO: ATTIVA VIA DI FUGA ----
 			if _player.has_method("trigger_escape_route"):
 				_player.trigger_escape_route()
-			# -----------------------------------
 			state_machine.transition_to(&"Chase")
 			return
 	
@@ -70,7 +81,7 @@ func physics_update(delta: float) -> void:
 		_reaction_timer -= delta
 		if _reaction_timer <= 0.0:
 			_is_reacting = false
-			_enemy.play_animation("run_" + _enemy.last_facing)
+			_enemy.play_animation("run_" + _enemy.last_facing, 1.0, true)
 		return
 
 	# 4. AGGIORNAMENTO VAGABONDAGGIO E MOVIMENTO
@@ -83,10 +94,12 @@ func physics_update(delta: float) -> void:
 	_raycast.target_position = _direction * 15.0
 	_raycast.force_raycast_update()
 	
+	# FIX 2: Muoviamo il nemico PRIMA di controllare i muri. 
+	# Questo cancella la memoria della fisica di eventuali muri toccati nello stato precedente.
+	_enemy.velocity = _direction * WANDER_SPEED
+	_enemy.move_and_slide()
+	
 	if _raycast.is_colliding() or _enemy.is_on_wall():
 		_enemy.velocity = Vector2.ZERO
 		state_machine.transition_to(&"Idle")
 		return
-		
-	_enemy.velocity = _direction * WANDER_SPEED
-	_enemy.move_and_slide()

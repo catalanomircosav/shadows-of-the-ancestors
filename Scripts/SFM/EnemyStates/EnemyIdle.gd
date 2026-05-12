@@ -19,12 +19,11 @@ func _setup() -> void:
 	_enemy = state_machine.get_parent() as EnemyBase
 
 func enter(_previous_state: StringName = &"", _data: Dictionary = {}) -> void:
-	# Ci proviamo all'inizio
 	_player = get_tree().get_first_node_in_group("player") as Player
 	
 	_enemy.velocity = Vector2.ZERO
 	
-	_idle_timer = randf_range(5.0, 9.0)
+	_idle_timer = randf_range(3.0, 7.0)
 	_enemy.play_animation("idle_" + _enemy.last_facing)
 
 func physics_update(delta: float) -> void:

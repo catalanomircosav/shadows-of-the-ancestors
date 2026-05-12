@@ -11,6 +11,8 @@ extends Node
 var _torches: Array[Node] = []
 var _player: Player = null
 var _visibility: float = 0.0
+signal visibility_changed(level: float)
+var _last_emitted_visibility: float = -1.0
 
 
 # ==============================================================================
@@ -44,7 +46,11 @@ func _process(_delta: float) -> void:
 	total_visibility = clamp(total_visibility, 0.0, 1.0)
 	
 	_visibility = total_visibility
-	# print("Visibilità player: %.2f" % total_visibility)
+	
+	# Emette il segnale solo se la visibilità è cambiata dell'1% o più
+	if abs(_visibility - _last_emitted_visibility) >= 0.01:
+		visibility_changed.emit(_visibility)
+		_last_emitted_visibility = _visibility
 
 
 # ==============================================================================
