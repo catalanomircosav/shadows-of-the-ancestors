@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dubpe488wmop2"]
 
-[ext_resource type="Script" uid="uid://cf2eqsew16vap" path="res://main_menu.gd" id="1_ycfnv"]
+[ext_resource type="Script" uid="uid://cf2eqsew16vap" path="res://Scripts/UI/main_menu.gd" id="1_ycfnv"]
 [ext_resource type="Texture2D" uid="uid://catq7uxov2m6t" path="res://Assets/sfondo 2.png" id="2_ycfnv"]
 [ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="3_mnfja"]
 [ext_resource type="FontFile" uid="uid://brnxbvirdeqsq" path="res://Assets/DG UI-HUD Exp/TeamSnow.ttf" id="4_mrfpk"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2fugo0q67qhw"]
 
-[ext_resource type="Script" uid="uid://bah21k3eomfww" path="res://ui_audio_manager.gd" id="1_svvc4"]
+[ext_resource type="Script" uid="uid://bah21k3eomfww" path="res://Scripts/Managers/ui_audio_manager.gd" id="1_svvc4"]
 [ext_resource type="AudioStream" uid="uid://d5pc2bqm1kgw" path="res://music/button sound.mp3" id="2_strsq"]
 
 [node name="UIAudioManager" type="Node" unique_id=143364058]

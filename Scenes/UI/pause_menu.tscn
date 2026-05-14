@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://36wsk2fr4kg0"]
 
-[ext_resource type="Script" uid="uid://cs7pfygxnrbbr" path="res://Scenes/UI/pause_menu.gd" id="1_8rf44"]
+[ext_resource type="Script" uid="uid://cs7pfygxnrbbr" path="res://Scripts/UI/pause_menu.gd" id="1_8rf44"]
 [ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="2_r2i2h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oykix"]

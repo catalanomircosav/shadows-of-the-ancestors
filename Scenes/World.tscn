@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ci0s22fbwhuvu" path="res://Scenes/Entities/Zombie.tscn" id="6_y7y61"]
 [ext_resource type="PackedScene" uid="uid://bh5qdujv2lro6" path="res://Scenes/Entities/Slime.tscn" id="7_ti1bm"]
 [ext_resource type="PackedScene" uid="uid://36wsk2fr4kg0" path="res://Scenes/UI/pause_menu.tscn" id="7_y7y61"]
-[ext_resource type="Script" uid="uid://bde5nvp1sw3tb" path="res://Scenes/music_manager.gd" id="8_7yo87"]
+[ext_resource type="Script" uid="uid://bde5nvp1sw3tb" path="res://Scripts/Managers/music_manager.gd" id="8_7yo87"]
 [ext_resource type="AudioStream" uid="uid://bnr2sw4ajfxyo" path="res://music/soundtrack in game.mp3" id="9_ti1bm"]
 [ext_resource type="AudioStream" uid="uid://cmn2s8eu33som" path="res://music/soundtrack in game2.mp3" id="10_op4cu"]
 [ext_resource type="AudioStream" uid="uid://dlwyqu5iada78" path="res://music/chase e battle soundtrack.mp3" id="11_8l3nt"]
