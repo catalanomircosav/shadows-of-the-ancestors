@@ -25,6 +25,8 @@ var enemies_in_proximity: Array = []
 var light_multiplier: float = 1.0
 
 func _ready() -> void:
+	if GameManager.has_checkpoint:
+		global_position = GameManager.last_checkpoint_pos
 	add_to_group("player")
 	VisibilityManager.register_player(self)
 	NoiseManager.register_player(self)

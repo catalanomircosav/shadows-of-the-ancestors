@@ -22,6 +22,7 @@ VisibilityManager="*uid://cuxiu63wihxto"
 NoiseManager="*uid://b6s8kx7k6tqbt"
 UIAudioManager="*uid://2fugo0q67qhw"
 MenuIntroMusic="*uid://kdwxh01uyop3"
+GameManager="*uid://yj72fiashue0"
 
 [display]
 

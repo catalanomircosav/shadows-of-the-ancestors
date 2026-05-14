@@ -100,6 +100,9 @@ animation = &"unlit"
 autoplay = "default"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1302612737]
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 12.0
 texture = SubResource("GradientTexture2D_pqci0")
 texture_scale = 1.4
 

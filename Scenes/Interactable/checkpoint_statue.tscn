@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://c8hr658go0lxw"]
+
+[ext_resource type="Script" uid="uid://bg3u5tg4f2hk2" path="res://Scripts/Interactable/checkpoint_statue.gd" id="1_scya7"]
+[ext_resource type="FontFile" uid="uid://c1khi2myk6mab" path="res://Assets/DG UI-HUD Exp/DobleHex.ttf" id="2_2pslt"]
+[ext_resource type="Texture2D" uid="uid://xbgu7ta16pc3" path="res://Assets/Set 4 all.png" id="2_t436s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcu6o"]
+atlas = ExtResource("2_t436s")
+region = Rect2(255.00575, 253.94046, 18.01213, 34.14447)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx1ux"]
+size = Vector2(94, 78)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ee2fo"]
+size = Vector2(18, 15)
+
+[node name="CheckpointStatue" type="Area2D" unique_id=1364606327]
+y_sort_enabled = true
+script = ExtResource("1_scya7")
+font_personalizzato = ExtResource("2_2pslt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1869176228]
+texture = SubResource("AtlasTexture_tcu6o")
+
+[node name="SavingArea" type="CollisionShape2D" parent="." unique_id=372719764]
+shape = SubResource("RectangleShape2D_bx1ux")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1927584207]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1637176595]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_ee2fo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
