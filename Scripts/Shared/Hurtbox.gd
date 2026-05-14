@@ -90,18 +90,6 @@ func _on_area_entered(hitbox: Area2D) -> void:
 				final_damage = 0
 	# ---------------------------------------------
 	
-	# ---- NUOVO: LOG DI DEBUG DEL COMBATTIMENTO ----
-	var attacker_name = "Sconosciuto"
-	if attacking_entity:
-		attacker_name = attacking_entity.name
-	var defender_name = owner_node.name
-	
-	if is_backstab:
-		print("[COMBAT] 🗡️ BACKSTAB! " + attacker_name + " infligge " + str(final_damage) + " danni a " + defender_name)
-	else:
-		print("[COMBAT] ⚔️ " + attacker_name + " infligge " + str(final_damage) + " danni a " + defender_name)
-	# -----------------------------------------------
-	
 	# 7. Passa i dati all'HealthComponent per elaborare danno e rinculo
 	health_component.take_damage(
 		final_damage, 

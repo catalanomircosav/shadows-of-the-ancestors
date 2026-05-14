@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c6h6h0e4clbw3"]
 
 [ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="1_k4xcq"]
-[ext_resource type="Script" uid="uid://crxx8cwq7sgt7" path="res://Scenes/UI/skill_choise_menu.gd" id="1_y2np2"]
+[ext_resource type="Script" uid="uid://crxx8cwq7sgt7" path="res://Scripts/UI/skill_choise_menu.gd" id="1_y2np2"]
 [ext_resource type="FontFile" uid="uid://brnxbvirdeqsq" path="res://Assets/DG UI-HUD Exp/TeamSnow.ttf" id="3_idk7k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4xcq"]

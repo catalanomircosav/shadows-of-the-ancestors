@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://kdwxh01uyop3"]
+
+[ext_resource type="AudioStream" uid="uid://cnbxd4leupwev" path="res://music/main menu.mp3" id="1_x11do"]
+
+[node name="MenuIntroMusic" type="AudioStreamPlayer" unique_id=2117121769]
+stream = ExtResource("1_x11do")
+autoplay = true
+bus = &"Music"
