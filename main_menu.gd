@@ -9,7 +9,7 @@ const OptionsMenuScene = preload("res://Scenes/UI/options_menu.tscn")
 
 func _on_btn_avvio_pressed() -> void:
 	UIAudioManager.play_click()
-	get_tree().change_scene_to_file("res://Scenes/World.tscn")
+	get_tree().change_scene_to_file("res://Scenes/UI/intro_cutscene.tscn")
 
 # 2. La nuova funzione per aprire le Opzioni
 func _on_btn_options_pressed() -> void:

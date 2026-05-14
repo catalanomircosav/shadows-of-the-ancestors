@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://catq7uxov2m6t" path="res://Assets/sfondo 2.png" id="2_ycfnv"]
 [ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="3_mnfja"]
 [ext_resource type="FontFile" uid="uid://brnxbvirdeqsq" path="res://Assets/DG UI-HUD Exp/TeamSnow.ttf" id="4_mrfpk"]
-[ext_resource type="AudioStream" uid="uid://cnbxd4leupwev" path="res://music/main menu.mp3" id="4_u7lva"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4pqbp"]
 atlas = ExtResource("3_mnfja")
@@ -95,11 +94,6 @@ texture_pressed = SubResource("AtlasTexture_apoff")
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_jvnxy")
 texture_pressed = SubResource("AtlasTexture_wiy64")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=871668547]
-stream = ExtResource("4_u7lva")
-autoplay = true
-bus = &"Music"
 
 [connection signal="pressed" from="CenterContainer/HBoxContainer/BtnOptions" to="." method="_on_btn_options_pressed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/BtnAvvio" to="." method="_on_btn_avvio_pressed"]
