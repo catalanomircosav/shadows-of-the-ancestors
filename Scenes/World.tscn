@@ -16,7 +16,6 @@
 y_sort_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1210448662]
-visible = false
 color = Color(0.27635276, 0.27641973, 0.35488847, 1)
 
 [node name="Dungeon" parent="." unique_id=1144178220 instance=ExtResource("1_gjpho")]
@@ -26,6 +25,7 @@ position = Vector2(128, 66)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1148920256]
 limit_enabled = false
+position_smoothing_enabled = true
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=646841185]
 script = ExtResource("3_5nsto")
