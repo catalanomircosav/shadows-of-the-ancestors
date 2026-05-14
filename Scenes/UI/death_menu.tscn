@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://b0h1y1bf6amd4"]
+
+[ext_resource type="Script" uid="uid://q30h3qikpbb3" path="res://death_menu.gd" id="1_e22nx"]
+[ext_resource type="Texture2D" uid="uid://kf3kl3ugp03s" path="res://Assets/death_menu.png" id="2_thn04"]
+[ext_resource type="Texture2D" uid="uid://lmgh67ca3jdu" path="res://Assets/DG UI-HUD Exp/Menu system.png" id="3_ys4xj"]
+[ext_resource type="FontFile" uid="uid://brnxbvirdeqsq" path="res://Assets/DG UI-HUD Exp/TeamSnow.ttf" id="4_gex0p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ar2xe"]
+atlas = ExtResource("3_ys4xj")
+region = Rect2(10.59586, 18.86275, 58.58025, 26.120832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy43h"]
+atlas = ExtResource("3_ys4xj")
+region = Rect2(10.754388, 50.720833, 58.27617, 26.46836)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mxbr"]
+atlas = ExtResource("3_ys4xj")
+region = Rect2(10.59586, 18.86275, 58.58025, 26.120832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v33jd"]
+atlas = ExtResource("3_ys4xj")
+region = Rect2(10.754388, 50.720833, 58.27617, 26.46836)
+
+[node name="death_menu" type="CanvasLayer" unique_id=957414065]
+process_mode = 3
+script = ExtResource("1_e22nx")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=966552807]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_thn04")
+expand_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1221154893]
+layout_direction = 2
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer" unique_id=1884644117]
+layout_mode = 2
+
+[node name="BtnRestart" type="TextureButton" parent="CenterContainer/HBoxContainer" unique_id=535840257]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ar2xe")
+texture_pressed = SubResource("AtlasTexture_vy43h")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/BtnRestart" unique_id=919998955]
+layout_mode = 0
+offset_left = 5.999999
+offset_top = 5.0
+offset_right = 86.0
+offset_bottom = 28.0
+scale = Vector2(0.74924964, 0.8328656)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_gex0p")
+theme_override_font_sizes/font_size = 16
+text = "RESTART"
+
+[node name="BtnBackToMenu" type="TextureButton" parent="CenterContainer/HBoxContainer" unique_id=1847493819]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_7mxbr")
+texture_pressed = SubResource("AtlasTexture_v33jd")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/BtnBackToMenu" unique_id=119996888]
+layout_mode = 0
+offset_left = 5.999999
+offset_top = 5.0
+offset_right = 86.0
+offset_bottom = 28.0
+scale = Vector2(0.74924964, 0.8328656)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_gex0p")
+theme_override_font_sizes/font_size = 16
+text = "BACK TO MENU"
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/BtnRestart" to="." method="_on_btn_restart_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/BtnBackToMenu" to="." method="_on_btn_back_to_menu_pressed"]
