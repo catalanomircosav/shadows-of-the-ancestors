@@ -1456,6 +1456,9 @@ tracks/0/keys = {
 "values": [&"run_up"]
 }
 
+[sub_resource type="Animation" id="Animation_p8w34"]
+resource_name = "spawn"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qlal6"]
 _data = {
 &"RESET": SubResource("Animation_mo1ky"),
@@ -1478,7 +1481,8 @@ _data = {
 &"run_down": SubResource("Animation_6s1gy"),
 &"run_left": SubResource("Animation_uihya"),
 &"run_right": SubResource("Animation_27ry8"),
-&"run_up": SubResource("Animation_esfq3")
+&"run_up": SubResource("Animation_esfq3"),
+&"spawn": SubResource("Animation_p8w34")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wihsy"]

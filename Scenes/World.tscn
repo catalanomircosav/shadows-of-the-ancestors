@@ -9,9 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://bh5qdujv2lro6" path="res://Scenes/Entities/Slime.tscn" id="7_ti1bm"]
 [ext_resource type="PackedScene" uid="uid://36wsk2fr4kg0" path="res://Scenes/UI/pause_menu.tscn" id="7_y7y61"]
 [ext_resource type="Script" uid="uid://bde5nvp1sw3tb" path="res://Scripts/Managers/music_manager.gd" id="8_7yo87"]
+[ext_resource type="PackedScene" uid="uid://bbcacoh86ja03" path="res://Scenes/Entities/KingSlime.tscn" id="8_op4cu"]
 [ext_resource type="AudioStream" uid="uid://bnr2sw4ajfxyo" path="res://music/soundtrack in game.mp3" id="9_ti1bm"]
 [ext_resource type="AudioStream" uid="uid://cmn2s8eu33som" path="res://music/soundtrack in game2.mp3" id="10_op4cu"]
 [ext_resource type="AudioStream" uid="uid://dlwyqu5iada78" path="res://music/chase e battle soundtrack.mp3" id="11_8l3nt"]
+[ext_resource type="Script" uid="uid://ctn16mjulegki" path="res://Scenes/boss_trigger.gd" id="14_8l3nt"]
+[ext_resource type="PackedScene" uid="uid://dl4j5rml4ylcy" path="res://Scenes/Animatables/arena_gate.tscn" id="15_kwl8l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwl8l"]
+size = Vector2(130, 124.25)
 
 [node name="World" type="Node2D" unique_id=431641064]
 y_sort_enabled = true
@@ -20,7 +26,6 @@ y_sort_enabled = true
 color = Color(0.27635276, 0.27641973, 0.35488847, 1)
 
 [node name="Dungeon" parent="." unique_id=1144178220 instance=ExtResource("1_gjpho")]
-z_index = 0
 
 [node name="Player" parent="." unique_id=1588731666 instance=ExtResource("2_j0p05")]
 position = Vector2(33, 21)
@@ -48,6 +53,9 @@ position = Vector2(175, 137)
 [node name="Enemy4" parent="." unique_id=1678294291 instance=ExtResource("7_ti1bm")]
 position = Vector2(214, 25)
 
+[node name="Enemy5" parent="." unique_id=1887893815 instance=ExtResource("8_op4cu")]
+position = Vector2(568, 465)
+
 [node name="PauseMenu" parent="." unique_id=100513418 instance=ExtResource("7_y7y61")]
 visible = false
 
@@ -65,3 +73,18 @@ stream = ExtResource("11_8l3nt")
 volume_db = -80.0
 autoplay = true
 bus = &"Music"
+
+[node name="BossTrigger" type="Area2D" parent="." unique_id=99647715 node_paths=PackedStringArray("boss_node", "sbarre_arena")]
+script = ExtResource("14_8l3nt")
+boss_node = NodePath("../Enemy5")
+sbarre_arena = NodePath("../ArenaGate")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossTrigger" unique_id=2083143283]
+position = Vector2(540, 464.875)
+shape = SubResource("RectangleShape2D_kwl8l")
+
+[node name="ArenaGate" parent="." unique_id=236561448 instance=ExtResource("15_kwl8l")]
+z_index = -1
+position = Vector2(456, 432)
+
+[connection signal="body_entered" from="BossTrigger" to="BossTrigger" method="_on_body_entered"]

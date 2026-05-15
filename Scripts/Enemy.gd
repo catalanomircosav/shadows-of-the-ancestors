@@ -140,40 +140,6 @@ func update_facing_direction(direction: Vector2) -> void:
 func _process(_delta: float) -> void:
 	queue_redraw()
 
-func _draw() -> void:
-	if not state_machine or not state_machine.current_state:
-		return
-		
-	var state_name = state_machine.current_state.name
-	
-	# Disegna il nome dello stato
-	draw_string(ThemeDB.fallback_font, Vector2(-25, -40), state_name, HORIZONTAL_ALIGNMENT_CENTER, -1, 12, Color.YELLOW)
-	
-	if state_name == "Chase":
-		draw_line(Vector2.ZERO, to_local(debug_los_hit_pos), debug_los_color, 2.0)
-		draw_circle(to_local(debug_los_hit_pos), 4.0, debug_los_color)
-		
-	if state_name == "Investigate" and noise_target_position != Vector2.ZERO:
-		draw_line(Vector2.ZERO, to_local(noise_target_position), Color.CYAN, 1.5)
-		draw_circle(to_local(noise_target_position), 4.0, Color.BLUE)
-
-	# --- DEBUG: DISEGNA IL CONO VISIVO ---
-	var facing_vector: Vector2 = Vector2.DOWN
-	match last_facing:
-		"up":    facing_vector = Vector2.UP
-		"down":  facing_vector = Vector2.DOWN
-		"left":  facing_vector = Vector2.LEFT
-		"right": facing_vector = Vector2.RIGHT
-		
-	var fov_rad = deg_to_rad(FOV_ANGLE)
-	# Crea le due linee laterali del campo visivo
-	var left_edge = facing_vector.rotated(-fov_rad / 2.0) * 110
-	var right_edge = facing_vector.rotated(fov_rad / 2.0) * 110
-	
-	# Disegna i bordi in verde trasparente
-	draw_line(Vector2.ZERO, left_edge, Color(0.0, 1.0, 0.0, 0.4), 2.0)
-	draw_line(Vector2.ZERO, right_edge, Color(0.0, 1.0, 0.0, 0.4), 2.0)
-
 func has_line_of_sight(target: Node2D) -> bool:
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(global_position, target.global_position)
