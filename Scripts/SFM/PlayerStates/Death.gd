@@ -21,5 +21,13 @@ func exit(_next_state: StringName = &"") -> void:
 	pass
 	
 func _on_death_animation_finished(_anim_name: String) -> void:
-		await get_tree().create_timer(2.5, false).timeout
+	await get_tree().create_timer(2.5, false).timeout
+	
+	GameManager.current_lives -= 1
+	
+	if GameManager.current_lives > 0:
 		get_tree().reload_current_scene()
+	else:
+		GameManager.current_lives = GameManager.max_lives
+		GameManager.has_checkpoint = false
+		get_tree().change_scene_to_file("res://Scenes/UI/death_menu.tscn")

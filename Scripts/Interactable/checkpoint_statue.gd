@@ -75,31 +75,27 @@ func _animate_e(visible_state: bool) -> void:
 		, CONNECT_ONE_SHOT)
 
 func _attiva_falo() -> void:
-	# 1. Salva la posizione globale nell'Autoload
+	if is_already_lit:
+		return
+
 	GameManager.last_checkpoint_pos = global_position
 	GameManager.has_checkpoint = true
 	
-	# 2. Cura il Player tramite il tuo HealthComponent
+	GameManager.current_lives = GameManager.max_lives
+
 	var health_comp = _player_ref.get_node_or_null("HealthComponent")
 	if health_comp:
 		health_comp.heal(health_comp.max_health)
 	
-	# 3. Gestisci l'accensione delle torri se è la prima volta
-	if not is_already_lit:
-		print("Checkpoint sbloccato per la prima volta!")
-		is_already_lit = true
-		
-		# Nasconde la UI per pulizia visiva (opzionale)
-		_animate_e(false) 
-		
-		# Chiama la funzione "accendi()" su ogni torre che hai assegnato
-		for torre in torri_collegate:
-			if torre != null and torre.has_method("accendi"):
-				torre.accendi(true)
-		_mostra_scritta_salvataggio() # <--- AGGIUNTO QUI
-	else:
-		_mostra_scritta_salvataggio() # <--- AGGIUNTO QUI
-		print("Riposo al checkpoint completato. Vita al massimo!")
+	is_already_lit = true
+	_animate_e(false)
+	
+	print("Vite ricaricate! Checkpoint attivo.")
+	_mostra_scritta_salvataggio()
+	
+	for torre in torri_collegate:
+		if torre != null and torre.has_method("accendi"):
+			torre.accendi(true)
 		
 		
 func _mostra_scritta_salvataggio() -> void:

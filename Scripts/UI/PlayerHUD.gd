@@ -6,6 +6,9 @@ extends CanvasLayer
 @onready var visibility_bar = %VisibilityBar
 @onready var strength_level_label = %StrengthLevelLabel
 @onready var stealth_level_label = %StealthLevelLabel
+@onready var life_1 = %Life1
+@onready var life_2 = %Life2
+@onready var life_3 = %Life3
 
 const SkillChoiceMenuScene = preload("res://Scenes/UI/skill_choise_menu.tscn")
 
@@ -140,3 +143,10 @@ func _play_level_up_sfx() -> void:
 	var player = get_tree().get_first_node_in_group("player")
 	if player and player.has_method("play_sfx"):
 		player.play_sfx("SfxLevelUp")
+		
+func _process(_delta: float) -> void:
+	# Controlla continuamente quante vite hai nel GameManager 
+	# e spegne le barrette di conseguenza
+	if life_1: life_1.visible = GameManager.current_lives >= 1
+	if life_2: life_2.visible = GameManager.current_lives >= 2
+	if life_3: life_3.visible = GameManager.current_lives >= 3

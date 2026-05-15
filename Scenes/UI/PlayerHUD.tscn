@@ -49,6 +49,10 @@ region = Rect2(352.03433, 479.96262, 55.20981, 10.152557)
 atlas = ExtResource("4_6awip")
 region = Rect2(50.917072, 146.91142, 10.157639, 10.060593)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylnek"]
+atlas = ExtResource("2_jvqdk")
+region = Rect2(450.891, 69.88952, 26.153534, 8.231583)
+
 [node name="PlayerHud" type="CanvasLayer" unique_id=1072169794]
 script = ExtResource("1_dl1c2")
 
@@ -65,8 +69,8 @@ texture_under = SubResource("AtlasTexture_dcdcx")
 texture_progress = SubResource("AtlasTexture_2fqmn")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1945115376]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 101.87013
+offset_bottom = 53.0
 scale = Vector2(1.0012748, 1)
 
 [node name="HudLayout" type="Control" parent="MarginContainer" unique_id=1643393748]
@@ -144,3 +148,33 @@ offset_bottom = 24.0
 theme_override_fonts/font = ExtResource("5_h1u4t")
 theme_override_font_sizes/font_size = 6
 text = "Liv. 4"
+
+[node name="LivesContainer" type="HBoxContainer" parent="." unique_id=145281072]
+layout_direction = 2
+offset_left = 37.0
+offset_top = 11.0
+offset_right = 123.0
+offset_bottom = 21.0
+scale = Vector2(0.32099116, 0.42055747)
+theme_override_constants/separation = -1
+
+[node name="Life1" type="TextureRect" parent="LivesContainer" unique_id=1387973204]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("AtlasTexture_ylnek")
+stretch_mode = 2
+flip_v = true
+
+[node name="Life2" type="TextureRect" parent="LivesContainer" unique_id=390431183]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("AtlasTexture_ylnek")
+stretch_mode = 2
+flip_v = true
+
+[node name="Life3" type="TextureRect" parent="LivesContainer" unique_id=1272416726]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("AtlasTexture_ylnek")
+stretch_mode = 2
+flip_v = true

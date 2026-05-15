@@ -9,7 +9,7 @@ func _ready() -> void:
 func _on_btn_restart_pressed() -> void:
 	UIAudioManager.play_click()
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://Scenes/World.tscn")
 	queue_free()
 
 
